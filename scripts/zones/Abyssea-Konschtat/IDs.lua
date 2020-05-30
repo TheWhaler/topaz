@@ -95,6 +95,7 @@ zones[tpz.zone.ABYSSEA_KONSCHTAT] =
     },
     npc =
     {
+        Sturdy_Pyxis_Base = 16839114,
         QM_POPS =
         {
             --  [16839078] = { 'qm1', {2914},                                                                                                                                           {}, 16838718}, -- Ashtaerth The Gallvexed
@@ -119,7 +120,7 @@ zones[tpz.zone.ABYSSEA_KONSCHTAT] =
             --  [16839097] = {'qm20',     {},                                                     {tpz.ki.TATTERED_HIPPOGRYPH_WING,tpz.ki.CRACKED_WIVRE_HORN,tpz.ki.MUCID_AHRIMAN_EYEBALL}, 16839073}, -- Kukulkan
             --  [16839098] = {'qm21',     {},                                                                                                              {tpz.ki.TWISTED_TONBERRY_CROWN}, 16839074}, -- Bloodeye Vileberry
         },
-        Sturdy_Pyxis_Base = 16839114,
+
     },
 }
 
