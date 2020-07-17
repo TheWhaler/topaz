@@ -1,1 +1,0 @@
-DELETE FROM npc_list where name = 'Survival_Guide'
