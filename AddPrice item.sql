@@ -1,1 +1,0 @@
-select * from item_basic where BaseSell = 0 and nosale = 0 and aH not in (99)
