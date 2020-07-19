@@ -1999,8 +1999,8 @@ INSERT INTO `mob_skills` VALUES (2162,1571,'emetic_discharge',0,7.0,2000,1000,4,
 INSERT INTO `mob_skills` VALUES (2170,1589,'fevered_pitch',0,7.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2171,1590,'call_of_the_moon_up',1,25.0,2000,1500,4,0,0,0,0,0,0); -- standing up
 INSERT INTO `mob_skills` VALUES (2172,1591,'call_of_the_moon_down',1,25.0,2000,1500,4,0,0,0,0,0,0); -- On 4 legs
-INSERT INTO `mob_skills` VALUES (2173,1592,'plenilune_embrace_up',0,15.0,2000,1500,1,0,0,0,0,0,0); -- standing up
-INSERT INTO `mob_skills` VALUES (2174,1593,'plenilune_embrace_down',0,15.0,2000,1500,1,0,0,0,0,0,0); -- 4 legs
+INSERT INTO `mob_skills` VALUES (2173,1592,'plenilune_embrace',0,15.0,2000,1500,1,0,0,0,0,0,0); -- standing up
+INSERT INTO `mob_skills` VALUES (2174,1593,'plenilune_embrace',0,15.0,2000,1500,1,0,0,0,0,0,0); -- 4 legs
 INSERT INTO `mob_skills` VALUES (2175,1594,'nox_blast',0,7.0,2000,1000,4,0,0,3,0,0,0); -- standing only
 INSERT INTO `mob_skills` VALUES (2176,1595,'asuran_claws',0,7.0,2000,1000,4,0,0,0,0,0,0); -- standing only
 -- INSERT INTO `mob_skills` VALUES (2177,1921,'cacophony',0,7.0,2000,1500,4,0,0,0,0,0,0);
