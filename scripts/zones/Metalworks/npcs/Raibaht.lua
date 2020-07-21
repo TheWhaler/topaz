@@ -12,8 +12,11 @@ require("scripts/globals/quests")
 require("scripts/globals/status")
 -----------------------------------
 
-function onTrade(player,npc,trade)
+neck_list = {10954,10953,10951,10955,10950,10952,10949,10948} -- List of crafting torques
+test_items = {16479,16420,13752,4546,12545,12980,12427,17054} -- List of aritsan test items
 
+function onTrade(player,npc,trade)
+	local mLvl = player:getMainLvl();
     if (player:getQuestStatus(JEUNO,tpz.quest.id.jeuno.RIDING_ON_THE_CLOUDS) == QUEST_ACCEPTED and player:getCharVar("ridingOnTheClouds_2") == 7) then
         if (trade:hasItemQty(1127,1) and trade:getItemCount() == 1) then -- Trade Kindred seal
             player:setCharVar("ridingOnTheClouds_2",0);
@@ -22,6 +25,129 @@ function onTrade(player,npc,trade)
             player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.SMILING_STONE);
         end
     end
+	if (mLvl >= 70) and (player:getFreeSlotsCount() ~= 0) then
+		for i=0,7 do
+			local rank = player:getSkillRank(49 + i)
+				if rank >= 7 then
+					local getNeck = player:getEquipID(tpz.slot.NECK)
+					local storecraft = 49 + i
+						if getNeck == 10948 and storecraft == 49 then -- woodworking
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQty(test_items[i+1],1) then
+									write("nope")
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10949 and storecraft == 50 then --smithing
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10950 and storecraft == 51 then --goldsmithing
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10951 and storecraft == 52 then --clothcraft
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10952 and storecraft == 53 then --leathcrafting
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10953 and storecraft == 54 then --bonecrafting
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10954 and storecraft == 55 then --alchemy
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+						if getNeck == 10955 and storecraft == 56 then --cooking
+                            local hasAllQauntities = true;
+                            for i=0,7 do
+                                if not trade:hasItemQuantity(test_items[i+1],1) then
+                                    hasAllQauntities = false
+                                    i = 7
+                                end
+                            end
+                            if (hasAllQauntities == true and trade:getItemCount() == 8) then
+                                player:tradeComplete()
+                                player:addItem(26406)
+                                player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+                            end
+                        end
+				i = 7 --this SHOULD in theory break your loop
+				end
+			end
+		end --checks all skills to be higher than artisan and job level above 70
 
 end;
 
