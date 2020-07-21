@@ -1012,7 +1012,8 @@ tpz.regime.bookOnTrigger = function(player, regimeType)
         if player:hasKeyItem(tpz.ki.RHAPSODY_IN_WHITE) then
             arg4 = 1
         end
-
+		player:PrintToPlayer("The books do not yield experience points on Tantalus.\nThey do, however, offer increased gil and tabs.", 29)
+        
         player:startEvent(info.event, 0, arg2, 0, arg4, 0, 0, player:getCurrency("valor_point"), player:getCharVar("[regime]id"))
     else
         player:PrintToPlayer("Disabled.")
@@ -1355,8 +1356,10 @@ tpz.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     local vanadielEpoch = vanaDay()
     if REGIME_WAIT == 0 or player:getCharVar("[regime]lastReward") < vanadielEpoch then
         -- gil
-        player:addGil(reward)
-        player:messageBasic(tpz.msg.basic.FOV_OBTAINS_GIL, reward)
+        local gil = reward*FOV_GIL
+        player:addGil(gil)
+        player:messageBasic(tpz.msg.basic.FOV_OBTAINS_GIL, gil)
+		
 
         -- tabs
         local tabs = math.floor(reward / 10) * TABS_RATE
@@ -1366,9 +1369,6 @@ tpz.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
 
         player:setCharVar("[regime]lastReward", vanadielEpoch)
     end
-
-    -- award XP every page completion
-    player:addExp(reward)
 
     -- repeating regimes
     if player:getCharVar("[regime]repeat") == 1 then

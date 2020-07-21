@@ -122,7 +122,6 @@ local function CharCreate(player)
        player:setGil(START_GIL)
     end
 
-    player:addItem(536) -- adventurer coupon
     player:addTitle(tpz.title.NEW_ADVENTURER)
     player:setCharVar("MoghouseExplication", 1) -- needs Moghouse intro
     player:setCharVar("spokeKindlix", 1) -- Kindlix introduction
@@ -142,6 +141,10 @@ function onGameIn(player, firstLogin, zoning)
         if firstLogin then
             CharCreate(player)
         end
+        -- Player Login Message
+        player:timer(1000, function (player)
+            player:PrintToArea(string.format("%s has logged in!" , player:getName()), tpz.msg.channel.NS_PARTY, tpz.msg.area.SERVER, "God")
+        end)
     else
         -- things checked ONLY during zone in go here
     end
@@ -183,6 +186,11 @@ function onGameIn(player, firstLogin, zoning)
 
     -- remember time player zoned in (e.g., to support zone-in delays)
     player:setLocalVar("ZoneInTime", os.time())
+    player:timer(1500, function (player)
+        if player:getCharVar("GMCostume") > 0 then
+            player:costume(player:getCharVar("GMCostume"))
+        end
+	end)
 end
 
 function onPlayerLevelUp(player)

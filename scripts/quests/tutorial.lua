@@ -67,7 +67,7 @@ tpz.tutorial.onTrigger = function(player, npc, npc_event_offset, nation_offset)
             if not player:hasKeyItem(tpz.ki.HOLLA_GATE_CRYSTAL + nation_offset) then
                 player:startEvent(npc_event_offset + 15, tpz.ki.HOLLA_GATE_CRYSTAL + nation_offset, 0, nation_offset, 0, 0, 0, 0, 0)
             else
-                player:startEvent(npc_event_offset + 16, tpz.ki.HOLLA_GATE_CRYSTAL + nation_offset, 1000*EXP_RATE, 1789, 3, 0, 0, 0, 0)
+                player:startEvent(npc_event_offset + 16, tpz.ki.HOLLA_GATE_CRYSTAL + nation_offset, 1000*EXP_RATE * 1.5, 1789, 3, 0, 0, 0, 0)
             end
         end
     end
