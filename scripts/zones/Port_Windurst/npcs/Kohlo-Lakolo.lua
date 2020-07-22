@@ -119,22 +119,28 @@ function onEventFinish(player,csid,option)
             player:tradeComplete()
             player:setLocalVar("KnowOneOnionZone", 1)
         end
-    elseif csid == 413 and option == 0 then
-        player:addQuest(WINDURST,tpz.quest.id.windurst.INSPECTOR_S_GADGET)
-    elseif csid == 421 then
-        if npcUtil.completeQuest(
-            player,
-            WINDURST,
-            tpz.quest.id.windurst.INSPECTOR_S_GADGET,
-            {item = 13204, title=tpz.title.FAKEMOUSTACHED_INVESTIGATOR, fame=10})
-        then
-            player:setLocalVar("InspectorsGadgetZone", 1)
-		end
-    elseif csid == 429 then
-        player:addQuest(WINDURST,tpz.quest.id.windurst.ONION_RINGS)
-    elseif csid == 430 then
-        if player:getQuestStatus(WINDURST,tpz.quest.id.windurst.ONION_RINGS) == QUEST_AVAILABLE then
-            player:addQuest(WINDURST,tpz.quest.id.windurst.ONION_RINGS)
+    elseif (csid == 386 or csid == 400) then
+        player:completeQuest(WINDURST,tpz.quest.id.windurst.KNOW_ONE_S_ONIONS);
+        player:addExp(700 * EXP_RATE);
+        player:addFame(WINDURST,80);
+        player:addTitle(tpz.title.SOB_SUPER_HERO);
+        player:setCharVar("KnowOnesOnions",0);
+        player:setCharVar("KnowOnesOnionsTime",0);
+        player:needToZone(true);
+    elseif (csid == 413 and option == 0) then
+        player:addQuest(WINDURST,tpz.quest.id.windurst.INSPECTOR_S_GADGET);
+    elseif (csid == 421) then
+        FreeSlots = player:getFreeSlotsCount();
+
+        if (FreeSlots >= 1) then
+            player:completeQuest(WINDURST,tpz.quest.id.windurst.INSPECTOR_S_GADGET);
+            player:addFame(WINDURST,90);
+            player:addTitle(tpz.title.FAKEMOUSTACHED_INVESTIGATOR);
+            player:addItem(13204);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,13204);
+            player:needToZone(true);
+        else
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,13204);
         end
         player:setCharVar("OnionRings", 1)
     elseif csid == 496 then

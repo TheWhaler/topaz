@@ -36,16 +36,20 @@ function onEventUpdate(player,csid,option)
 end
 
 function onEventFinish(player,csid,option)
-    if csid == 7 and option == 0 then
-        player:addQuest(BASTOK,tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA)
-    elseif csid == 10 then
-        if player:getFreeSlotsCount() >= 1 then
-            player:completeQuest(BASTOK,tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA)
-            player:setCharVar("BeautyAndTheGalkaDenied",0)
-            player:delKeyItem(tpz.ki.PALBOROUGH_MINES_LOGS)
-            player:addFame(BASTOK,75)
-            player:addItem(16465)
-            player:messageSpecial(ID.text.ITEM_OBTAINED,16465)
+
+    if (csid == 7 and option == 0) then
+        player:addQuest(BASTOK,tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA);
+    elseif (csid == 10) then
+        FreeSlots = player:getFreeSlotsCount();
+
+        if (FreeSlots >= 1) then
+            player:completeQuest(BASTOK,tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA);
+            player:setCharVar("BeautyAndTheGalkaDenied",0);
+            player:delKeyItem(tpz.ki.PALBOROUGH_MINES_LOGS);
+            player:addExp(600 * EXP_RATE);
+            player:addFame(BASTOK,75);
+            player:addItem(16465);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,16465);
         else
             player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,16465)
         end

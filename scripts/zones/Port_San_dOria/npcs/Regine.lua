@@ -64,6 +64,7 @@ function onEventFinish(player,csid,option)
         npcUtil.completeQuest(
             player, SANDORIA, tpz.quest.id.sandoria.FLYERS_FOR_REGINE,
             {
+                xp = 650,
                 gil = 440,
                 title = tpz.title.ADVERTISING_EXECUTIVE,
                 var = '[ffr]deliveryMask',
