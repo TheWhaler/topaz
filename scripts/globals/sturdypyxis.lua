@@ -348,8 +348,7 @@ end
 tpz.pyxis.spawnPyxis = function(player, x, y, z, r)
     local chestId = GetPyxisID(player)
     local npc     = GetNPCByID(chestId)
-    
-    --print(chestId)
+
     if chestId == 0 then
         return
     end
@@ -2283,7 +2282,7 @@ function OpenChest(player, npc)
 
     if loottype == 9 then
         for p,member in ipairs(party) do
-            if member:getZoneID() == player:getZoneID() then
+            if member:getZoneID() == player:getZoneID() and member:isPC() then
                 member:addExp(exp)
                 --printf("giving exp to %s for %s", member:getName(), exp)
             end
@@ -2291,12 +2290,10 @@ function OpenChest(player, npc)
         RemoveChest(player, npc, 0, 3)
     elseif loottype == 7 then       
         for p,member in ipairs(party) do
-            if member:getZoneID() == player:getZoneID() then
-                if member:isPC() then
-                    member:addCurrency("cruor",cruoramout)
+            if member:getZoneID() == player:getZoneID() and member:isPC() then
+                member:addCurrency("cruor",cruoramout)
                 --printf("giving cruor to %s", member:getName())
-                    member:messageSpecial(ID.text.CRUOR_OBTAINED,cruoramout)
-                end
+                member:messageSpecial(ID.text.CRUOR_OBTAINED,cruoramout)
             end
         end
         RemoveChest(player, npc, 0, 3)
@@ -2333,19 +2330,19 @@ function OpenChest(player, npc)
         for p,member in ipairs(party) do
             if member:getZoneID() == player:getZoneID() and member:isPC() then
                 if light == 1 then
-                    AddPlayerLights(member, 1, pearlset)
+                    tpz.abyssea.AddPlayerLights(member, 1, pearlset)
                 elseif light == 2 then
-                    AddPlayerLights(member, 2, azureset)
+                    tpz.abyssea.AddPlayerLights(member, 2, azureset)
                 elseif light == 3 then
-                    AddPlayerLights(member, 3, rubyset)
+                    tpz.abyssea.AddPlayerLights(member, 3, rubyset)
                 elseif light == 4 then
-                    AddPlayerLights(member, 4, amberset)
+                    tpz.abyssea.AddPlayerLights(member, 4, amberset)
                 elseif light == 5 then
-                    AddPlayerLights(member, 5, goldset)
+                    tpz.abyssea.AddPlayerLights(member, 5, goldset)
                 elseif light == 6 then
-                    AddPlayerLights(member, 6, silverset)
+                    tpz.abyssea.AddPlayerLights(member, 6, silverset)
                 elseif light == 7 then
-                    AddPlayerLights(member, 7, ebonset)
+                    tpz.abyssea.AddPlayerLights(member, 7, ebonset)
                 end
             end
         end
@@ -2353,7 +2350,6 @@ function OpenChest(player, npc)
     elseif loottype == 6 then
         if restoretype == 1 then
             player:restoreFromChest(npc,1)
-
             for p,member in ipairs(party) do
                 if member:getZoneID() == player:getZoneID() then
                     local hp = member:getMaxHP() - member:getHP()
@@ -2411,8 +2407,8 @@ function OpenChest(player, npc)
                     member:addHP(hp)
                     member:addMP(mp)
                     member:addTP(3000)
-                    member:resetRecasts()
                     if member:isPC() then
+                        member:resetRecasts()
                         member:messageBasic(tpz.msg.basic.RECOVERS_HP_AND_MP)
                         member:messageBasic(tpz.msg.basic.ALL_ABILITIES_RECHARGED)
                     end

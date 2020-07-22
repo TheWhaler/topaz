@@ -3,16 +3,21 @@
 -- tpz.effect.VISITANT
 --
 -----------------------------------
-require("scripts/globals/settings")
 require("scripts/globals/abyssea")
-require("scripts/globals/status")
 
 function onEffectGain(target,effect)
-    tpz.abyssea.ResetPlayerLights(target)
-
-    if ABYSSEA_BONUSLIGHT_AMOUNT > 0 then
-        tpz.abyssea.SetBonusLights(target)
+    -- Remove any older dedication effect
+    if target:hasStatusEffect(tpz.effect.DEDICATION) then
+        target:delStatusEffect(tpz.effect.DEDICATION)
     end
+
+    target:addStatusEffect(tpz.effect.DEDICATION,10,3,0,0,5000000)
+    local expEffect = target:getStatusEffect(tpz.effect.DEDICATION)
+    local visEffect = target:getStatusEffect(tpz.effect.VISITANT)
+    expEffect:setFlag(tpz.effectFlag.ON_ZONE)
+    visEffect:setFlag(tpz.effectFlag.ON_ZONE)
+    visEffect:setFlag(tpz.effectFlag.INFLUENCE)
+    expEffect:setFlag(tpz.effectFlag.INFLUENCE)
 end
 
 function onEffectTick(target,effect)
@@ -23,8 +28,13 @@ function onEffectTick(target,effect)
     end
     Some messages about remaining time.will need to handled outside of this effect (zone ejection warnings after visitant is gone).
     ]]
+    local expRate = math.floor(target:getCharVar("goldLight") * 4.33 / 1.9)
+    target:getStatusEffect(tpz.effect.DEDICATION):setPower(expRate)
 end
 
 function onEffectLose(target,effect)
-    tpz.abyssea.ResetPlayerLights(target)
+    if target:getGMLevel() <= 1 and isInAbysseaZone(target) then
+        target:setCharVar("lastEnteredAbyssea", os.time() + 14400)
+        target:warp()
+    end
 end
