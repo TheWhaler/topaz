@@ -22,7 +22,7 @@ function onZoneIn(player,prevZone)
         player:setCharVar("1stTimeAbyssea",1)
     end
 
-    ResetPlayerLights(player)
+    tpz.abyssea.ResetPlayerLights(player)
 
     local visitantEffect = tpz.effect.VISITANT
     local visitantStatusEffect = player:getStatusEffect(visitantEffect)
