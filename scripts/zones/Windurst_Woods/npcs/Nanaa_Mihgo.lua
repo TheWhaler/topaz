@@ -190,7 +190,7 @@ function onEventFinish(player,csid,option)
         player:addQuest(WINDURST,tpz.quest.id.windurst.AS_THICK_AS_THIEVES)
         player:setCharVar("thickAsThievesGamblingCS",1)
         npcUtil.giveKeyItem(player, {tpz.ki.GANG_WHEREABOUTS_NOTE, tpz.ki.FIRST_FORGED_ENVELOPE, tpz.ki.SECOND_FORGED_ENVELOPE})
-    elseif (csid == 508 and npcUtil.completeQuest(player, WINDURST, tpz.quest.id.windurst.AS_THICK_AS_THIEVES, {item=12514, var="thickAsThievesGamblingCS"})) then
+    elseif (csid == 508 and npcUtil.completeQuest(player, WINDURST, tpz.quest.id.windurst.AS_THICK_AS_THIEVES, {xp=3000, item=12514, var="thickAsThievesGamblingCS"})) then
         player:delKeyItem(tpz.ki.GANG_WHEREABOUTS_NOTE)
         player:delKeyItem(tpz.ki.FIRST_SIGNED_FORGED_ENVELOPE)
         player:delKeyItem(tpz.ki.SECOND_SIGNED_FORGED_ENVELOPE)

@@ -76,6 +76,7 @@ function onEventFinish(player,csid,option)
         player:setCharVar("trueWillCS",2);
     elseif (csid == 99) then
         if npcUtil.completeQuest(player, OUTLANDS, tpz.quest.id.outlands.TRUE_WILL, {
+                xp = (7000*EXP_RATE),
                 item = 13782, -- Ninja Chainmail
                 fameArea = NORG,               
                 title = tpz.title.PARAGON_OF_NINJA_EXCELLENCE,
