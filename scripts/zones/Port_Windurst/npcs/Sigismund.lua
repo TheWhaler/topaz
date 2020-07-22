@@ -43,6 +43,7 @@ function onEventFinish(player,csid,option)
         player:completeQuest(WINDURST,tpz.quest.id.windurst.TO_CATCH_A_FALLIHG_STAR);
         player:addFame(WINDURST,75);
         player:addItem(12316);
+		player:addExp(500 * EXP_RATE)
         player:messageSpecial(ID.text.ITEM_OBTAINED,12316);
         player:setCharVar("QuestCatchAFallingStar_prog",2);
     end

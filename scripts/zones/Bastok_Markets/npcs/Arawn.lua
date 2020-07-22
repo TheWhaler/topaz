@@ -46,6 +46,7 @@ function onEventFinish(player,csid,option)
             player:messageSpecial(ID.text.ITEM_OBTAINED,13081); -- Leather Gorget
             player:delKeyItem(tpz.ki.STAMP_SHEET);
             player:setCharVar("StampHunt_Mask",0);
+			player:addExp(1000 * EXP_RATE);
             player:addFame(BASTOK,50);
             player:completeQuest(BASTOK,tpz.quest.id.bastok.STAMP_HUNT);
         else

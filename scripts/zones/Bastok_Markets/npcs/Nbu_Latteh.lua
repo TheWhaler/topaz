@@ -58,13 +58,16 @@ function onEventFinish(player,csid,option)
     elseif (csid == 233 or csid == 234) then
         if (player:seenKeyItem(tpz.ki.LETTER_FROM_ROH_LATTEH)) then
             gilReward = 100;
+			expReward = 300;
         else
             gilReward = 200;
+			expReward = 500;
         end
         player:needToZone(true);
         player:delKeyItem(tpz.ki.LETTER_FROM_ROH_LATTEH);
         player:addTitle(tpz.title.RINGBEARER);
         player:addGil(GIL_RATE*gilReward);
+        player:addExp(expReward * EXP_RATE);
         player:messageSpecial(ID.text.GIL_OBTAINED, GIL_RATE*gilReward);
         player:setCharVar("MomTheAdventurer_Event",0);
 

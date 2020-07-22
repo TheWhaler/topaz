@@ -101,6 +101,7 @@ function onEventFinish(player,csid,option)
             {item = 13093, title=tpz.title.STAR_ONION_BRIGADE_MEMBER, fame=10})
         then
             player:setLocalVar('TruthZone', 1)
+			player:addExp(200 * EXP_RATE);
             player:tradeComplete()
         end
     elseif csid == 391 then

@@ -110,6 +110,7 @@ printf("RESULT: %u",option);
     elseif (csid == 52 and option >= 1) then
         if (option == 5) then          --    80 = HAT + FULL REWARD  =  8 NPCS - Option 5
             player:addGil(GIL_RATE*500);
+			player:addExp(1000 * EXP_RATE);
             player:messageSpecial(ID.text.GIL_OBTAINED,GIL_RATE*500);
             if (player:hasItem(12543) == false) then
                 player:addItem(12543,1);
