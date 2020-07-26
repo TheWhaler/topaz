@@ -2435,7 +2435,7 @@ namespace charutils
             auto skillList {battleutils::GetMobSkillList(PPet->m_MobSkillList)};
             for (auto&& abilityid : skillList)
             {
-                addPetAbility(PChar, abilityid - ABILITY_HEALING_RUBY);
+                addPetAbility(PChar, abilityid - 496);
             }
         }
         PChar->pushPacket(new CCharAbilitiesPacket(PChar));
