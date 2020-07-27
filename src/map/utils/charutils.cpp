@@ -3712,6 +3712,7 @@ namespace charutils
                 (region >= 28 && region <= 32))
             {
                 charutils::AddPoints(PChar, "imperial_standing", (int32)(exp * 0.1f));
+                charutils::AddPoints(PChar, "zeni_point", (int32)(exp * 0.05f));
                 PChar->pushPacket(new CConquestPacket(PChar));
             }
 
