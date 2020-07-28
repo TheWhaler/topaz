@@ -17,9 +17,9 @@ function onMagicCastingCheck(caster,target,spell)
 end
 
 function onSpellCast(caster,target,spell)
-    if target:isPC() then
+    if target:getObjType() == tpz.objType.PC then
         target:addStatusEffectEx(tpz.effect.TELEPORT,0,tpz.teleport.id.WARP,0,3.4)
         spell:setMsg(tpz.msg.basic.MAGIC_TELEPORT)
-        return 0
     end
+    return 0
 end
