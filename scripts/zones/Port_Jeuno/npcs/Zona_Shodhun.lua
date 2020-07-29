@@ -84,6 +84,7 @@ function onEventFinish(player,csid,option)
     if (csid == 10023 and option == 4002) then
         player:moghouseFlag(8);
         player:messageSpecial(ID.text.MOGHOUSE_EXIT);
+		player:addExp(1000 * EXP_RATE);
         player:addFame(JEUNO, 30);
         player:tradeComplete();
         player:completeQuest(JEUNO,tpz.quest.id.jeuno.PRETTY_LITTLE_THINGS);
