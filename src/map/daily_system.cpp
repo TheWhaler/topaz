@@ -1,4 +1,4 @@
-#include "daily_system.h"
+﻿#include "daily_system.h"
 #include "items/item.h"
 #include "utils/charutils.h"
 #include "utils/itemutils.h"
@@ -58,7 +58,7 @@ namespace daily
 
     void LoadDailyItems()
     {
-        int32 ret = Sql_Query(SqlHandle, "SELECT itemid, aH, flags FROM item_basic WHERE flags & 4 > 0");
+        int32 ret = Sql_Query(SqlHandle, "SELECT ib.itemid, ib.aH, ib.flags FROM item_basic as ib LEFT JOIN item_equipment as ie ON ie.itemId = ib.itemid WHERE ib.flags & 4 > 0 AND (ie.level is null or ie.level <= 80)");
         uint16 itemid, aH, flags;
 
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
