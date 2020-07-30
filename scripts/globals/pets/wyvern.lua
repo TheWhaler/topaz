@@ -104,13 +104,13 @@ function onMobSpawn(mob)
                 for mod = 0, 5 do
                     if target:getMod(tpz.mod.FIREDEF + mod) < target:getMod(tpz.mod.FIREDEF + weakness) then
                         breaths = {}
-                        table.insert(breaths, 630 + mod)
+                        table.insert(breaths, 646 + mod)
                     elseif target:getMod(tpz.mod.FIREDEF + mod) == target:getMod(tpz.mod.FIREDEF + weakness) then
-                        table.insert(breaths, 630 + mod)
+                        table.insert(breaths, 646 + mod)
                     end
                 end
             else
-                breaths = {630, 631, 632, 633, 634, 635}
+                breaths = {646, 647, 648, 649, 650, 651}
             end
             player:getPet():useJobAbility(breaths[math.random(#breaths)], target)
         end)
