@@ -5,6 +5,17 @@
 require("scripts/globals/titles")
 -----------------------------------
 
+function onMobSpawn(mob)
+	local zoneUsed = GetServerVariable("[DIZone]")
+	if zoneUsed ~= 91 then
+		DespawnMob(mob:getID())
+	end
+end;
+
 function onMobDeath(mob, player, isKiller)
-    player:addTitle(tpz.title.IXION_HORNBREAKER)
-end
+	local zones = {81, 82, 83, 89, 91, 95, 96}
+	local r = math.random(1,7)
+	SetServerVariable("[DIZone]", zones[r])
+    player:addTitle(tpz.title.IXION_HORNBREAKER);
+end;
+

@@ -539,3 +539,5 @@ UPDATE mob_groups SET respawntime = 300 WHERE groupid = 9 AND poolid = 593 AND z
 UPDATE mob_groups SET respawntime = 300 WHERE groupid = 9 AND poolid = 956 AND zoneid = 215;
 UPDATE mob_groups SET respawntime = 900 WHERE groupid = 45 AND poolid = 2610 AND zoneid = 132;
 UPDATE mob_groups SET respawntime = 960 WHERE groupid = 1 AND poolid = 3117 AND zoneid = 55;
+
+UPDATE mob_groups SET dropid = 3300 WHERE name ='Dark_Ixion';

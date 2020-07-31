@@ -991,13 +991,15 @@ tpz.regime.clearRegimeVars = function(player)
 end
 
 tpz.regime.bookOnTrigger = function(player, regimeType)
+  local info = regimeInfo[regimeType].zone[player:getZoneID()]
+
+  player:PrintToPlayer("The books do not yield experience points on Tantalus.\nThey do, however, offer increased gil and tabs.", 29)
+
      -- checks if hunt is active, if so prompts player to cancel
   if player:getCharVar("[hunt]status") >= 1 then
      player:startEvent(info.event,0,0,3,1,0,0,player:getCurrency("valor_point"),player:getCharVar("[hunt]page"))
 
   elseif (regimeType == tpz.regime.type.FIELDS and ENABLE_FIELD_MANUALS == 1) or (regimeType == tpz.regime.type.GROUNDS and ENABLE_GROUNDS_TOMES == 1) then
-        local info = regimeInfo[regimeType].zone[player:getZoneID()]
-
         -- arg2 is a bitmask that controls which pages appear for examination
         -- here, we only show pages that have regime info
         -- arg4 reduces prices of field suppord
@@ -1012,7 +1014,6 @@ tpz.regime.bookOnTrigger = function(player, regimeType)
         if player:hasKeyItem(tpz.ki.RHAPSODY_IN_WHITE) then
             arg4 = 1
         end
-		player:PrintToPlayer("The books do not yield experience points on Tantalus.\nThey do, however, offer increased gil and tabs.", 29)
         
         player:startEvent(info.event, 0, arg2, 0, arg4, 0, 0, player:getCurrency("valor_point"), player:getCharVar("[regime]id"))
     else

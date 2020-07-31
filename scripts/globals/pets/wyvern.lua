@@ -38,9 +38,9 @@ function doHealingBreath(player, threshold, breath)
     local function inBreathRange(target)
         return player:getPet():getZoneID() == target:getZoneID() and player:getPet():checkDistance(target) <= breath_heal_range
     end
-
-    if player:getHPP() < threshold and inBreathRange(player) then
-        player:getPet():useJobAbility(breath, player)
+    
+	if player:getHPP() < threshold and inBreathRange(player) then
+		player:getPet():useJobAbility(breath, player)
     else
         local party = player:getParty()
         for _,member in ipairs(party) do
@@ -56,10 +56,10 @@ function onMobSpawn(mob)
     local master = mob:getMaster()
     mob:addMod(tpz.mod.DMG, -40)
     local wyvernType = wyvernTypes[master:getSubJob()]
-    local healingbreath = 624
-    if mob:getMainLvl() >= 80 then healingbreath = 623
-    elseif mob:getMainLvl() >= 40 then healingbreath = 626
-    elseif mob:getMainLvl() >= 20 then healingbreath = 625 end
+    local healingbreath = 640
+    if mob:getMainLvl() >= 80 then healingbreath = 639
+    elseif mob:getMainLvl() >= 40 then healingbreath = 642
+    elseif mob:getMainLvl() >= 20 then healingbreath = 641 end
     if wyvernType == WYVERN_DEFENSIVE then
         master:addListener("WEAPONSKILL_USE", "PET_WYVERN_WS", function(player, target, skillid)
             local party = player:getParty()
@@ -104,13 +104,13 @@ function onMobSpawn(mob)
                 for mod = 0, 5 do
                     if target:getMod(tpz.mod.FIREDEF + mod) < target:getMod(tpz.mod.FIREDEF + weakness) then
                         breaths = {}
-                        table.insert(breaths, 630 + mod)
+                        table.insert(breaths, 646 + mod)
                     elseif target:getMod(tpz.mod.FIREDEF + mod) == target:getMod(tpz.mod.FIREDEF + weakness) then
-                        table.insert(breaths, 630 + mod)
+                        table.insert(breaths, 646 + mod)
                     end
                 end
             else
-                breaths = {630, 631, 632, 633, 634, 635}
+                breaths = {646, 647, 648, 649, 650, 651}
             end
             player:getPet():useJobAbility(breaths[math.random(#breaths)], target)
         end)
