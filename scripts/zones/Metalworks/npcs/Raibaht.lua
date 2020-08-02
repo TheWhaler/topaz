@@ -29,6 +29,7 @@ end
         end
     end
 	if (mLvl >= 70) and (player:getFreeSlotsCount() ~= 0) then
+		local tradeMade = false
 		for i=0,7 do
 			local rank = player:getSkillRank(49 + i)
 				if rank >= 7 then
@@ -46,12 +47,13 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10949 and storecraft == 50 then --smithing
                             local hasAllQauntities = true;
                             for j=0,7 do
-                                if not trade:hasItemQuantity(test_items[j+1],1) then
+                                if not trade:hasItemQty(test_items[j+1],1) then
                                     hasAllQauntities = false
                                     break
                                 end
@@ -60,12 +62,13 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10950 and storecraft == 51 then --goldsmithing
                             local hasAllQauntities = true;
                             for j=0,7 do
-                                if not trade:hasItemQuantity(test_items[j+1],1) then
+                                if not trade:hasItemQty(test_items[j+1],1) then
                                     hasAllQauntities = false
                                     break
                                 end
@@ -74,6 +77,7 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10951 and storecraft == 52 then --clothcraft
@@ -88,6 +92,7 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10952 and storecraft == 53 then --leathcrafting
@@ -102,6 +107,7 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10953 and storecraft == 54 then --bonecrafting
@@ -116,6 +122,7 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10954 and storecraft == 55 then --alchemy
@@ -130,6 +137,7 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
 						if getNeck == 10955 and storecraft == 56 then --cooking
@@ -144,9 +152,12 @@ end
                                 player:tradeComplete()
                                 player:addItem(26406)
                                 player:messageSpecial( ID.text.ITEM_OBTAINED, 26406)
+								tradeMade = true
                             end
                         end
-				break --this SHOULD in theory break your loop
+				if tradeMade == true then
+					break
+				end
 				end
 			end
 		end --checks all skills to be higher than artisan and job level above 70
