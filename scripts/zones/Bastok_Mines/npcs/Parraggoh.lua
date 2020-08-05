@@ -9,12 +9,12 @@ require("scripts/globals/keyitems")
 local ID = require("scripts/zones/Bastok_Mines/IDs")
 -----------------------------------
 
-function onTrade(player,npc,trade)
+function onTrade(player, npc, trade)
 end
 
-function onTrigger(player,npc)
-    local BeautyAndTheGalka = player:getQuestStatus(BASTOK,tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA)
-    
+function onTrigger(player, npc)
+    local BeautyAndTheGalka = player:getQuestStatus(BASTOK, tpz.quest.id.bastok.BEAUTY_AND_THE_GALKA)
+
     if player:hasKeyItem(tpz.ki.PALBOROUGH_MINES_LOGS) then
         player:startEvent(10)
     elseif BeautyAndTheGalka == QUEST_ACCEPTED then
@@ -32,7 +32,7 @@ function onTrigger(player,npc)
     end
 end
 
-function onEventUpdate(player,csid,option)
+function onEventUpdate(player, csid, option)
 end
 
 function onEventFinish(player,csid,option)
@@ -51,7 +51,7 @@ function onEventFinish(player,csid,option)
             player:addItem(16465);
             player:messageSpecial(ID.text.ITEM_OBTAINED,16465);
         else
-            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,16465)
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 16465)
         end
     end
 end

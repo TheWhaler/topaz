@@ -315,7 +315,7 @@ tpz.abyssea.qmOnTrade = function(player, npc, trade)
 
     -- validate traded items
     for k, v in pairs(reqTrade) do
-        if not trade:hasItemQty(v,1) then
+        if not trade:hasItemQty(v, 1) then
             return false
         end
     end
@@ -328,9 +328,9 @@ tpz.abyssea.qmOnTrade = function(player, npc, trade)
 
     -- complete trade and pop nm
     player:tradeComplete()
-    local dx = player:getXPos() + math.random(-1,1)
+    local dx = player:getXPos() + math.random(-1, 1)
     local dy = player:getYPos()
-    local dz = player:getZPos() + math.random(-1,1)
+    local dz = player:getZPos() + math.random(-1, 1)
     GetMobByID(nm):setSpawn(dx, dy, dz)
     SpawnMob(nm):updateClaim(player)
     return true
@@ -359,7 +359,7 @@ tpz.abyssea.qmOnTrigger = function(player, npc)
                 t[i] = 0
             end
         end
-        player:startEvent(events[1],t[1],t[2],t[3],t[4],t[5],t[6],t[7],t[8]) -- report required trades
+        player:startEvent(events[1], t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8]) -- report required trades
         return true
     end
 
@@ -388,10 +388,10 @@ tpz.abyssea.qmOnTrigger = function(player, npc)
     -- start event
     if validKis then
         player:setLocalVar("abysseaQM", npc:getID())
-        player:startEvent(events[2],kis[1],kis[2],kis[3],kis[4],kis[5],kis[6],kis[7],kis[8]) -- player has all key items
+        player:startEvent(events[2], kis[1], kis[2], kis[3], kis[4], kis[5], kis[6], kis[7], kis[8]) -- player has all key items
         return true
     else
-        player:startEvent(events[3],kis[1],kis[2],kis[3],kis[4],kis[5],kis[6],kis[7],kis[8]) -- player is missing key items
+        player:startEvent(events[3], kis[1], kis[2], kis[3], kis[4], kis[5], kis[6], kis[7], kis[8]) -- player is missing key items
         return false
     end
 end
@@ -420,9 +420,9 @@ tpz.abyssea.qmOnEventFinish = function(player, csid, option)
 
         -- pop nm
         local nm = pop[4]
-        local dx = player:getXPos() + math.random(-1,1)
+        local dx = player:getXPos() + math.random(-1, 1)
         local dy = player:getYPos()
-        local dz = player:getZPos() + math.random(-1,1)
+        local dz = player:getZPos() + math.random(-1, 1)
         GetMobByID(nm):setSpawn(dx, dy, dz)
         SpawnMob(nm):updateClaim(player)
         return true
