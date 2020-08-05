@@ -861,7 +861,7 @@ namespace fishingutils
         int skillLevelPenalty = (int)std::floor(charSkillLevel / 10);
 
         // Minimum 4% chance
-        maxChance = std::max(15, distMod + lowerLevelBonus - skillLevelPenalty);
+        maxChance = std::max(10, distMod + lowerLevelBonus - skillLevelPenalty);
 
         // Moon phase skillup modifiers
         uint8 phase = CVanaTime::getInstance()->getMoonPhase();
