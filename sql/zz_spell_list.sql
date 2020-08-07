@@ -63,3 +63,4 @@ UPDATE spell_list SET mpCost = 92, castTime = 5250 WHERE spellid = 161;
 UPDATE spell_list SET mpCost = 95, castTime = 4000 WHERE spellid = 194;
 UPDATE spell_list SET mpCost = 96, castTime = 5500 WHERE spellid = 30;
 UPDATE spell_list SET mpCost = 98, castTime = 5500 WHERE spellid = 171;
+UPDATE spell_list SET content_tag = NULL;
