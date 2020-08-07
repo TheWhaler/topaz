@@ -9,8 +9,8 @@ require("scripts/globals/keyitems");
 local ID = require("scripts/zones/Lower_Jeuno/IDs");
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+function onTrade(player, npc, trade)
+end
 
 function onTrigger(player,npc)
     --player:startEvent(10095);
@@ -26,8 +26,8 @@ function onTrigger(player,npc)
     tpz.shop.general(player, stock)
 end;
 
-function onEventUpdate(player,csid,option)
-end;
+function onEventUpdate(player, csid, option)
+end
 
 function onEventFinish(player,csid,option)
 end;

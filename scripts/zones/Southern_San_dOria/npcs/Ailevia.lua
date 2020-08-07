@@ -24,7 +24,7 @@ function onTrade(player,npc,trade)
             player:messageSpecial(ID.text.FLYER_REFUSED);
         end
     end
-end;
+end
 
 function onTrigger(player,npc)
     local stock =
@@ -43,8 +43,8 @@ function onTrigger(player,npc)
 --    player:startEvent(615); -- i know a thing or 2 about these streets
 end;
 
-function onEventUpdate(player,csid,option)
-end;
+function onEventUpdate(player, csid, option)
+end
 
 function onEventFinish(player,csid,option)
 end;

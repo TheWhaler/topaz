@@ -34,7 +34,7 @@ function onTrigger(player,npc)
 	-- player:startEvent(10009,0,4)
 end
 
-function onEventUpdate(player,csid,option)
+function onEventUpdate(player, csid, option)
 end
 
 function onEventFinish(player,csid,option)

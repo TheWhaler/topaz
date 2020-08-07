@@ -12,7 +12,7 @@ require("scripts/globals/status")
 require("scripts/globals/zone")
 -----------------------------------
 
-function onEffectGain(target,effect)
+function onEffectGain(target, effect)
     target:setAnimation(33)
 
     -- Abyssea Lights check
@@ -42,7 +42,7 @@ function onEffectGain(target,effect)
     end
 end
 
-function onEffectTick(target,effect)
+function onEffectTick(target, effect)
 
     local healtime = effect:getTickCount()
 
@@ -64,7 +64,7 @@ function onEffectTick(target,effect)
     end
 end
 
-function onEffectLose(target,effect)
+function onEffectLose(target, effect)
     target:setAnimation(0)
     target:delStatusEffect(tpz.effect.LEAVEGAME)
 

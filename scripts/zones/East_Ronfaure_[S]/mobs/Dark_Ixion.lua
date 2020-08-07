@@ -2,7 +2,7 @@
 -- Area: East Ronfaure [S]
 --  Mob: Dark Ixion
 -----------------------------------
-require("scripts/globals/titles");
+require("scripts/globals/titles")
 -----------------------------------
 
 function onMobSpawn(mob)
