@@ -45,6 +45,7 @@ function onTrigger(player, npc)
         player:startEvent(117)
     elseif (inDefiantChallenge == QUEST_AVAILABLE and LvL >= 50 and player:levelCap() == 50 and MAX_LEVEL >= 55) then
         player:startEvent(79) -- Start Quest "In Defiant Challenge"
+		player:PrintToPlayer("The ???s for Limit Break 1 are NOT enabled on Tantalus Server.\nPlayers must obtain the three Rare/EX items.")
     elseif (inDefiantChallenge == QUEST_ACCEPTED) then
         player:startEvent(80) -- During Quest "In Defiant Challenge"
     elseif (atopTheHighestMountains == QUEST_AVAILABLE and LvL >= 51 and player:levelCap() == 55 and MAX_LEVEL >= 60) then
