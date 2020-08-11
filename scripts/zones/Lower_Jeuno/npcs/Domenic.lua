@@ -12,7 +12,8 @@ function onTrade(player, npc, trade)
 end
 
 function onTrigger(player, npc)
-    if (player:hasCompletedQuest(JEUNO, tpz.quest.id.jeuno.BEYOND_INFINITY) == true) then
+    local mLvl = player:getMainLvl()
+    if (mLvl >= 20) then
         player:startEvent(10115, player:getGil())
     else
         player:startEvent(10116)
