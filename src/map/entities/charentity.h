@@ -221,6 +221,8 @@ public:
         if (PParty) {
             for (auto PMember : PParty->members) {
                 func(PMember, std::forward<Args>(args)...);
+            }
+            for (auto PMember : PParty->members) {
                 for (auto PTrust : static_cast<CCharEntity*>(PMember)->PTrusts) {
                     func(PTrust, std::forward<Args>(args)...);
                 }
@@ -228,6 +230,9 @@ public:
         }
         else {
             func(this, std::forward<Args>(args)...);
+            for (auto PTrust : this->PTrusts) {
+                func(PTrust, std::forward<Args>(args)...);
+            }
         }
     }
 
