@@ -28,7 +28,7 @@ function onEffectTick(target, effect)
     end
     Some messages about remaining time.will need to handled outside of this effect (zone ejection warnings after visitant is gone).
     ]]
-    local expRate = math.floor(target:getCharVar("goldLight") * 4.33 / 1.9)
+    local expRate = 60 + math.floor(target:getCharVar("goldLight") * 4.33 / 1.9)
     target:getStatusEffect(tpz.effect.DEDICATION):setPower(expRate)
 end
 
