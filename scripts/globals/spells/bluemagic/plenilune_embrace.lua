@@ -44,8 +44,8 @@ function onSpellCast(caster,target,spell)
     target:wakeUp()
     caster:updateEnmityFromCure(target,final)
     spell:setMsg(tpz.msg.basic.MAGIC_RECOVERS_HP)
-   caster:addStatusEffect(tpz.effect.ATTACK_BOOST,12,0,300)
-   caster:addStatusEffect(tpz.effect.MAGIC_ATK_BOOST,12,0,300)
+	target:addStatusEffect(tpz.effect.ATTACK_BOOST,12,0,90)
+	target:addStatusEffect(tpz.effect.MAGIC_ATK_BOOST,12,0,90)
   	
    return final;
 end
