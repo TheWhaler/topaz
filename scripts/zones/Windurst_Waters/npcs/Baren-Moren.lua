@@ -117,6 +117,7 @@ printf("RESULT: %u", option)
                 player:messageSpecial(ID.text.ITEM_OBTAINED, 12543)
             end
         elseif (option == 4) then     -- 50 = HAT + GOOD REWARD  >= 6 NPCS - Option 4
+            player:addExp(800 * EXP_RATE);
             player:addGil(GIL_RATE*400)
             player:messageSpecial(ID.text.GIL_OBTAINED, GIL_RATE*400)
             if (player:hasItem(12543) == false) then
@@ -124,9 +125,11 @@ printf("RESULT: %u", option)
                 player:messageSpecial(ID.text.ITEM_OBTAINED, 12543)
             end
         elseif (option == 3) then     -- 30 = PARTIAL REWARD -   >= 4 NPCS - Option 3
+            player:addExp(500 * EXP_RATE);
             player:addGil(GIL_RATE*300)
             player:messageSpecial(ID.text.GIL_OBTAINED, GIL_RATE*300)
         elseif (option == 2) then     -- 20 = POOR REWARD         >= 2 NPCS - Option 2
+            player:addExp(200 * EXP_RATE);
             player:addGil(GIL_RATE*150)
             player:messageSpecial(ID.text.GIL_OBTAINED, GIL_RATE*150)
 --        else (option == 1) then     -- 0/nill = NO REWARD      >= 0 NPCS - Option 1

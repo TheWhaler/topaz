@@ -78,10 +78,11 @@ function onEventFinish(player, csid, option)
     if (csid == 194 and option == 0) then
         player:addQuest(JEUNO, tpz.quest.id.jeuno.YOUR_CRYSTAL_BALL)
     elseif (csid == 196) then
-        player:addTitle(tpz.title.FORTUNETELLER_IN_TRAINING)
-        player:addFame(JEUNO, 30)
-        player:tradeComplete(trade)
-        player:completeQuest(JEUNO, tpz.quest.id.jeuno.YOUR_CRYSTAL_BALL)
+        player:addTitle(tpz.title.FORTUNETELLER_IN_TRAINING);
+        player:addFame(JEUNO, 30);
+        player:addExp(4000 * EXP_RATE)
+        player:tradeComplete(trade);
+        player:completeQuest(JEUNO,tpz.quest.id.jeuno.YOUR_CRYSTAL_BALL);
     elseif (csid == 204 and option == 0) then
         player:addCharVar("QuestNeverToReturn_prog", 1)  -- Keep track of how many times the players fortune has been read
         player:setCharVar("QuestNeverToReturn_day", VanadielDayOfTheYear()) -- new vanadiel day
@@ -93,13 +94,14 @@ function onEventFinish(player, csid, option)
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 13477)
         else
-            player:addGil(GIL_RATE*1200)
-            player:messageSpecial(ID.text.GIL_OBTAINED, GIL_RATE*1200)
-            player:addItem(13477)
-            player:messageSpecial(ID.text.ITEM_OBTAINED, 13477)
-            player:addFame(JEUNO, 30)
-            player:tradeComplete(trade)
-            player:completeQuest(JEUNO, tpz.quest.id.jeuno.NEVER_TO_RETURN)
+            player:addGil(GIL_RATE*1200);
+            player:messageSpecial(ID.text.GIL_OBTAINED,GIL_RATE*1200);
+            player:addItem(13477);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,13477);
+            player:addFame(JEUNO, 30);
+            player:addExp(4000 * EXP_RATE)
+            player:tradeComplete(trade);
+            player:completeQuest(JEUNO,tpz.quest.id.jeuno.NEVER_TO_RETURN);
         end
     elseif (csid == 17) then
         player:setCharVar("QuestSearchRightWords_prereq", 1)

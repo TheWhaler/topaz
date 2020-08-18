@@ -41,12 +41,13 @@ function onEventFinish(player, csid, option)
     if (csid == 0) then
         player:addQuest(JEUNO, tpz.quest.id.jeuno.CHILD_S_PLAY)
     elseif (csid == 1) then
-        player:addTitle(tpz.title.TRADER_OF_MYSTERIES)
-        player:addKeyItem(tpz.ki.WONDER_MAGIC_SET)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.WONDER_MAGIC_SET)
-        player:addFame(JEUNO, 30)
-        player:tradeComplete(trade)
-        player:completeQuest(JEUNO, tpz.quest.id.jeuno.CHILD_S_PLAY)
+        player:addTitle(tpz.title.TRADER_OF_MYSTERIES);
+        player:addKeyItem(tpz.ki.WONDER_MAGIC_SET);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.WONDER_MAGIC_SET);
+        player:addFame(JEUNO, 30);
+        player:addExp(1000 * EXP_RATE);
+        player:tradeComplete(trade);
+        player:completeQuest(JEUNO,tpz.quest.id.jeuno.CHILD_S_PLAY);
     elseif (csid == 316) then
         player:setMaskBit(player:getCharVar("WildcatJeuno"), "WildcatJeuno", 16, true)
     end

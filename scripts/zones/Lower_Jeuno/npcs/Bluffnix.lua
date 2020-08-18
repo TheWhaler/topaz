@@ -101,6 +101,7 @@ function onEventFinish(player, csid, option)
         player:tradeComplete()
         player:completeQuest(JEUNO, TheGobbieBag[1])
         player:messageSpecial(ID.text.INVENTORY_INCREASED)
+        player:addExp(player:getContainerSize(0) * EXP_RATE);
     elseif (csid == 10056) then
         player:setMaskBit(player:getCharVar("WildcatJeuno"), "WildcatJeuno", 12, true)
     end

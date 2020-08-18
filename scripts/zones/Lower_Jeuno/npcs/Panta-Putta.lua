@@ -46,7 +46,7 @@ function onTrigger(player, npc)
 end
 
 -- 78 oh zut j'ai besoin de cette marmite
--- 30 j'ai été trop dur avec two... et percé la marmite
+-- 30 j'ai ï¿½tï¿½ trop dur avec two... et percï¿½ la marmite
 -- 40 du moment que j'ai cette boite et la marmite je vais enfin battre ce gars
 function onEventUpdate(player, csid, option)
 end
@@ -72,13 +72,14 @@ function onEventFinish(player, csid, option)
         if (player:getFreeSlotsCount() == 0) then
             player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 13596)
         else
-            player:addTitle(tpz.title.BRINGER_OF_BLISS)
-            player:delKeyItem(tpz.ki.TWO_OF_SWORDS)
-            player:setCharVar("theKindCardianVar", 0)
-            player:addItem(13596)
-            player:messageSpecial(ID.text.ITEM_OBTAINED, 13596) -- Green Cape
-            player:addFame(JEUNO, 30)
-            player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_KIND_CARDIAN)
+            player:addTitle(tpz.title.BRINGER_OF_BLISS);
+            player:delKeyItem(tpz.ki.TWO_OF_SWORDS);
+            player:setCharVar("theKindCardianVar",0);
+            player:addItem(13596);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,13596); -- Green Cape
+            player:addFame(JEUNO, 30);
+            player:addExp(4500 * EXP_RATE);
+            player:completeQuest(JEUNO,tpz.quest.id.jeuno.THE_KIND_CARDIAN);
         end
     end
 end

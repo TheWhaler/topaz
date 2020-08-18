@@ -48,6 +48,7 @@ function onEventFinish(player, csid, option)
             player:setCharVar("StampHunt_Mask",0);
 			player:addExp(1000 * EXP_RATE);
             player:addFame(BASTOK,50);
+            player:addExp(1000 * EXP_RATE);
             player:completeQuest(BASTOK,tpz.quest.id.bastok.STAMP_HUNT);
         else
             player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 13081)
