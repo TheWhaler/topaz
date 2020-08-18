@@ -11,28 +11,45 @@ require("scripts/globals/keyitems")
 local ID = require("scripts/zones/Lower_Jeuno/IDs")
 -----------------------------------
 
-function onTrade(player, npc, trade)
+local expReward = 0
+
+function onTrade(player,npc,trade)
 
     local questStatus = player:getQuestStatus(JEUNO, tpz.quest.id.jeuno.THE_ROAD_TO_AHT_URHGAN)
     local questStatusVar = player:getCharVar("THE_ROAD_TO_AHT_URHGAN")
 
     if (questStatus == QUEST_ACCEPTED and questStatusVar == 1) then
 
-        if (trade:hasItemQty(537, 1) == true and trade:hasItemQty(538, 1) == true and trade:hasItemQty(539, 1) == true
-        and trade:hasItemQty(540, 1) == true and trade:hasItemQty(541, 1) == true and trade:hasItemQty(542, 1) == true and trade:getItemCount() == 6 and trade:getGil() == 0) then -- Beginner List (Subjob Items)
-            player:startEvent(10070)
-        elseif (trade:hasItemQty(1532, 1) and trade:hasItemQty(1533, 1) and trade:hasItemQty(1535, 1) and trade:getItemCount() == 3 and trade:getGil() == 0) then -- Intermediate List
-            player:startEvent(10070)
-        elseif (trade:hasItemQty(1692, 1) and trade:hasItemQty(1693, 1) and trade:hasItemQty(1694, 1) and trade:getItemCount() == 3 and trade:getGil() == 0) then -- Advanced List (Chips)
-            player:startEvent(10070)
-        elseif (trade:hasItemQty(1042, 1) or trade:hasItemQty(1043, 1) or trade:hasItemQty(1044, 1) or trade:hasItemQty(1049, 1) or trade:hasItemQty(1050, 1) or
-            trade:hasItemQty(1054, 1) or trade:hasItemQty(1059, 1) and trade:getItemCount() == 1 and trade:getGil() == 0) then -- Advanced List (Coffer Keys)
-                player:startEvent(10070)
-        elseif (trade:hasItemQty(1426, 1) or trade:hasItemQty(1427, 1) or trade:hasItemQty(1428, 1) or trade:hasItemQty(1429, 1) or trade:hasItemQty(1430, 1) or
-            trade:hasItemQty(1431, 1) or trade:hasItemQty(1432, 1) or trade:hasItemQty(1433, 1) or trade:hasItemQty(1434, 1) or trade:hasItemQty(1435, 1) or
-            trade:hasItemQty(1436, 1) or trade:hasItemQty(1437, 1) or trade:hasItemQty(1438, 1) or trade:hasItemQty(1439, 1) or trade:hasItemQty(1440, 1) or
-            trade:hasItemQty(2331, 1) or trade:hasItemQty(2332, 1) or trade:hasItemQty(2333, 1) or trade:hasItemQty(2556, 1) or trade:hasItemQty(2557, 1) and trade:getItemCount() == 1 and trade:getGil() == 0) then -- Advanced List (Testimonys)
-                player:startEvent(10070)
+            expReward = 2500;
+            player:startEvent(10070);
+            expReward = 3600;
+            player:startEvent(10070);
+            expReward = 4100;
+            player:startEvent(10070);
+                expReward = 4900;
+                player:startEvent(10070);
+                expReward = 6400;
+                player:startEvent(10070);
+        if (trade:hasItemQty(537,1) == true and trade:hasItemQty(538,1) == true and trade:hasItemQty(539,1) == true
+        and trade:hasItemQty(540,1) == true and trade:hasItemQty(541,1) == true and trade:hasItemQty(542,1) == true and trade:getItemCount() == 6 and trade:getGil() == 0) then -- Beginner List (Subjob Items)
+            expReward = 2500;
+            player:startEvent(10070);
+        elseif (trade:hasItemQty(1532,1) and trade:hasItemQty(1533,1) and trade:hasItemQty(1535,1) and trade:getItemCount() == 3 and trade:getGil() == 0) then -- Intermediate List
+            expReward = 3600;
+            player:startEvent(10070);
+        elseif (trade:hasItemQty(1692,1) and trade:hasItemQty(1693,1) and trade:hasItemQty(1694,1) and trade:getItemCount() == 3 and trade:getGil() == 0) then -- Advanced List (Chips)
+            expReward = 4100;
+            player:startEvent(10070);
+        elseif (trade:hasItemQty(1042,1) or trade:hasItemQty(1043,1) or trade:hasItemQty(1044,1) or trade:hasItemQty(1049,1) or trade:hasItemQty(1050,1) or
+            trade:hasItemQty(1054,1) or trade:hasItemQty(1059,1) and trade:getItemCount() == 1 and trade:getGil() == 0) then -- Advanced List (Coffer Keys)
+                expReward = 4900;
+                player:startEvent(10070);
+        elseif (trade:hasItemQty(1426,1) or trade:hasItemQty(1427,1) or trade:hasItemQty(1428,1) or trade:hasItemQty(1429,1) or trade:hasItemQty(1430,1) or
+            trade:hasItemQty(1431,1) or trade:hasItemQty(1432,1) or trade:hasItemQty(1433,1) or trade:hasItemQty(1434,1) or trade:hasItemQty(1435,1) or
+            trade:hasItemQty(1436,1) or trade:hasItemQty(1437,1) or trade:hasItemQty(1438,1) or trade:hasItemQty(1439,1) or trade:hasItemQty(1440,1) or
+            trade:hasItemQty(2331,1) or trade:hasItemQty(2332,1) or trade:hasItemQty(2333,1) or trade:hasItemQty(2556,1) or trade:hasItemQty(2557,1) and trade:getItemCount() == 1 and trade:getGil() == 0) then -- Advanced List (Testimonys)
+                expReward = 6400;
+                player:startEvent(10070);
         end
     end
 end
@@ -53,7 +70,9 @@ function onTrigger(player, npc)
     elseif (questStatus == QUEST_ACCEPTED and questStatusVar == 1) then
         player:startEvent(10064) -- Player did not make a decision during Second Dialog. Offering the list again.
     elseif (questStatus == QUEST_ACCEPTED and questStatusVar == 2 and passReady ~= true) then
-        player:startEvent(10066) -- Bought Bording Pass, Player must wait One Day.
+        player:startEvent(10066); -- Bought Bording Pass, Player must wait One Day.
+        expReward = 9000
+        player:startEvent(10066); -- Bought Bording Pass, Player must wait One Day.
     elseif (questStatus == QUEST_ACCEPTED and questStatusVar == 3 and passReady ~= true) then
         player:startEvent(10072) -- Quested for Bording Pass, Player must wait One Day.
     elseif (questStatus == QUEST_ACCEPTED and questStatusVar == 2 and passReady == true) then
@@ -102,12 +121,20 @@ function onEventFinish(player, csid, option)
             player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Year", VanadielYear())
         end
     elseif (csid == 10067) then
-        player:addKeyItem(tpz.ki.MAP_OF_WAJAOM_WOODLANDS)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.MAP_OF_WAJAOM_WOODLANDS)
-        player:addKeyItem(tpz.ki.BOARDING_PERMIT)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.BOARDING_PERMIT)
-        player:setCharVar("THE_ROAD_TO_AHT_URHGAN", 4)
-        tpz.teleport.to(player, tpz.teleport.id.WAJAOM_LEYPOINT)
+        player:addKeyItem(tpz.ki.MAP_OF_WAJAOM_WOODLANDS);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.MAP_OF_WAJAOM_WOODLANDS);
+        player:addKeyItem(tpz.ki.BOARDING_PERMIT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.BOARDING_PERMIT);
+        player:addExp(expReward * EXP_RATE);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN",4);
+        tpz.teleport.to(player, tpz.teleport.id.WAJAOM_LEYPOINT);
+        player:addKeyItem(tpz.ki.MAP_OF_WAJAOM_WOODLANDS);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.MAP_OF_WAJAOM_WOODLANDS);
+        player:addKeyItem(tpz.ki.BOARDING_PERMIT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.BOARDING_PERMIT);
+        player:addExp(expReward * EXP_RATE);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN",4);
+        tpz.teleport.to(player, tpz.teleport.id.WAJAOM_LEYPOINT);
     elseif (csid == 10068) then
         player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_ROAD_TO_AHT_URHGAN)
         player:setCharVar("THE_ROAD_TO_AHT_URHGAN", 0)
@@ -115,13 +142,23 @@ function onEventFinish(player, csid, option)
         player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Year", 0)
         player:addFame(JEUNO, 30)
     elseif (csid == 10070) then
-        player:addKeyItem(tpz.ki.BOARDING_PERMIT)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.BOARDING_PERMIT)
-        player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_ROAD_TO_AHT_URHGAN)
-        player:setCharVar("THE_ROAD_TO_AHT_URHGAN", 0)
-        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Day", 0)
-        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Year", 0)
-        player:addFame(JEUNO, 30)
+        player:addKeyItem(tpz.ki.BOARDING_PERMIT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.BOARDING_PERMIT);
+        player:completeQuest(JEUNO,tpz.quest.id.jeuno.THE_ROAD_TO_AHT_URHGAN);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN",0);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Day",0);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Year",0)
+        player:addFame(JEUNO, 30) 
+        player:addExp(expReward * EXP_RATE)
         player:tradeComplete()
+        player:addKeyItem(tpz.ki.BOARDING_PERMIT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,tpz.ki.BOARDING_PERMIT);
+        player:completeQuest(JEUNO,tpz.quest.id.jeuno.THE_ROAD_TO_AHT_URHGAN);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN",0);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Day",0);
+        player:setCharVar("THE_ROAD_TO_AHT_URHGAN_Year",0);
+        player:addFame(JEUNO, 30);
+        player:addExp(expReward * EXP_RATE);
+        player:tradeComplete();
     end
 end

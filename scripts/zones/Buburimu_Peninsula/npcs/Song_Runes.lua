@@ -46,8 +46,9 @@ function onEventFinish(player, csid, option)
         player:messageSpecial(ID.text.ITEM_OBTAINED, POETIC_PARCHMENT)
         player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_OLD_MONUMENT)
         player:addTitle(tpz.title.RESEARCHER_OF_CLASSICS)
-        player:addFame(BASTOK, 10)
-        player:addFame(SANDORIA, 10)
-        player:addFame(WINDURST, 10)
+        player:addFame(BASTOK,10)
+        player:addExp(1700 * EXP_RATE)
+        player:addFame(SANDORIA,10)
+        player:addFame(WINDURST,10)
     end
 end

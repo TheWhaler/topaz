@@ -87,6 +87,7 @@ function onEventFinish(player, csid, option)
 		player:addExp(1000 * EXP_RATE);
         player:addFame(JEUNO, 30);
         player:tradeComplete();
+        player:addExp(1000 * EXP_RATE);
         player:completeQuest(JEUNO,tpz.quest.id.jeuno.PRETTY_LITTLE_THINGS);
     elseif (csid == 10023 and option == 1) then
         player:tradeComplete()
