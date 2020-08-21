@@ -461,7 +461,8 @@ function SetPyxisData(player, x, y, z, r, npc)
         if (tier > 5) then
             tier = 5
         end
-
+		
+		math.randomseed(os.time())
         if (tier < 4) then
             bluedrops = math.random(1,4)
         else

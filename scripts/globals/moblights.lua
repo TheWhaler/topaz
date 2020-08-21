@@ -545,7 +545,8 @@ tpz.abyssea_mob.DropLights = function(killer, mobName, killType, mob)
     if tpz.abyssea_mob.info[mobName][lightTypes[killType].lightType] ~= nil then
         amount = tpz.abyssea_mob.info[mobName][lightTypes[killType].lightType]
     end
-
+    
+	math.randomseed(os.time())
     if amount == 0 then
         return
     elseif amount == 100 then
@@ -588,6 +589,7 @@ tpz.abyssea_mob.DropLights = function(killer, mobName, killType, mob)
         end
     end
     
+	math.randomseed(os.time())
     local canDrop = math.random() * 100
 
     if canDrop <= dropRate then
