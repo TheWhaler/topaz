@@ -1219,6 +1219,16 @@ tpz.regime.bookOnEventFinish = function(player, option, regimeType)
 
             player:showText(player, msgOffset)
             player:showText(player, msgOffset + 1)
+
+            -- Records of Eminence: Undertake a FoV Training Regime
+            if player:getEminenceProgress(3) and regimeType == tpz.regime.type.FIELDS then
+                npcUtil.completeRecord(player, 3, { sparks = 100, xp = 500 })
+            end
+
+            -- Records of Eminence: Undertake a GoV Training Regime
+            if player:getEminenceProgress(11) and regimeType == tpz.regime.type.GROUNDS then
+                npcUtil.completeRecord(player, 11, { sparks = 100, xp = 500 })
+            end
         end
     end
 end
@@ -1231,7 +1241,7 @@ tpz.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     end
 
     -- people in alliance get no Fields credit unless fov_allow_alliance is 1 in map.conf
-    if regimeType == tpz.regime.type.FIELDS and player:checkSoloPartyAlliance() == 2 and not player:checkFovAllianceAllowed() == 1 then
+    if regimeType == tpz.regime.type.FIELDS and player:checkSoloPartyAlliance() == 2 and player:checkFovAllianceAllowed() ~= 1 then
         return
     end
 
