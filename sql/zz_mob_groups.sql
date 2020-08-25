@@ -565,3 +565,4 @@ UPDATE mob_groups SET dropid = 3354 WHERE poolid =  5144;
 UPDATE mob_groups SET dropid = 3355 WHERE poolid =  5869;
 
 UPDATE mob_groups SET respawntime = 6000 WHERE poolid = 4706;
+UPDATE mob_groups SET spawntype = 0 WHERE poolid = 4706;
