@@ -513,7 +513,7 @@ void TrySkillUP(CAutomatonEntity* PAutomaton, SKILLTYPE SkillID, uint8 lvl)
         }
 
         SkillUpChance *= ((100.f + PAutomaton->getMod(Mod::COMBAT_SKILLUP_RATE)) / 100.f);
-
+        SkillUpChance *= ((100.f + PAutomaton->PMaster->getMod(Mod::COMBAT_SKILLUP_RATE)) / 100.f);
         if (Diff > 0 && random < SkillUpChance)
         {
             double chance = 0;
