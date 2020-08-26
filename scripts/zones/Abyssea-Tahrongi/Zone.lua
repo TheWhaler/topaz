@@ -18,8 +18,17 @@ function onZoneIn(player, prevZone)
         player:setPos(-24, 44, -678, 240)
     end
 
-    if player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.THE_TRUTH_BECKONS) == QUEST_ACCEPTED and player:getCharVar("1stTimeAbyssea") == 0 then
+	if player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.THE_TRUTH_BECKONS) == QUEST_ACCEPTED and player:getCharVar("1stTimeAbyssea") == 0 then
         player:setCharVar("1stTimeAbyssea", 1)
+    end
+
+    tpz.abyssea.ResetPlayerLights(player)
+
+    local visitantEffect = tpz.effect.VISITANT
+    local visitantStatusEffect = player:getStatusEffect(visitantEffect)
+
+    if not player:hasStatusEffect(visitantEffect) then
+        player:addStatusEffect(tpz.effect.VISITANT,0,3,5400)
     end
 
     return cs

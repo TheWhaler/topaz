@@ -522,18 +522,29 @@ tpz.abyssea.AddPlayerLights = function(player, light, amount)
     end
 end
 
+function convertTimeDescending(raw_time)
+    local rawSeconds = tonumber(raw_time)
+    local timeTable = {0,0,0}
+
+    timeTable[1] = string.format("%02.f", math.floor(-rawSeconds/3600))
+    timeTable[2] = string.format("%02.f", math.floor(-rawSeconds/60 - (timeTable[1]*60)))
+    timeTable[3] = string.format("%02.f", math.floor(-rawSeconds - timeTable[1]*3600 - timeTable[2] *60))
+
+    return timeTable
+end
+
+
 function canEnterAbyssea(player)
-    if player:getCharVar("lastEnteredAbyssea") <= os.time() and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.THE_TRUTH_BECKONS) >= QUEST_ACCEPTED and player:getMainLvl() >= 65 then
+    if (player:getCharVar("lastEnteredAbyssea") <= os.time() or player:getCharVar("lastEnteredAbyssea") == 0) and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.THE_TRUTH_BECKONS) >= QUEST_ACCEPTED and player:getMainLvl() >= 65 then
         player:PrintToPlayer("If you have a Dedication effect from an experience ring, it will wear off upon entering Abyssea.", tpz.msg.channel.SYSTEM_3)
         return true
     end
 
     local lastEnterTable = {0,0,0}
-    lastEnterTable = utils.convertTimeDescending(os.time() - player:getCharVar("lastEnteredAbyssea"))
-
-    if player:getCharVar("lastEnteredAbyssea") ~= 0 then
-        player:PrintToPlayer("You must wait " ..lastEnterTable[1].. " hours, " ..lastEnterTable[2].. " minutes, and " ..lastEnterTable[3].. " seconds before you can enter Abyssea again.", tpz.msg.channel.SYSTEM_3)
-    end
+	if player:getCharVar("lastEnteredAbyssea")  ~= 0 then
+		lastEnterTable = convertTimeDescending(os.time() - player:getCharVar("lastEnteredAbyssea"))
+		player:PrintToPlayer("You must wait " ..lastEnterTable[1].. " hours, " ..lastEnterTable[2].. " minutes, and " ..lastEnterTable[3].. " seconds before you can enter Abyssea again.", tpz.msg.channel.SYSTEM_3)
+	end
 
     return false
 end

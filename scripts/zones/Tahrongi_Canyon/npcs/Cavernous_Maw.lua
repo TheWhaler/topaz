@@ -15,16 +15,16 @@ function onTrade(player, npc, trade)
 end
 
 function onTrigger(player, npc)
-    if ENABLE_ABYSSEA == 1 and player:getMainLvl() >= 30 then
-        if
-            player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.DAWN_OF_DEATH) == QUEST_ACCEPTED and
-            player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.MEGADRILE_MENACE) == QUEST_AVAILABLE and
-            tpz.abyssea.getTravStonesTotal(player) >= 1
-        then
-            player:startEvent(38)
+    if (ENABLE_ABYSSEA == 1 and player:getMainLvl() >= 30) then
+        local HasStone = tpz.abyssea.getTravStonesTotal(player)
+        if (HasStone >= 1 and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.DAWN_OF_DEATH) == QUEST_ACCEPTED
+        and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.A_GOLDSTRUCK_GIGAS) == QUEST_AVAILABLE) then
+            player:startEvent(9)
         else
-            player:startEvent(100, 0, 1) -- No param = no entry.
-        end
+            if canEnterAbyssea(player) then
+                player:startEvent(218,0,1) -- No param = no entry.
+            end 
+		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)
     end
