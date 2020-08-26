@@ -521,3 +521,19 @@ tpz.abyssea.AddPlayerLights = function(player, light, amount)
         player:messageSpecial(ID.text.BODY_EMITS_EBON_LIGHT,tiermsg)
     end
 end
+
+function canEnterAbyssea(player)
+    if player:getCharVar("lastEnteredAbyssea") <= os.time() and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.THE_TRUTH_BECKONS) >= QUEST_ACCEPTED and player:getMainLvl() >= 65 then
+        player:PrintToPlayer("If you have a Dedication effect from an experience ring, it will wear off upon entering Abyssea.", tpz.msg.channel.SYSTEM_3)
+        return true
+    end
+
+    local lastEnterTable = {0,0,0}
+    lastEnterTable = utils.convertTimeDescending(os.time() - player:getCharVar("lastEnteredAbyssea"))
+
+    if player:getCharVar("lastEnteredAbyssea") ~= 0 then
+        player:PrintToPlayer("You must wait " ..lastEnterTable[1].. " hours, " ..lastEnterTable[2].. " minutes, and " ..lastEnterTable[3].. " seconds before you can enter Abyssea again.", tpz.msg.channel.SYSTEM_3)
+    end
+
+    return false
+end

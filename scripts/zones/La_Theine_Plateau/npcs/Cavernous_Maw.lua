@@ -21,8 +21,9 @@ function onTrigger(player, npc)
         and player:getQuestStatus(ABYSSEA, tpz.quest.id.abyssea.A_GOLDSTRUCK_GIGAS) == QUEST_AVAILABLE) then
             player:startEvent(9)
         else
-            player:startEvent(218, 0, 1) -- No param = no entry.
-        end
+            if canEnterAbyssea(player) then
+                player:startEvent(218,0,1) -- No param = no entry.
+            end        end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)
     end

@@ -31,6 +31,8 @@ function onTrigger(player, npc)
     local TheWaywardAutomation = player:getQuestStatus(AHT_URHGAN, tpz.quest.id.ahtUrhgan.THE_WAYWARD_AUTOMATION)
     local TheWaywardAutomationProgress = player:getCharVar("TheWaywardAutomationProgress")
     local OperationTeatime = player:getQuestStatus(AHT_URHGAN, tpz.quest.id.ahtUrhgan.OPERATION_TEATIME)
+	local PuppetMasterBlues = player:getQuestStatus(AHT_URHGAN, tpz.quest.id.ahtUrhgan.PUPPETMASTER_BLUES)
+
     local OperationTeatimeProgress = player:getCharVar("OperationTeatimeProgress")
     local LvL = player:getMainLvl()
     local Job = player:getMainJob()
@@ -75,6 +77,13 @@ function onTrigger(player, npc)
     elseif OperationTeatime == QUEST_COMPLETED then
         player:startEvent(777)
     end
+	
+	--Quest: Puppetmaster Blues
+    elseif Job == tpz.job.PUP and LvL >= AF2_QUEST_LEVEL and OperationTeatime == QUEST_COMPLETED and PuppetMasterBlues == QUEST_AVAILABLE then
+        player:startEvent(782)
+	end
+    
+	
 end
 
 function onEventUpdate(player, csid, option)
@@ -101,5 +110,8 @@ function onEventFinish(player, csid, option)
     elseif csid == 780 then
         player:setCharVar("OperationTeatimeProgress", 2)
         player:confirmTrade()
+	elseif csid == 782 then
+		player:setCharVar("PuppetmasterBluesProgress", 1)
+        player:addQuest(AHT_URHGAN, tpz.quest.id.ahtUrhgan.PUPPETMASTER_BLUES)
     end
 end
