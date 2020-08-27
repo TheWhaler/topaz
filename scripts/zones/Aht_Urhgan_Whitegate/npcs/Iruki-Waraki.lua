@@ -76,14 +76,10 @@ function onTrigger(player, npc)
         player:startEvent(781) -- Reminds you to get items
     elseif OperationTeatime == QUEST_COMPLETED then
         player:startEvent(777)
-    end
-	
-	--Quest: Puppetmaster Blues
+    --Quest: Puppetmaster Blues
     elseif Job == tpz.job.PUP and LvL >= AF2_QUEST_LEVEL and OperationTeatime == QUEST_COMPLETED and PuppetMasterBlues == QUEST_AVAILABLE then
         player:startEvent(782)
-	end
-    
-	
+	end	
 end
 
 function onEventUpdate(player, csid, option)
