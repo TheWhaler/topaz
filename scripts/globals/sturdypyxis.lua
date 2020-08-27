@@ -2303,6 +2303,9 @@ function OpenChest(player, npc)
             if member:getZoneID() == player:getZoneID() and member:isPC() then
             -- TODO: add the time to visitent status effect
                 member:messageSpecial(ID.text.VISITANT_EXTENDED,10,1)
+				local effect = member:getStatusEffect(tpz.effect.VISITANT)
+				local old_duration = effect:getDuration()
+				effect:setDuration((old_duration + (10 * 60)) * 1000)
                 --printf("adding time to %s", member:getName())
             end
         end
