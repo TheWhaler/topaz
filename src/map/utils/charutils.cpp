@@ -3750,7 +3750,7 @@ namespace charutils
             {
                 uint16 TextID = luautils::GetTextIDVariable(Pzone, "CRUOR_OBTAINED");
                 uint32 Total = charutils::GetPoints(PChar, "cruor");
-                uint32 Cruor = 0; // Need to work out how to do cruor chains, until then no cruor will drop unless this line is customized for non retail play.
+                uint32 Cruor = (int32)(exp * 0.05f); // Need to work out how to do cruor chains, until then no cruor will drop unless this line is customized for non retail play.
 
                 if (TextID == 0)
                 {
