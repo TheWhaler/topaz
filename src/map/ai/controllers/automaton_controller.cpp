@@ -235,11 +235,13 @@ bool CAutomatonController::TryAction()
 
 bool CAutomatonController::TryShieldBash()
 {
-    CState* PState = PTarget->PAI->GetCurrentState();
-    if (m_shieldbashCooldown > 0s && PState && PState->CanInterrupt() &&
-        m_Tick > m_LastShieldBashTime + (m_shieldbashCooldown - std::chrono::seconds(PAutomaton->getMod(Mod::AUTO_SHIELD_BASH_DELAY))))
-    {
-        return MobSkill(PTarget->targid, m_ShieldBashAbility);
+    if (PAutomaton->getFrame() == FRAME_VALOREDGE) {
+        CState* PState = PTarget->PAI->GetCurrentState();
+        if (m_shieldbashCooldown > 0s && PState && PState->CanInterrupt() &&
+            m_Tick > m_LastShieldBashTime + (m_shieldbashCooldown - std::chrono::seconds(PAutomaton->getMod(Mod::AUTO_SHIELD_BASH_DELAY))))
+        {
+            return MobSkill(PTarget->targid, m_ShieldBashAbility);
+        }
     }
     return false;
 }
