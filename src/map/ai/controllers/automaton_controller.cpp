@@ -24,7 +24,7 @@
 #include "../states/magic_state.h"
 #include "../states/weaponskill_state.h"
 #include "../ai_container.h"
-#include "../../utils/battleutils.h"
+#include "../../entities/trustentity.h"
 #include "../../lua/luautils.h"
 #include "../../mobskill.h"
 #include "../../../common/utils.h"
@@ -469,35 +469,32 @@ bool CAutomatonController::TryHeal(const CurrentManeuvers& maneuvers)
         if (PMob)
         {
             uint16 highestEnmity = 0;
-            for (uint8 i = 0; i < PAutomaton->PMaster->PParty->members.size(); ++i)
+            static_cast<CCharEntity*>(PAutomaton->PMaster)->ForPartyWithTrusts([&](CBattleEntity* PMember)
             {
-                CBattleEntity* member = PAutomaton->PMaster->PParty->members.at(i);
-                if (member->id != PAutomaton->PMaster->id)
+                if (PMember->id != PAutomaton->PMaster->id)
                 {
-                    auto enmity_obj = enmityList->find(member->id);
+                    auto enmity_obj = enmityList->find(PMember->id);
                     if (enmity_obj != enmityList->end() && highestEnmity < enmity_obj->second.CE + enmity_obj->second.VE &&
-                        member->GetHPP() <= threshold && distance(PAutomaton->loc.p, PAutomaton->PMaster->loc.p) < 20)
+                        PMember->GetHPP() <= threshold && distance(PAutomaton->loc.p, PAutomaton->PMaster->loc.p) < 20)
                     {
                         highestEnmity = enmity_obj->second.CE + enmity_obj->second.VE;
-                        PCastTarget = member;
+                        PCastTarget = PMember;
                     }
                 }
-            }
+            });
         }
         else
         {
-            for (uint8 i = 0; i < PAutomaton->PMaster->PParty->members.size(); ++i)
+            static_cast<CCharEntity*>(PAutomaton->PMaster)->ForPartyWithTrusts([&](CBattleEntity* PMember)
             {
-                CBattleEntity* member = PAutomaton->PMaster->PParty->members.at(i);
-                if (member->id != PAutomaton->PMaster->id && distance(PAutomaton->loc.p, PAutomaton->PMaster->loc.p) < 20)
+                if (PMember->id != PAutomaton->PMaster->id && distance(PAutomaton->loc.p, PAutomaton->PMaster->loc.p) < 20)
                 {
-                    if (member->GetHPP() <= threshold)
+                    if (PMember->GetHPP() <= threshold)
                     {
-                        PCastTarget = member;
-                        break;
+                        PCastTarget = PMember;
                     }
                 }
-            }
+            });
         }
     }
 
@@ -1126,74 +1123,74 @@ bool CAutomatonController::TryEnhance()
         PHasteTarget = PAutomaton;
 
     size_t members = 0;
-
+    
     // Unknown whether it only applies buffs to other members if they have hate or if the Soulsoother head is needed
     if (PAutomaton->PMaster->PParty)
     {
         members = PAutomaton->PMaster->PParty->members.size();
-        for (uint8 i = 0; i < members; ++i)
+        static_cast<CCharEntity*>(PAutomaton->PMaster)->ForPartyWithTrusts([&](CBattleEntity* PMember)
         {
-            CBattleEntity* member = PAutomaton->PMaster->PParty->members.at(i);
-            if (member->id != PAutomaton->PMaster->id && distance(PAutomaton->loc.p, member->loc.p) < 20)
-            {
-                protect = false;
-                shell = false;
-                haste = false;
-
-                isEngaged = false;
-
-                if (PMob)
+                if (PMember->id != PAutomaton->PMaster->id && distance(PAutomaton->loc.p, PMember->loc.p) < 20)
                 {
-                    auto enmity_obj = enmityList->find(member->id);
-                    if (enmity_obj != enmityList->end())
+                    protect = false;
+                    shell = false;
+                    haste = false;
+
+                    isEngaged = false;
+
+                    if (PMob)
                     {
-                        isEngaged = true;
-                        if (highestEnmity < enmity_obj->second.CE + enmity_obj->second.VE)
+                        auto enmity_obj = enmityList->find(PMember->id);
+                        if (enmity_obj != enmityList->end())
                         {
-                            highestEnmity = enmity_obj->second.CE + enmity_obj->second.VE;
-                            PRegenTarget = member;
+                            isEngaged = true;
+                            if (highestEnmity < enmity_obj->second.CE + enmity_obj->second.VE)
+                            {
+                                highestEnmity = enmity_obj->second.CE + enmity_obj->second.VE;
+                                PRegenTarget = PMember;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    isEngaged = true; // Assume everyone is engaged if the target isn't a mob
-                }
-
-                member->StatusEffectContainer->ForEachEffect([&protect, &protectcount, &shell, &shellcount, &haste](CStatusEffect* PStatus)
-                {
-                    if (PStatus->GetDuration() > 0)
+                    else
                     {
-                        if (PStatus->GetStatusID() == EFFECT_PROTECT)
-                        {
-                            protect = true;
-                            ++protectcount;
-                        }
-
-                        if (PStatus->GetStatusID() == EFFECT_SHELL)
-                        {
-                            shell = true;
-                            ++shellcount;
-                        }
-
-                        if (PStatus->GetStatusID() == EFFECT_HASTE || PStatus->GetStatusID() == EFFECT_GEO_HASTE)
-                            haste = true;
+                        isEngaged = true; // Assume everyone is engaged if the target isn't a mob
                     }
-                });
 
-                if (isEngaged)
-                {
-                    if (!PProtectTarget && !protect)
-                        PProtectTarget = member;
+                    PMember->StatusEffectContainer->ForEachEffect([&protect, &protectcount, &shell, &shellcount, &haste](CStatusEffect* PStatus)
+                        {
+                            if (PStatus->GetDuration() > 0)
+                            {
+                                if (PStatus->GetStatusID() == EFFECT_PROTECT)
+                                {
+                                    protect = true;
+                                    ++protectcount;
+                                }
 
-                    if (!PShellTarget && !shell)
-                        PShellTarget = member;
+                                if (PStatus->GetStatusID() == EFFECT_SHELL)
+                                {
+                                    shell = true;
+                                    ++shellcount;
+                                }
 
-                    if (!PHasteTarget && !haste)
-                        PHasteTarget = member;
+                                if (PStatus->GetStatusID() == EFFECT_HASTE || PStatus->GetStatusID() == EFFECT_GEO_HASTE)
+                                    haste = true;
+                            }
+                        });
+
+                    if (isEngaged)
+                    {
+                        if (!PProtectTarget && !protect)
+                            PProtectTarget = PMember;
+
+                        if (!PShellTarget && !shell)
+                            PShellTarget = PMember;
+
+                        if (!PHasteTarget && !haste)
+                            PHasteTarget = PMember;
+                    }
                 }
-            }
-        }
+
+        });
     }
 
     // No info on how this spell worked
@@ -1204,7 +1201,7 @@ bool CAutomatonController::TryEnhance()
     if ((members - shellcount) >= 4)
         Cast(PAutomaton->targid, SpellID::Shellra_V);
 
-    if (PRegenTarget && (PTarget->GetMLevel() + 5) >= PAutomaton->GetMLevel() && !(PRegenTarget->StatusEffectContainer->HasStatusEffect(EFFECT_REGEN) ||
+    if (PRegenTarget && !(PRegenTarget->StatusEffectContainer->HasStatusEffect(EFFECT_REGEN) ||
         PRegenTarget->StatusEffectContainer->HasStatusEffect(EFFECT_GEO_REGEN)))
         if (Cast(PRegenTarget->targid, SpellID::Regen_III) ||
             Cast(PRegenTarget->targid, SpellID::Regen_II) ||

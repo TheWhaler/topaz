@@ -58,9 +58,9 @@ function onEffectTick(target, effect)
             end
             
             -- Records of Eminence: Heal Without Using Magic
-            if target:getEminenceProgress(4) and healHP > 0 and target:getHPP() < 100 then
-                npcUtil.completeRecord(target, 4, { sparks = 100, xp = 500 })
-            end
+            --if target:getEminenceProgress(4) and healHP > 0 and target:getHPP() < 100 then
+                --npcUtil.completeRecord(target, 4, { sparks = 100, xp = 500 })
+            --end
 
             target:addHP(healHP)
             target:updateEnmityFromCure(target, healHP)
