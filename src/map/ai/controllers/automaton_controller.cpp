@@ -185,7 +185,11 @@ void CAutomatonController::DoCombatTick(time_point tick)
     {
         auto maneuvers = GetCurrentManeuvers();
 
-        if (TryShieldBash())
+        if (TryAttachment())
+        {
+            return;
+        }
+        else if (TryShieldBash())
         {
             m_LastShieldBashTime = m_Tick;
             return;
@@ -202,10 +206,6 @@ void CAutomatonController::DoCombatTick(time_point tick)
         else if (TryRangedAttack())
         {
             m_LastRangedTime = m_Tick;
-            return;
-        }
-        else if (TryAttachment())
-        {
             return;
         }
     }
