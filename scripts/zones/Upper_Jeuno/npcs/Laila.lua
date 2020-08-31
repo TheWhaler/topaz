@@ -111,6 +111,7 @@ function onEventFinish(player, csid, option)
             player:setCharVar("QuestStatus_DNC_AF1", 0)
             player:addItem(19203) -- war hoop
             player:messageSpecial(ID.text.ITEM_OBTAINED, 19203)
+			player:addExp(2000*EXP_RATE)
             player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_UNFINISHED_WALTZ)
         end
 
@@ -139,6 +140,7 @@ function onEventFinish(player, csid, option)
 
             player:addItem(dancersTights)
             player:messageSpecial(ID.text.ITEM_OBTAINED, dancersTights)
+			player:addExp(3000*EXP_RATE)
             player:completeQuest(JEUNO, tpz.quest.id.jeuno.THE_ROAD_TO_DIVADOM)
             end
     -- Dancer AF: Comeback Queen
@@ -179,6 +181,7 @@ function onEventFinish(player, csid, option)
 
             player:addItem(dancersCasaque)
             player:messageSpecial(ID.text.ITEM_OBTAINED, dancersCasaque)
+			player:addExp(7000*EXP_RATE)
             player:completeQuest(JEUNO, tpz.quest.id.jeuno.COMEBACK_QUEEN)
         end
     elseif (csid == 10154) then

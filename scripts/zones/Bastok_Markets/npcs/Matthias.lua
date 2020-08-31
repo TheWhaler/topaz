@@ -187,6 +187,7 @@ function onEventFinish(player, csid, option)
             local playerGender = player:getGender()
             player:addItem(dancerAFID - playerGender)
             player:messageSpecial(ID.text.ITEM_OBTAINED, dancerAFID)
+			player:addExp(2000)
 
             local allPiecesCompleted = 7
             if (bit.band(completedPieces, allPiecesCompleted) == allPiecesCompleted) then
