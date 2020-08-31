@@ -506,10 +506,10 @@ tpz.abyssea_mob.info =
 
 local lightTypes =
 {
-    physical    = {light = tpz.abyssea.lightType.PEARL, lightType = "pearl"}, -- pearl
-    magical     = {light = tpz.abyssea.lightType.AZURE, lightType = "azure"}, -- Azure
-    ws_physical = {light = tpz.abyssea.lightType.RUBY,  lightType = "ruby" }, -- Ruby
-    ws_magical  = {light = tpz.abyssea.lightType.AMBER, lightType = "amber"}, -- Amber
+    [tpz.abyssea.deathType.PHYSICAL]    = {light = tpz.abyssea.lightType.PEARL, lightType = "pearl"}, -- pearl
+    [tpz.abyssea.deathType.MAGICAL]     = {light = tpz.abyssea.lightType.AZURE, lightType = "azure"}, -- Azure
+    [tpz.abyssea.deathType.WS_PHYSICAL] = {light = tpz.abyssea.lightType.RUBY,  lightType = "ruby" }, -- Ruby
+    [tpz.abyssea.deathType.WS_MAGICAL]  = {light = tpz.abyssea.lightType.AMBER, lightType = "amber"}, -- Amber
 }
 
 tpz.abyssea_mob.RemoveDeathListeners = function(mob)

@@ -32,6 +32,14 @@
 #include "../alliance.h"
 #include "../modifier.h"
 
+enum DEATH_TYPE {
+    NONE = 0,
+    PHYSICAL = 1,
+    MAGICAL = 2,
+    WS_PHYSICAL = 3,
+    WS_MAGICAL = 4,
+};
+
 enum ECOSYSTEM
 {
     SYSTEM_ERROR = 0,
@@ -518,6 +526,10 @@ public:
     void		    SetMLevel(uint8 mlvl);		// уровень главной профессии
     void		    SetSLevel(uint8 slvl);		// уровень дополнительной профессии
 
+
+    void		    SetDeathType(uint8 type);		
+    uint8		    GetDeathType();		
+
     uint8		    GetHPP();					// количество hp в процентах
     int32           GetMaxHP();                 // максимальное количество hp
     uint8		    GetMPP();					// количество mp в процентах
@@ -653,7 +665,8 @@ public:
     time_point  	charmTime;					// to hold the time entity is charmed
     bool			isCharmed;					// is the battle entity charmed?
 
-    uint8			m_ModelSize;			    // размер модели сущности, для расчета дальности физической атаки
+    uint8			m_ModelSize;                // размер модели сущности, для расчета дальности физической атаки
+    DEATH_TYPE      m_DeathType;
     ECOSYSTEM		m_EcoSystem;			    // эко-система сущности
     CItemEquipment* m_Weapons[4];               // четыре основных ячейки, используемыж для хранения оружия (только оружия)
     bool            m_dualWield;                // True/false depending on if the entity is using two weapons
