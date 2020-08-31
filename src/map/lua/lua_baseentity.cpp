@@ -8033,6 +8033,30 @@ inline int32 CLuaBaseEntity::hideHP(lua_State* L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::getDeathType(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_PC);
+
+    lua_pushinteger(L, ((CBattleEntity*)m_PBaseEntity)->GetDeathType());
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::setDeathType(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    TPZ_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    auto value = (int32)lua_tointeger(L, 1);
+
+
+    ((CBattleEntity*)m_PBaseEntity)->SetDeathType(value);
+    return 0;
+}
+
 /************************************************************************
 *  Function: getMP()
 *  Purpose : Returns the current Mana Points of an entity
@@ -15287,6 +15311,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delHP),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,takeDamage),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hideHP),
+
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getDeathType),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, setDeathType),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getMP),
     // Got an MPP? Well, I then you don't know me...

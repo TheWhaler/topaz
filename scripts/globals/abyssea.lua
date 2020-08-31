@@ -22,6 +22,15 @@ tpz.abyssea.lightType =
     EBON    = 7,
 }
 
+tpz.abyssea.deathType =
+{
+	NONE = 0,
+	PHYSICAL = 1,
+	MAGICAL = 2,
+	WS_PHYSICAL = 3,
+	WS_MAGICAL = 4,
+}
+
 -- weaponskills for red weakness
 local redWeakness =
 {

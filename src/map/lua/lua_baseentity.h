@@ -374,6 +374,9 @@ public:
     int32 takeDamage(lua_State*);           // Takes damage from the provided attacker
     int32 hideHP(lua_State* L);
 
+    int32 getDeathType(lua_State*);                // Returns Death Type for Abyssea
+    int32 setDeathType(lua_State*);                // Sets Death Type for Abyssea
+
     int32 getMP(lua_State*);                // Gets MP of Entity
     int32 getMaxMP(lua_State*);             // Get max mp of entity
     int32 getBaseMP(lua_State*);            // Gets base MP before modifiers of Entity

@@ -84,6 +84,8 @@ CBattleEntity::CBattleEntity()
     m_Immunity = 0;
     isCharmed = false;
     m_unkillable = false;
+
+    m_DeathType = (DEATH_TYPE)0;
 }
 
 CBattleEntity::~CBattleEntity()
@@ -809,6 +811,16 @@ void CBattleEntity::SetSLevel(uint8 slvl)
     {
         Sql_Query(SqlHandle, "UPDATE char_stats SET slvl = %u WHERE charid = %u LIMIT 1;", m_slvl, this->id);
     }
+}
+
+void CBattleEntity::SetDeathType(uint8 type)
+{
+    m_DeathType = (DEATH_TYPE)type;
+}
+
+uint8 CBattleEntity::GetDeathType()
+{
+    return (uint8)m_DeathType;
 }
 
 /************************************************************************
