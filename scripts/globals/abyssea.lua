@@ -342,6 +342,8 @@ tpz.abyssea.qmOnTrade = function(player, npc, trade)
     local dz = player:getZPos() + math.random(-1, 1)
     GetMobByID(nm):setSpawn(dx, dy, dz)
     SpawnMob(nm):updateClaim(player)
+	
+	
     return true
 end
 
@@ -434,6 +436,8 @@ tpz.abyssea.qmOnEventFinish = function(player, csid, option)
         local dz = player:getZPos() + math.random(-1, 1)
         GetMobByID(nm):setSpawn(dx, dy, dz)
         SpawnMob(nm):updateClaim(player)
+		local mob = GetMobByID(nm)
+		GetMobByID(nm):setLocalVar(string.format("[AbyNm%sClaimedBy]", mob:getName()), player:getID())
         return true
     end
 end
