@@ -22,6 +22,13 @@ tpz.abyssea.lightType =
     EBON    = 7,
 }
 
+tpz.abyssea.triggerType = 
+{
+	RED = 0,
+	YELLOW = 1,
+	BLUE = 2
+}
+
 tpz.abyssea.deathType =
 {
 	NONE = 0,
@@ -243,8 +250,14 @@ end
 
 tpz.abyssea.canGiveNMKI = function(player, mob)
 	local playerId = mob:getLocalVar("[ClaimedBy]")
+	local redWeakness = mob:getLocalVar("[AbysseaRedProc]")
+	local dropChance = 70 --TODO: make this mob specific
+	if redWeakness == 1 then
+		dropChance = 0
+	end
+	
     if playerId == player:getID() then
-		if (math.random(1, 100) >= 70) then
+		if (math.random(1, 100) >= dropChance) then
 			return true
 		end
     end
@@ -302,7 +315,7 @@ tpz.abyssea.getNewYellowWeakness = function(mob)
 end
 
 tpz.abyssea.getNewRedWeakness = function(mob)
-    return redWeakness[math.random(#redWeakness)]
+    return 161
 end
 
 tpz.abyssea.getNewBlueWeakness = function(mob)
@@ -316,6 +329,40 @@ tpz.abyssea.getNewBlueWeakness = function(mob)
     end
 
     return blueWeakness[table][math.random(#blueWeakness[table])]
+end
+
+tpz.abyssea.procMonster = function(mob, player, triggerType)
+    if player and player:getAllegiance() == 1 then
+        local master = player:getMaster()
+        if master then
+            player = master
+        end
+		if triggerType == tpz.abyssea.triggerType.RED then
+			if mob:getLocalVar("[AbysseaRedProc]") == 0 then
+				mob:setLocalVar("[AbysseaRedProc]", 1)
+			else
+				mob:setLocalVar("[AbysseaRedProc]", 0)
+			end
+			mob:weaknessTrigger(2)
+			mob:addStatusEffect(tpz.effect.TERROR, 0, 0, 30)
+		elseif extensions == tpz.abyssea.triggerType.YELLOW then
+			if mob:getLocalVar("[AbysseaYellowProc]") == 0 then
+				mob:setLocalVar("[AbysseaYellowProc]", 1)
+			else
+				mob:setLocalVar("[AbysseaYellowProc]", 0)
+			end
+			mob:weaknessTrigger(1)
+			mob:addStatusEffect(tpz.effect.TERROR, 0, 0, 30)
+		elseif extensions == tpz.abyssea.triggerType.BLUE then
+			if mob:getLocalVar("[AbysseaBlueProc]") == 0 then
+				mob:setLocalVar("[AbysseaBlueProc]", 1)
+			else
+				mob:setLocalVar("[AbysseaBlueProc]", 0)
+			end
+			mob:weaknessTrigger(0)
+			mob:addStatusEffect(tpz.effect.TERROR, 0, 0, 30)
+		end
+    end
 end
 
 -- trade to QM to pop mob
