@@ -41,11 +41,8 @@ g_mixins.abyssea_weakness = function(mob)
 		end)
 
 		mob:addListener("WEAPONSKILL_TAKE", "ABYSSEA_WS_PROC_CHECK", function(target, user, wsid)
-			user:PrintToPlayer("checking proc")
 			if target:getLocalVar("[CanProc]") == 1 then
-				user:PrintToPlayer("checking wsid")
 				if wsid == target:getLocalVar("[RedWeakness]") then
-					user:PrintToPlayer("sending to trigger")
 					tpz.abyssea.procMonster(target, user, tpz.abyssea.triggerType.RED);
 				end
 			end
