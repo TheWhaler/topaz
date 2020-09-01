@@ -31,6 +31,8 @@ ENABLE_VOIDWATCH = 0 -- Not an expansion, but has its own storyline.
 ENABLE_FIELD_MANUALS  = 1 -- Enables Fields of Valor
 ENABLE_GROUNDS_TOMES  = 1 -- Enables Grounds of Valor
 REGIME_WAIT = 0 -- Make people wait till 00:00 game time as in retail. If it's 0, there is no wait time.
+FOV_REWARD_ALLIANCE = 0 -- Allow Fields of Valor rewards while being a member of an alliance. (default retail behavior: 0)
+GOV_REWARD_ALLIANCE = 1 -- Allow Grounds of Valor rewards while being a member of an alliance. (default retail behavior: 1)
 
 -- TREASURE CASKETS
 -- Retail droprate = 0.1 (10%) with no other effects active
@@ -74,6 +76,7 @@ EXP_RATE        = 1.000 -- Multiplies exp earned from fov and quests.
 FOV_RATE        = 0.000 -- Normal: 0.78
 FOV_GIL         = 1.000 -- Multiplies gil earned from fov. Normal: 1.0
 TABS_RATE       = 1.200 -- Multiplies tabs earned from fov.
+ROE_EXP_RATE    = 1.000 -- Multiplies exp earned from records of eminence.
 SPARKS_RATE     = 1.000 -- Multiplies sparks earned from records of eminence.
 CURE_POWER      = 1.000 -- Multiplies amount healed from Healing Magic, including the relevant Blue Magic.
 ELEMENTAL_POWER = 1.000 -- Multiplies damage dealt by Elemental and non-drain Dark Magic.
