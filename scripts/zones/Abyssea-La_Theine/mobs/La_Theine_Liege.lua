@@ -7,11 +7,12 @@ require("scripts/globals/keyitems")
 local ID = require("scripts/zones/Abyssea-La_Theine/IDs")
 -----------------------------------
 
-function onMobInitialize(mob)
+function onMobSpawn(mob)
 end
 
 function onMobDeath(mob, player, isKiller)
-    if (math.random(1, 100) >= 70) then
+    --compare using something like
+    if tpz.abyssea.canGiveNMKI(player, mob) then
         player:addKeyItem(tpz.ki.PELLUCID_FLY_EYE)
         player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.PELLUCID_FLY_EYE)
     end

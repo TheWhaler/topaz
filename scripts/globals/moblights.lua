@@ -514,13 +514,16 @@ local lightTypes =
 
 tpz.abyssea_mob.RemoveDeathListeners = function(mob)
     mob:removeListener("ABYSSEA_PHYSICAL_DEATH_CHECK")
-    mob:removeListener("ABYSSEA_ABILITY_DEATH_CHECK")
     mob:removeListener("ABYSSEA_MAGIC_DEATH_CHECK")
-    mob:removeListener("ABYSSEA_DEATH_NO_ACTION")
-    mob:removeListener("ABYSSEA_WS_DEATH_CHECK")
+    mob:removeListener("ABYSSEA_DEATH_LIGHTS_CHECK")
+    mob:removeListener("ABYSSEA_SPAWN")
 end
 
-tpz.abyssea_mob.AddDeathListeners = function(mob)
+tpz.abyssea_mob.AddDeathListeners = function(mob)	
+	mob:addListener("SPAWN", "ABYSSEA_SPAWN", function(mob)
+        mob:setDeathType(tpz.abyssea.deathType.NONE)
+    end)
+	
 	mob:addListener("MAGIC_TAKE", "ABYSSEA_MAGIC_DEATH_CHECK", function(target, caster, spell)
         if target:getHP() <= 0 and target:getDeathType() == tpz.abyssea.deathType.NONE then
 			target:setDeathType(tpz.abyssea.deathType.MAGICAL)
@@ -612,7 +615,7 @@ tpz.abyssea_mob.DropLights = function(killer, mobName, killType, mob)
             end
         else
             if ABYSSEA_LIGHTS_DROP_RATE > 10 then
-                dropRate = math.floor(ABYSSEA_LIGHTS_DROP_RATE /4)
+                dropRate = math.floor(ABYSSEA_LIGHTS_DROP_RATE /2)
             end
         end
     end

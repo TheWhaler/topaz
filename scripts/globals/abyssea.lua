@@ -241,6 +241,17 @@ tpz.abyssea.getAbyssiteTotal = function(player, abyssite)
     end
 end
 
+tpz.abyssea.canGiveNMKI = function(player, mob)
+	local playerId = mob:getLocalVar("[ClaimedBy]")
+    if playerId == player:getID() then
+		if (math.random(1, 100) >= 70) then
+			return true
+		end
+    end
+	
+	return false
+end
+
 -- returns total value of Demulune KeyItems
 tpz.abyssea.getDemiluneAbyssite = function(player)
     local demilune = 0
@@ -341,8 +352,10 @@ tpz.abyssea.qmOnTrade = function(player, npc, trade)
     local dy = player:getYPos()
     local dz = player:getZPos() + math.random(-1, 1)
     GetMobByID(nm):setSpawn(dx, dy, dz)
-    SpawnMob(nm):updateClaim(player)
 	
+	SpawnMob(nm):updateClaim(player)
+	local mob = GetMobByID(nm)
+	GetMobByID(nm):setLocalVar("[ClaimedBy]", player:getID())
 	
     return true
 end
@@ -437,7 +450,8 @@ tpz.abyssea.qmOnEventFinish = function(player, csid, option)
         GetMobByID(nm):setSpawn(dx, dy, dz)
         SpawnMob(nm):updateClaim(player)
 		local mob = GetMobByID(nm)
-		GetMobByID(nm):setLocalVar(string.format("[AbyNm%sClaimedBy]", mob:getName()), player:getID())
+		GetMobByID(nm):setLocalVar("[ClaimedBy]", player:getID())
+	
         return true
     end
 end
