@@ -315,7 +315,7 @@ tpz.abyssea.getNewYellowWeakness = function(mob)
 end
 
 tpz.abyssea.getNewRedWeakness = function(mob)
-    return redWeakness[math.random(#redWeakness]
+    return redWeakness[math.random(#redWeakness)]
 end
 
 tpz.abyssea.getNewBlueWeakness = function(mob)
