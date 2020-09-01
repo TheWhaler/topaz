@@ -521,6 +521,8 @@ end
 
 tpz.abyssea_mob.AddDeathListeners = function(mob)	
 	mob:addListener("SPAWN", "ABYSSEA_SPAWN", function(mob)
+		tpz.abyssea_mob.RemoveDeathListeners(mob)
+		tpz.abyssea_mob.AddDeathListeners(mob)
         mob:setDeathType(tpz.abyssea.deathType.NONE)
     end)
 	
@@ -642,7 +644,4 @@ tpz.abyssea_mob.DropLights = function(killer, mobName, killType, mob)
             end
         end
     end
-	
-	tpz.abyssea_mob.RemoveDeathListeners(mob)
-	tpz.abyssea_mob.AddDeathListeners(mob)
 end
