@@ -254,14 +254,9 @@ tpz.abyssea.canGiveNMKI = function(player, mob, dropChance)
 	if redWeakness == 1 then
 		dropChance = 0
 	end
-	player:PrintToPlayer(dropChance)
 	
-    if playerId == player:getID() then
-		player:PrintToPlayer("hello")
-    
+    if playerId == player:getID() then    
 		if (math.random(1, 100) >= dropChance) then
-					player:PrintToPlayer("hello2")
-
 			return true
 		end
     end
@@ -282,9 +277,7 @@ tpz.abyssea.giveNMDrops = function(mob, player, ID)
 	end
 	
 	for k, v in pairs(atmaDrops) do
-		player:PrintToPlayer("atmas!")
 		if tpz.abyssea.canGiveNMKI(player, mob, 100) then
-			player:PrintToPlayer("giving item")	
 			player:addKeyItem(v)
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED, v)			
 		end
@@ -341,7 +334,7 @@ tpz.abyssea.getNewYellowWeakness = function(mob)
 end
 
 tpz.abyssea.getNewRedWeakness = function(mob)
-    return 161
+    return redWeakness[math.random(#redWeakness)]
 end
 
 tpz.abyssea.getNewBlueWeakness = function(mob)
