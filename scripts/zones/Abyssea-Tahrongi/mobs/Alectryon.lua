@@ -11,8 +11,4 @@ function onMobInitialize(mob)
 end
 
 function onMobDeath(mob, player, isKiller)
-    if (math.random(1, 100) >= 70) then
-        player:addKeyItem(tpz.ki.FAT_LINED_COCKATRICE_SKIN)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.FAT_LINED_COCKATRICE_SKIN)
-    end
 end

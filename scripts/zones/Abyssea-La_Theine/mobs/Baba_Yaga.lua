@@ -11,8 +11,4 @@ function onMobInitialize(mob)
 end
 
 function onMobDeath(mob, player, isKiller)
-    if (math.random(1, 100) >= 70) then
-        player:addKeyItem(tpz.ki.SHIMMERING_PIXIE_PINION)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.SHIMMERING_PIXIE_PINION)
-    end
 end

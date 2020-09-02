@@ -248,21 +248,47 @@ tpz.abyssea.getAbyssiteTotal = function(player, abyssite)
     end
 end
 
-tpz.abyssea.canGiveNMKI = function(player, mob)
+tpz.abyssea.canGiveNMKI = function(player, mob, dropChance)
 	local playerId = mob:getLocalVar("[ClaimedBy]")
 	local redWeakness = mob:getLocalVar("[AbysseaRedProc]")
-	local dropChance = 70 --TODO: make this mob specific
 	if redWeakness == 1 then
 		dropChance = 0
 	end
+	player:PrintToPlayer(dropChance)
 	
     if playerId == player:getID() then
+		player:PrintToPlayer("hello")
+    
 		if (math.random(1, 100) >= dropChance) then
+					player:PrintToPlayer("hello2")
+
 			return true
 		end
     end
 	
 	return false
+end
+
+tpz.abyssea.giveNMDrops = function(mob, player, ID)
+	local redWeakness = mob:getLocalVar("[AbysseaRedProc]")
+	local atmaDrops = ID.mob[mob:getID()]['Atma']
+	local normalDrops = ID.mob[mob:getID()]['Normal']
+	
+	for k, v in pairs(normalDrops) do
+		if tpz.abyssea.canGiveNMKI(player, mob, 70) then
+			player:addKeyItem(v)
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED, v)			
+		end
+	end
+	
+	for k, v in pairs(atmaDrops) do
+		player:PrintToPlayer("atmas!")
+		if tpz.abyssea.canGiveNMKI(player, mob, 100) then
+			player:PrintToPlayer("giving item")	
+			player:addKeyItem(v)
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED, v)			
+		end
+	end
 end
 
 -- returns total value of Demulune KeyItems
@@ -315,7 +341,7 @@ tpz.abyssea.getNewYellowWeakness = function(mob)
 end
 
 tpz.abyssea.getNewRedWeakness = function(mob)
-    return redWeakness[math.random(#redWeakness)]
+    return 161
 end
 
 tpz.abyssea.getNewBlueWeakness = function(mob)

@@ -92,6 +92,33 @@ zones[tpz.zone.ABYSSEA_KONSCHTAT] =
     },
     mob =
     {
+		[16838751] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.FRAGRANT_TREANT_PETAL}},
+		[16838855] = {['Atma'] = {tpz.keyItem.ATMA_OF_THRASHING_TENDRILS}, ['Normal']= {tpz.keyItem.FETID_RAFFLESIA_STALK}},
+		[16838946] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.DECAYING_MORBOL_TOOTH}},
+		[16838913] = {['Atma'] = {tpz.keyItem.ATMA_OF_VICISSITUDE}, ['Normal']= {tpz.keyItem.TURBID_SLIME_OIL}},
+		[16838872] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_NOXIOUS_FANG}, ['Normal']= {tpz.keyItem.VENOMOUS_PEISTE_CLAW}},
+		[16839070] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_NOXIOUS_FANG}, ['Normal']= {tpz.keyItem.VENOMOUS_PEISTE_CLAW}},
+		[16839073] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_NOXIOUS_FANG}, ['Normal']= {tpz.keyItem.VENOMOUS_PEISTE_CLAW}},
+		[16839067] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.TWISTED_TONBERRY_CROWN}},
+		[16838979] = {['Atma'] = {tpz.keyItem.ATMA_OF_GALES}, ['Normal']= {tpz.keyItem.TATTERED_HIPPOGRYPH_WING}},
+		[16838871] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.CRACKED_WIVRE_HORN}},
+		[16838993] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.MUCID_AHRIMAN_EYEBALL}},
+		[16839006] = {['Atma'] = {tpz.keyItem.ATMA_OF_STORMBREATH}, ['Normal']= {}},
+		[16839068] = {['Atma'] = {tpz.keyItem.ATMA_OF_CLOAK_AND_DAGGER}, ['Normal']= {}},
+		[16839071] = {['Atma'] = {tpz.keyItem.ATMA_OF_CLOAK_AND_DAGGER}, ['Normal']= {}},
+		[16839074] = {['Atma'] = {tpz.keyItem.ATMA_OF_CLOAK_AND_DAGGER}, ['Normal']= {}},
+		[16839007] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_VORACIOUS_VIOLET}, ['Normal']= {}},
+		[16839069] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_VORACIOUS_VIOLET}, ['Normal']= {}},
+		[16839072] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_VORACIOUS_VIOLET}, ['Normal']= {}},
+		[16839033] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_THE_REAPER}, ['Normal']= {}},
+		[16838820] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_DRIFTER}, ['Normal']= {}},
+		[16838674] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[16838675] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[16838676] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[16838677] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[16838678] = {['Atma'] = {tpz.keyItem.AZURE_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[16838668] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_STORMBIRD}, ['Normal']= {}},
+
     },
     npc =
     {

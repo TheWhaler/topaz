@@ -11,9 +11,4 @@ function onMobSpawn(mob)
 end
 
 function onMobDeath(mob, player, isKiller)
-    --compare using something like
-    if tpz.abyssea.canGiveNMKI(player, mob) then
-        player:addKeyItem(tpz.ki.PELLUCID_FLY_EYE)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.PELLUCID_FLY_EYE)
-    end
 end
