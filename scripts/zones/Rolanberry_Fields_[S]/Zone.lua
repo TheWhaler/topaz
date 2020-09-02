@@ -7,6 +7,22 @@ local ID = require("scripts/zones/Rolanberry_Fields_[S]/IDs")
 -----------------------------------
 
 function onInitialize(zone)
+	local zoneUsed = GetServerVariable("[DIZone]")
+
+	-- dark ixion
+	if zoneUsed ~= 91 then
+		DisallowRespawn(17150321, true)
+	else
+		local popTime = GetServerVariable("[DIPop]")
+		local nm = GetMobByID(17150321)
+		if popTime ~= 0 then
+			nm:setRespawnTime(popTime - os.time())
+		else
+			local respawnTime = math.random(72000, 86400) -- 20 to 24 hr
+            SetServerVariable("[DIPop]", respawnTime + os.time())
+            nm:setRespawnTime(respawnTime)
+		end
+	end
 end
 
 function onZoneIn(player, prevZone)

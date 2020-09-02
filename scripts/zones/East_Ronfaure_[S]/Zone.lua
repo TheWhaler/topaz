@@ -14,6 +14,24 @@ function onInitialize(zone)
     GetMobByID(ID.mob.MYRADROSH):setRespawnTime(math.random(5400, 7200))
 
     tpz.helm.initZone(zone, tpz.helm.type.LOGGING)
+	
+	local zoneUsed = GetServerVariable("[DIZone]")
+
+	-- dark ixion
+	if zoneUsed ~= 81 then
+		DisallowRespawn(17109367, true)
+	else
+		local popTime = GetServerVariable("[DIPop]")
+		local nm = GetMobByID(17109367)
+		if popTime ~= 0 then
+			nm:setRespawnTime(popTime - os.time())
+		else
+			printf("spawning")
+			local respawnTime = 1000 -- 20 to 24 hr
+            SetServerVariable("[DIPop]", respawnTime + os.time())
+            nm:setRespawnTime(respawnTime)
+		end
+	end
 end
 
 function onZoneIn(player, prevZone)
