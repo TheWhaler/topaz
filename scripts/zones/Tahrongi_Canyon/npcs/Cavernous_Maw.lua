@@ -22,7 +22,7 @@ function onTrigger(player, npc)
             player:startEvent(9)
         else
             if canEnterAbyssea(player) then
-                player:startEvent(218,0,1) -- No param = no entry.
+                player:startEvent(100,0,1) -- No param = no entry.
             end 
 		end
     else
