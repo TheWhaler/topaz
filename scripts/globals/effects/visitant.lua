@@ -31,7 +31,7 @@ function onEffectTick(target, effect)
 end
 
 function onEffectLose(target,effect)
-    if target:getGMLevel() <= 1 and isInAbysseaZone(target) then
+    if isInAbysseaZone(target) then
         target:setCharVar("lastEnteredAbyssea", os.time() + 14400)
 		target:delStatusEffect(tpz.effect.DEDICATION)
         target:warp()
