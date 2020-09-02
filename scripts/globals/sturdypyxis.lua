@@ -318,7 +318,7 @@ function GetPyxisID(player)
     local baseChestId = ID.npc.Sturdy_Pyxis_Base
     local chestId     = 0
 
-    for i = baseChestId, baseChestId + 79 do
+	for i = baseChestId, baseChestId + 79 do
         if timeElapsedCheck(GetNPCByID(i)) then
             if GetNPCByID(i):getStatus() == tpz.status.DISAPPEAR then
                 chestId = i
@@ -326,6 +326,17 @@ function GetPyxisID(player)
             end
         end
     end
+	
+	if chestId == 0 then
+		for i = baseChestId, baseChestId + 79 do
+			if timeElapsedCheck(GetNPCByID(i)) then
+				if GetNPCByID(i):getStatus() == tpz.status.CUTSCENE_ONLY then
+					GetNPCByID(i):setStatus(tpz.status.DISAPPEAR)
+					break
+				end
+			end
+		end
+	end
 
     if GetNPCByID(chestId) == nil then
         return 0
