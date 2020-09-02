@@ -1,13 +1,12 @@
 -----------------------------------
 -- Zone: Abyssea - La-Theine
---  NPC: Atma Fabricant
+--  NPC: Exoroche
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end
 
 function onTrigger(player,npc)
-    player:startEvent(2182)
 end
 
 function onEventUpdate(player,csid,option)
