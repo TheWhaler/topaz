@@ -12,6 +12,23 @@ require("scripts/globals/helm")
 function onInitialize(zone)
     tpz.helm.initZone(zone, tpz.helm.type.LOGGING)
     tpz.chocobo.initZone(zone)
+	
+	local zoneUsed = GetServerVariable("[DIZone]")
+
+	-- dark ixion
+	if zoneUsed ~= 82 then
+		DisallowRespawn(17113468, true)
+	else
+		local popTime = GetServerVariable("[DIPop]")
+		local nm = GetMobByID(17113468)
+		if popTime ~= 0 then
+			nm:setRespawnTime(popTime - os.time())
+		else
+			local respawnTime = math.random(72000, 86400) -- 20 to 24 hr
+            SetServerVariable("[DIPop]", respawnTime + os.time())
+            nm:setRespawnTime(respawnTime)
+		end
+	end
 end
 
 function onZoneIn(player, prevZone)

@@ -11,6 +11,23 @@ require("scripts/globals/helm")
 
 function onInitialize(zone)
     tpz.helm.initZone(zone, tpz.helm.type.HARVESTING)
+	
+	local zoneUsed = GetServerVariable("[DIZone]")
+	
+	-- dark ixion
+	if zoneUsed ~= 89 then
+		DisallowRespawn(17142112, true)
+	else
+		local popTime = GetServerVariable("[DIPop]")
+		local nm = GetMobByID(17142112)
+		if popTime ~= 0 then
+			nm:setRespawnTime(popTime - os.time())
+		else
+			local respawnTime = math.random(72000, 86400) -- 20 to 24 hr
+            SetServerVariable("[DIPop]", respawnTime + os.time())
+            nm:setRespawnTime(respawnTime)
+		end
+	end
 end
 
 function onZoneIn(player, prevZone)
