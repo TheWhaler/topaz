@@ -11,9 +11,4 @@ function onMobInitialize(mob)
 end
 
 function onMobDeath(mob, player, isKiller)
-    --compare using something like
-    if tpz.abyssea.canGiveNMKI(player, mob) then
-        player:addKeyItem(tpz.ki.SHIMMERING_PIXIE_PINION)
-        player:messageSpecial(ID.text.KEYITEM_OBTAINED, tpz.ki.SHIMMERING_PIXIE_PINION)
-    end
 end

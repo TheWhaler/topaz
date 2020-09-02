@@ -8,7 +8,6 @@ require("scripts/globals/status")
 g_mixins = g_mixins or {}
 
 g_mixins.abyssea_weakness = function(mob)
-		
 	if mob:isNM() then
 		mob:addListener("SPAWN", "ABYSSEA_WEAKNESS_SPAWN", function(mob)
 			mob:setLocalVar("[CanProc]", "1")
@@ -18,6 +17,13 @@ g_mixins.abyssea_weakness = function(mob)
 			mob:setLocalVar("[AbysseaRedProc]", 0)
 			mob:setLocalVar("[AbysseaYellowProc]", 0)
 			mob:setLocalVar("[AbysseaBlueProc]", 0)
+		end)
+		
+		mob:addListener("ATTACKED", "ATTACKED_ABYSSEA_CHECK_CLAIM", function(mob, player, action)
+			local claimed = mob:getLocalVar("[ClaimedBy]")
+			if claimed == 0 then
+				mob:setLocalVar("[ClaimedBy]", player:getID())
+			end
 		end)
 		
 		mob:addListener("MAGIC_START", "ABYSSEA_MAGIC_START_CANT_PROC", function(mob)
@@ -46,6 +52,12 @@ g_mixins.abyssea_weakness = function(mob)
 					tpz.abyssea.procMonster(target, user, tpz.abyssea.triggerType.RED);
 				end
 			end
+		end)
+		
+		mob:addListener("DEATH", "ABYSSEA_DEATH_NM_KI_DROPCHECK", function(mob, player)
+			local zoneName = string.gsub(mob:getZoneName(), " ", "_")
+			local ID = require(string.format("scripts/zones/%s/IDs", zoneName))
+			tpz.abyssea.giveNMDrops(mob, player, ID)
 		end)
 	end
 end

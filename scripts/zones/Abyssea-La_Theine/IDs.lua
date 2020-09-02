@@ -91,7 +91,31 @@ zones[tpz.zone.ABYSSEA_LA_THEINE] =
         USE_KI                      = 7576, -- Use the <item><0/1>[key item/key items]
     },
     mob =
-    {
+    {			
+		[17318435] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.MARBLED_MUTTON_CHOP}},
+		[17318436] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.BLOODIED_SABER_TOOTH}},
+		[17318446] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_STOUT_ARM}, ['Normal']= {tpz.keyItem.BLOOD_SMEARED_GIGAS_HELM}},
+		[17318456] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_STOUT_ARM}, ['Normal']= {tpz.keyItem.BLOOD_SMEARED_GIGAS_HELM}},
+		[17318459] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_STOUT_ARM}, ['Normal']= {tpz.keyItem.BLOOD_SMEARED_GIGAS_HELM}},
+		[17318440] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.PELLUCID_FLY_EYE}},
+		[17318441] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.SHIMMERING_PIXIE_PINION}},
+		[17318438] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.WARPED_GIGAS_ARMBAND}},
+		[17318439] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.SEVERED_GIGAS_COLLAR}},
+		[17318437] = {['Atma'] = {}, ['Normal']= {tpz.keyItem.DENTED_GIGAS_SHIELD}},
+		[17318447] = {['Atma'] = {tpz.keyItem.ATMA_OF_ALLURE}, ['Normal']= {tpz.keyItem.GLITTERING_PIXIE_CHOKER}},
+		[17318457] = {['Atma'] = {tpz.keyItem.ATMA_OF_ALLURE}, ['Normal']= {tpz.keyItem.GLITTERING_PIXIE_CHOKER}},
+		[17318460] = {['Atma'] = {tpz.keyItem.ATMA_OF_ALLURE}, ['Normal']= {tpz.keyItem.GLITTERING_PIXIE_CHOKER}},
+		[17318451] = {['Atma'] = {tpz.keyItem.SCARLET_ABYSSITE_OF_PERSPICACITY}, ['Normal']= {}},
+		[17318434] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_EBON_HOOF}, ['Normal']= {}},
+		[17318448] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_LION}, ['Normal']= {}},
+		[17318458] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_LION}, ['Normal']= {}},
+		[17318461] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_LION}, ['Normal']= {}},
+		[17317898] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_TWIN_CLAW}, ['Normal']= {}},
+		[17318445] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_BAYING_MOON}, ['Normal']= {}},
+		[17318449] = {['Atma'] = {tpz.keyItem.SCARLET_ABYSSITE_OF_LENITY}, ['Normal']= {}},
+		[17318450] = {['Atma'] = {tpz.keyItem.ATMA_OF_TREMORS}, ['Normal']= {}},
+		[17318436] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_SAVAGE_TIGER}, ['Normal']= {}},
+		[17318455] = {['Atma'] = {tpz.keyItem.ATMA_OF_THE_HEAVENS, tpz.keyItem.SCARLET_ABYSSITE_OF_SOJOURN}, ['Normal']= {}},
     },
     npc =
     {
