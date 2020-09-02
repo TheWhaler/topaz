@@ -1,5 +1,5 @@
 -----------------------------------
--- Zone: Abyssea - Konschtat
+-- Zone: Abyssea - Tahrongi
 --  NPC: Atma Fabricant
 -----------------------------------
 
