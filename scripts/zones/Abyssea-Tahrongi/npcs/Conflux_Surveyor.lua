@@ -1,5 +1,5 @@
 -----------------------------------
--- Zone: Abyssea - Konschtat
+-- Zone: Abyssea - Tahrongi
 --  NPC: Conflux Surveyor
 -----------------------------------
 require("scripts/globals/settings")

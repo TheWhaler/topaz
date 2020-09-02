@@ -1,10 +1,9 @@
 -----------------------------------
--- Area: Abyssea - Konschtat
+-- Area: Abyssea - La-Theine
 --  NPC: Cruor Prospector
 -- Type: Cruor NPC
--- !pos 132.000 -75.856 -822.000 15
 -----------------------------------
-local ID = require("scripts/zones/Abyssea-Konschtat/IDs")
+local ID = require("scripts/zones/Abyssea-La_Theine/IDs")
 require("scripts/globals/keyitems")
 require("scripts/globals/settings")
 require("scripts/globals/abyssea")

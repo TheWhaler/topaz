@@ -1,9 +1,9 @@
 -----------------------------------
--- Area: Abyssea - Konschtat
+-- Area: Abyssea - Tahrongi
 --  NPC: Cruor Prospector
 -- Type: Cruor NPC
 -----------------------------------
-local ID = require("scripts/zones/Abyssea-Konschtat/IDs")
+local ID = require("scripts/zones/Abyssea-Tahrongi/IDs")
 require("scripts/globals/keyitems")
 require("scripts/globals/settings")
 require("scripts/globals/abyssea")

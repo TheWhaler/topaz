@@ -1,5 +1,5 @@
 -----------------------------------
--- Zone: Abyssea - Konschtat
+-- Zone: Abyssea - La-Theine
 --  NPC: Atma Fabricant
 -----------------------------------
 

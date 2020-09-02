@@ -1,13 +1,12 @@
 -----------------------------------
 -- Zone: Abyssea - Konschtat
---  NPC: Atma Fabricant
+--  NPC: Naji
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end
 
 function onTrigger(player,npc)
-    player:startEvent(2182)
 end
 
 function onEventUpdate(player,csid,option)
