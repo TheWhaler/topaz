@@ -294,7 +294,7 @@ tpz.pyxis.data =
 -- Desc: Check for time elapsed since last spawned
 -- NOTE: will NOT allow a spawn if time since last spanwed is under 5 mins.
 ---------------------------------------------------------------------------------------------
-local function timeElapsedCheck(npc)
+local function timeElapsedCheck(npc, player)
     local spawnTime = os.time() + 180000 -- defualt time in case no var set.
     local timeTable = {0, 0, 0}          -- HOURS,MINUTES,SECONDS.
 
@@ -305,7 +305,12 @@ local function timeElapsedCheck(npc)
     if npc:getLocalVar("[pyxis]SPAWNTIME") > 0 then
         spawnTime = npc:getLocalVar("[pyxis]SPAWNTIME")
     end
-
+	
+	--if player:getName() == "Berthier" then
+		--player:PrintToPlayer("ostime = %s spawntime = %s result = %s", os.time(), spawnTime, (os.time() - spawnTime))
+	--end
+	
+	
     if os.time() - spawnTime <= 0 then
         return true
     end
@@ -318,8 +323,11 @@ function GetPyxisID(player)
     local baseChestId = ID.npc.Sturdy_Pyxis_Base
     local chestId     = 0
 
-	for i = baseChestId, baseChestId + 79 do
-        if timeElapsedCheck(GetNPCByID(i)) then
+    for i = baseChestId, baseChestId + 79 do
+		--if player:getName() == "Berthier" then
+			--player:PrintToPlayer(baseChestId + i)
+		--end
+        if timeElapsedCheck(GetNPCByID(i), player) then
             if GetNPCByID(i):getStatus() == tpz.status.DISAPPEAR then
                 chestId = i
                 break
@@ -327,17 +335,20 @@ function GetPyxisID(player)
         end
     end
 	
+	--if player:getName() == "Berthier" then
+		--player:PrintToPlayer(chestId)
+	--end
+	
 	if chestId == 0 then
 		for i = baseChestId, baseChestId + 79 do
-			if timeElapsedCheck(GetNPCByID(i)) then
-				if GetNPCByID(i):getStatus() == tpz.status.CUTSCENE_ONLY then
-					GetNPCByID(i):setStatus(tpz.status.DISAPPEAR)
-					break
-				end
+			if GetNPCByID(i):getStatus() == tpz.status.CUTSCENE_ONLY then
+				GetNPCByID(i):setStatus(tpz.status.DISAPPEAR)
+			elseif GetNPCByID(i):getStatus() == tpz.status.DISAPPEAR then
+				GetNPCByID(i):setLocalVar("[pyxis]SPAWNTIME", (os.time() + 180000)) 
 			end
 		end
 	end
-
+	
     if GetNPCByID(chestId) == nil then
         return 0
     end
@@ -348,7 +359,6 @@ end
 local function CanSpawnPyxis(player)
     local pearl  = player:getCharVar("pearlLight")
     local dropchance = math.random(1 + pearl, 500) 
-
     if dropchance >= 250 then
         return true
     end
@@ -359,7 +369,9 @@ end
 tpz.pyxis.spawnPyxis = function(player, x, y, z, r)
     local chestId = GetPyxisID(player)
     local npc     = GetNPCByID(chestId)
-
+	--if player:getName() == "Berthier" then
+		--player:PrintToPlayer(chestId)
+	--end
     if chestId == 0 then
         return
     end
@@ -2234,10 +2246,10 @@ function RemoveChest(player, npc, addcruor, delay)
  
     npc:timer(delay * 1000, function(npc)
         npc:AnimationSub(12)
+		npc:setNpcFlags(3203, npc:getID())
+		npc:setLocalVar("SPAWNSTATUS",0)
+		npc:setStatus(tpz.status.DISAPPEAR)
         npc:entityAnimationPacket("kesu")
-        npc:setNpcFlags(3203, npc:getID())
-        npc:setLocalVar("SPAWNSTATUS",0)
-        npc:setStatus(tpz.status.DISAPPEAR)
         end)
 end
 

@@ -11,9 +11,117 @@ require("scripts/globals/status")
 tpz = tpz or {}
 tpz.atma = tpz.atma or {}
 
-local ATMA_OFFSET = tpz.ki.ATMA_OF_THE_LION - 1
+tpz.atma.ATMA_OFFSET = tpz.ki.ATMA_OF_THE_LION - 1
+tpz.atma.ATMA_OFFSET2 = tpz.ki.ATMA_OF_THE_HEIR - 1
 
-local atmaMods =
+
+tpz.atma.atmaList =
+{
+    -- GROUP 1
+    [tpz.ki.ATMA_OF_THE_LION]                   =    "ATMA OF THE LION                        ",                                      
+    [tpz.ki.ATMA_OF_THE_STOUT_ARM]              =    "ATMA OF THE STOUT ARM                   ",        
+    [tpz.ki.ATMA_OF_THE_TWIN_CLAW]              =    "ATMA OF THE TWIN CLAW                   ",        
+    [tpz.ki.ATMA_OF_ALLURE]                     =    "ATMA OF ALLURE                          ",               
+    [tpz.ki.ATMA_OF_ETERNITY]                   =    "ATMA OF ETERNITY                        ",             
+    [tpz.ki.ATMA_OF_THE_HEAVENS]                =    "ATMA OF THE HEAVENS                     ",          
+    [tpz.ki.ATMA_OF_THE_BAYING_MOON]            =    "ATMA OF THE BAYING MOON                 ",      
+    [tpz.ki.ATMA_OF_THE_EBON_HOOF]              =    "ATMA OF THE EBON HOOF                   ",        
+    [tpz.ki.ATMA_OF_TREMORS]                    =    "ATMA OF TREMORS                         ",              
+    [tpz.ki.ATMA_OF_THE_SAVAGE_TIGER]           =    "ATMA OF THE SAVAGE TIGER                ",     
+    [tpz.ki.ATMA_OF_THE_VORACIOUS_VIOLET]       =    "ATMA OF THE VORACIOUS VIOLET            ", 
+    [tpz.ki.ATMA_OF_CLOAK_AND_DAGGER]           =    "ATMA OF CLOAK AND DAGGER                ",     
+    [tpz.ki.ATMA_OF_THE_STORMBIRD]              =    "ATMA OF THE STORMBIRD                   ",        
+    [tpz.ki.ATMA_OF_THE_NOXIOUS_FANG]           =    "ATMA OF THE NOXIOUS FANG                ",     
+    [tpz.ki.ATMA_OF_VICISSITUDE]                =    "ATMA OF VICISSITUDE                     ",          
+    [tpz.ki.ATMA_OF_THE_BEYOND]                 =    "ATMA OF THE BEYOND                      ",           
+    [tpz.ki.ATMA_OF_STORMBREATH]                =    "ATMA OF STORMBREATH                     ",          
+    [tpz.ki.ATMA_OF_GALES]                      =    "ATMA OF GALES                           ",                
+    [tpz.ki.ATMA_OF_THRASHING_TENDRILS]         =    "ATMA OF THRASHING TENDRILS              ",   
+    [tpz.ki.ATMA_OF_THE_DRIFTER]                =    "ATMA OF THE DRIFTER                   ",          
+    [tpz.ki.ATMA_OF_THE_STRONGHOLD]             =    "ATMA OF THE STRONGHOLD                ",       
+    [tpz.ki.ATMA_OF_THE_HARVESTER]              =    "ATMA OF THE HARVESTER                    ",        
+    [tpz.ki.ATMA_OF_DUNES]                      =    "ATMA OF DUNES                            ",                
+    [tpz.ki.ATMA_OF_THE_COSMOS]                 =    "ATMA OF THE COSMOS                    ",           
+    [tpz.ki.ATMA_OF_THE_SIREN_SHADOW]           =    "ATMA OF THE SIREN SHADOW                ",     
+    [tpz.ki.ATMA_OF_THE_IMPALER]                =    "ATMA OF THE IMPALER                    ",          
+    [tpz.ki.ATMA_OF_THE_ADAMANTINE]             =    "ATMA OF THE ADAMANTINE                ",       
+    [tpz.ki.ATMA_OF_CALAMITY]                   =    "ATMA OF CALAMITY                        ",             
+    [tpz.ki.ATMA_OF_THE_CLAW]                   =    "ATMA OF THE CLAW                        ",             
+    [tpz.ki.ATMA_OF_BALEFUL_BONES]              =    "ATMA OF BALEFUL BONES                    ",        
+    [tpz.ki.ATMA_OF_THE_CLAWED_BUTTERFLY]       =    "ATMA OF THE CLAWED BUTTERFLY            ", 
+    [tpz.ki.ATMA_OF_THE_DESERT_WORM]            =    "ATMA OF THE DESERT WORM                ",      
+    [tpz.ki.ATMA_OF_THE_UNDYING]                =    "ATMA OF THE UNDYING                    ",          
+    [tpz.ki.ATMA_OF_THE_IMPREGNABLE_TOWER]      =    "ATMA OF THE IMPREGNABLE TOWER            ",
+    [tpz.ki.ATMA_OF_THE_SMOLDERING_SKY]         =    "ATMA OF THE SMOLDERING SKY            ",   
+    [tpz.ki.ATMA_OF_THE_DEMONIC_SKEWER]         =    "ATMA OF THE DEMONIC SKEWER            ",   
+    [tpz.ki.ATMA_OF_THE_GOLDEN_CLAW]            =    "ATMA OF THE GOLDEN CLAW                ",      
+    [tpz.ki.ATMA_OF_THE_GLUTINOUS_OOZE]         =    "ATMA OF THE GLUTINOUS OOZE            ",   
+    [tpz.ki.ATMA_OF_THE_LIGHTNING_BEAST]        =    "ATMA OF THE LIGHTNING BEAST            ",  
+    [tpz.ki.ATMA_OF_THE_NOXIOUS_BLOOM]          =    "ATMA OF THE NOXIOUS BLOOM                ",    
+    [tpz.ki.ATMA_OF_THE_GNARLED_HORN]           =    "ATMA OF THE GNARLED HORN                ",     
+    [tpz.ki.ATMA_OF_THE_STRANGLING_WIND]        =    "ATMA OF THE STRANGLING WIND            ",  
+    [tpz.ki.ATMA_OF_THE_DEEP_DEVOURER]          =    "ATMA OF THE DEEP DEVOURER                ",    
+    [tpz.ki.ATMA_OF_THE_MOUNTED_CHAMPION]       =    "ATMA OF THE MOUNTED CHAMPION            ", 
+    [tpz.ki.ATMA_OF_THE_RAZED_RUINS]            =    "ATMA OF THE RAZED RUINS                ",      
+    [tpz.ki.ATMA_OF_THE_BLUDGEONING_BRUTE]      =    "ATMA OF THE BLUDGEONING BRUTE            ",
+    [tpz.ki.ATMA_OF_THE_RAPID_REPTILIAN]        =    "ATMA OF THE RAPID REPTILIAN            ",  
+    [tpz.ki.ATMA_OF_THE_WINGED_ENIGMA]          =    "ATMA OF THE WINGED ENIGMA                ",    
+    [tpz.ki.ATMA_OF_THE_CRADLE]                 =    "ATMA OF THE CRADLE                    ",           
+    [tpz.ki.ATMA_OF_THE_UNTOUCHED]              =    "ATMA OF THE UNTOUCHED                    ",        
+    [tpz.ki.ATMA_OF_THE_SANGUINE_SCYTHE]        =    "ATMA OF THE SANGUINE SCYTHE            ",  
+    [tpz.ki.ATMA_OF_THE_TUSKED_TERROR]          =    "ATMA OF THE TUSKED TERROR                ",    
+    [tpz.ki.ATMA_OF_THE_MINIKIN_MONSTROSITY]    =    "ATMA OF THE MINIKIN MONSTROSITY        ",
+    [tpz.ki.ATMA_OF_THE_WOULD_BE_KING]          =    "ATMA OF THE WOULD BE KING                ",    
+    [tpz.ki.ATMA_OF_THE_BLINDING_HORN]          =    "ATMA OF THE BLINDING HORN                ",    
+    [tpz.ki.ATMA_OF_THE_DEMONIC_LASH]           =    "ATMA OF THE DEMONIC LASH                ",     
+    [tpz.ki.ATMA_OF_APPARITIONS]                =    "ATMA OF APPARITIONS                    ",          
+    [tpz.ki.ATMA_OF_THE_SHIMMERING_SHELL]       =    "ATMA OF THE SHIMMERING SHELL            ", 
+    [tpz.ki.ATMA_OF_THE_MURKY_MIASMA]           =    "ATMA OF THE MURKY MIASMA                ",     
+    [tpz.ki.ATMA_OF_THE_AVARICIOUS_APE]         =    "ATMA OF THE AVARICIOUS APE            ",   
+    [tpz.ki.ATMA_OF_THE_MERCILESS_MATRIARCH]    =    "ATMA OF THE MERCILESS MATRIARCH        ",
+    [tpz.ki.ATMA_OF_THE_BROTHER_WOLF]           =    "ATMA OF THE BROTHER WOLF                ",     
+    [tpz.ki.ATMA_OF_THE_EARTH_WYRM]             =    "ATMA OF THE EARTH WYRM                ",       
+    [tpz.ki.ATMA_OF_THE_ASCENDING_ONE]          =    "ATMA OF THE ASCENDING ONE                ",    
+    [tpz.ki.ATMA_OF_THE_SCORPION_QUEEN]         =    "ATMA OF THE SCORPION QUEEN            ",   
+    [tpz.ki.ATMA_OF_A_THOUSAND_NEEDLES]         =    "ATMA OF A THOUSAND NEEDLES            ",   
+    [tpz.ki.ATMA_OF_THE_BURNING_EFFIGY]         =    "ATMA OF THE BURNING EFFIGY            ",   
+    [tpz.ki.ATMA_OF_THE_SMITING_BLOW]           =    "ATMA OF THE SMITING BLOW                ",     
+    [tpz.ki.ATMA_OF_THE_LONE_WOLF]              =    "ATMA OF THE LONE WOLF                    ",        
+    [tpz.ki.ATMA_OF_THE_CRIMSON_SCALE]          =    "ATMA OF THE CRIMSON SCALE                ",    
+    [tpz.ki.ATMA_OF_THE_SCARLET_WING]           =    "ATMA OF THE SCARLET WING                ",     
+    [tpz.ki.ATMA_OF_THE_RAISED_TAIL]            =    "ATMA OF THE RAISED TAIL                ",      
+    [tpz.ki.ATMA_OF_THE_SAND_EMPEROR]           =    "ATMA OF THE SAND EMPEROR                ",     
+    [tpz.ki.ATMA_OF_THE_OMNIPOTENT]             =    "ATMA OF THE OMNIPOTENT                ",       
+    [tpz.ki.ATMA_OF_THE_WAR_LION]               =    "ATMA OF THE WAR LION                    ",         
+    [tpz.ki.ATMA_OF_THE_FROZEN_FETTERS]         =    "ATMA OF THE FROZEN FETTERS            ",   
+    [tpz.ki.ATMA_OF_THE_PLAGUEBRINGER]          =    "ATMA OF THE PLAGUEBRINGER                ",    
+    [tpz.ki.ATMA_OF_THE_SHRIEKING_ONE]          =    "ATMA OF THE SHRIEKING ONE             ",
+    [tpz.ki.ATMA_OF_THE_HOLY_MOUNTAIN]          =    "ATMA OF THE HOLY MOUNTAIN             ",
+    [tpz.ki.ATMA_OF_THE_LAKE_LURKER]            =    "ATMA OF THE LAKE LURKER               ",
+    [tpz.ki.ATMA_OF_THE_CRUSHING_CUDGEL]        =    "ATMA OF THE CRUSHING CUDGEL           ",
+    [tpz.ki.ATMA_OF_PURGATORY]                  =    "ATMA OF PURGATORY                     ",
+    [tpz.ki.ATMA_OF_BLIGHTED_BREATH]            =    "ATMA OF BLIGHTED BREATH               ",
+    [tpz.ki.ATMA_OF_THE_PERSISTENT_PREDATOR]    =    "ATMA OF THE PERSISTENT PREDATOR       ",
+    [tpz.ki.ATMA_OF_THE_STONE_GOD]              =    "ATMA OF THE STONE GOD                 ",
+    [tpz.ki.ATMA_OF_THE_SUN_EATER]              =    "ATMA OF THE SUN EATER                 ",
+    [tpz.ki.ATMA_OF_THE_DESPOT]                 =    "ATMA OF THE DESPOT                    ",
+    [tpz.ki.ATMA_OF_THE_SOLITARY_ONE]           =    "ATMA OF THE SOLITARY ONE              ",
+    [tpz.ki.ATMA_OF_THE_WINGED_GLOOM]           =    "ATMA OF THE WINGED GLOOM              ",
+    [tpz.ki.ATMA_OF_THE_SEA_DAUGHTER]           =    "ATMA OF THE SEA DAUGHTER              ",
+    [tpz.ki.ATMA_OF_THE_HATEFUL_STREAM]         =    "ATMA OF THE HATEFUL STREAM            ",
+    [tpz.ki.ATMA_OF_THE_FOE_FLAYER]             =    "ATMA OF THE FOE FLAYER                ",
+    [tpz.ki.ATMA_OF_THE_ENDLESS_NIGHTMARE]      =    "ATMA OF THE ENDLESS NIGHTMARE         ",
+    [tpz.ki.ATMA_OF_THE_SUNDERING_SLASH]        =    "ATMA OF THE SUNDERING SLASH           ",
+    [tpz.ki.ATMA_OF_ENTWINED_SERPENTS]          =    "ATMA OF ENTWINED SERPENTS             ",
+    [tpz.ki.ATMA_OF_THE_HORNED_BEAST]           =    "ATMA OF THE HORNED BEAST              ",
+    [tpz.ki.ATMA_OF_AQUATIC_ARDOR]              =    "ATMA OF AQUATIC ARDOR                 ",
+    [tpz.ki.ATMA_OF_THE_FALLEN_ONE]             =    "ATMA OF THE FALLEN ONE                ",
+    [tpz.ki.ATMA_OF_FIRES_AND_FLARES]           =    "ATMA OF FIRES AND FLARES              ",
+    [tpz.ki.ATMA_OF_THE_APOCALYPSE]             =    "ATMA OF THE APOCALYPSE                ",
+}
+
+
+tpz.atma.atmaMods =
 {
     -- GROUP 1
     [tpz.ki.ATMA_OF_THE_LION]                   = {tpz.mod.TRIPLE_ATTACK, 7, tpz.mod.DMGPHYS, -10, tpz.mod.THUNDERATT, 30},
@@ -166,21 +274,31 @@ local atmaMods =
 }
 
 tpz.atma.onEffectGain = function(target, effect)
-    local atma = ATMA_OFFSET + effect:getPower()
-    local mods = atmaMods[atma]
+	local count = target:getLocalVar("[AtmaCount]")
+	
+    local atma = tpz.atma.ATMA_OFFSET + effect:getPower()
+    local mods = tpz.atma.atmaMods[atma]
     if mods ~= nil then
         for i = 1, #mods, 2 do
-            target:addMod(i, i + 1)
+            target:addMod(mods[i], mods[i + 1])
         end
     end
+	
+	target:setLocalVar("[AtmaCount]", count + 1)
+	target:setLocalVar(string.format("[Atma%s]", count), atma)
 end
 
 tpz.atma.onEffectLose = function(target, effect)
-    local atma = ATMA_OFFSET + effect:getPower()
-    local mods = atmaMods[atma]
+	local count = target:getLocalVar("[AtmaCount]")
+	
+    local atma = tpz.atma.ATMA_OFFSET + effect:getPower()
+    local mods = tpz.atma.atmaMods[atma]
     if mods ~= nil then
         for i = 1, #mods, 2 do
-            target:delMod(i, i + 1)
+            target:delMod(mods[i], mods[i + 1])
         end
     end
+	
+	target:setLocalVar("[AtmaCount]", count - 1)
+	target:setLocalVar(string.format("[Atma%s]", count-1), 0)
 end
