@@ -147,6 +147,11 @@ function onGameIn(player, firstLogin, zoning)
         end)
     else
         -- things checked ONLY during zone in go here
+		if player:getLocalVar("[WasInAbyssea]") == 1 then
+			--abyssea time logged
+			player:setCharVar("lastEnteredAbyssea", os.time() + 14400)
+			player:setCharVar("[WasInAbyssea]", 0)
+		end
     end
 
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)
