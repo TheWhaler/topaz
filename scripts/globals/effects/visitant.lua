@@ -18,7 +18,7 @@ function onEffectGain(target,effect)
     visEffect:setFlag(tpz.effectFlag.ON_ZONE)
     visEffect:setFlag(tpz.effectFlag.INFLUENCE)
     expEffect:setFlag(tpz.effectFlag.INFLUENCE)
-	target:setLocalVar("[AbyDedication]", 1)
+	target:setLocalVar("[WasInAbyssea]", 1)
 end
 
 function onEffectTick(target, effect)
@@ -35,7 +35,6 @@ end
 
 function onEffectLose(target,effect)
     if isInAbysseaZone(target) then
-        target:setCharVar("lastEnteredAbyssea", os.time() + 14400)
         target:warp()
     end
 end

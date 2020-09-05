@@ -291,7 +291,6 @@ namespace luautils
 
     void OnFurniturePlaced(CCharEntity* PChar, CItemFurnishing* itemId);
     void OnFurnitureRemoved(CCharEntity* PChar, CItemFurnishing* itemId);
-    void OnPlayerEmote(CCharEntity* PChar, Emote EmoteID);
 
     int32 SelectDailyItem(lua_State* L);
     
@@ -306,6 +305,8 @@ namespace luautils
     int32 OnFishingEnd(CCharEntity* PChar);                                                                       // triggers when player stops fishing
 
 
+
+    void OnPlayerEmote(CCharEntity* PChar, Emote EmoteID);
 };
 
 #endif //- _LUAUTILS_H -
