@@ -1,5 +1,5 @@
 -----------------------------------
--- Zone: Abyssea - Tahrongi
+-- Zone: Abyssea - La-Theine
 --  NPC: Atma Infusionist
 -----------------------------------
 local atma = require("scripts/globals/atma")
@@ -21,6 +21,9 @@ function onTrade(player,npc,trade)
 			if atma1 ~= keyitem and atma2 ~= keyitem and atm3 ~= keyitem then
 				if player:hasKeyItem(keyitem) then
 					player:addStatusEffect(tpz.effect.ATMA, trade:getGil(), 0, 0)
+					local atmaEffect = target:getStatusEffect(tpz.effect.ATMA)
+					atmaEffect:setFlag(tpz.effectFlag.ON_ZONE)
+					atmaEffect:setFlag(tpz.effectFlag.INFLUENCE)
 				else
 					player:PrintToPlayer("You do not have this Key Item yet!", tpz.msg.channel.NS_SAY)
 				end
@@ -42,6 +45,7 @@ function onTrigger(player,npc)
 	if count == 0 then
 		player:PrintToPlayer("To Infuse atma Please trade the appropriate gil from the Key Item you have below:", tpz.msg.channel.NS_SAY)
 	end
+	--local length = tablelength(tpz.atma.atmaMods)
 	
 	local atma = tpz.atma.ATMA_OFFSET
 	for i = 1, 10 do
