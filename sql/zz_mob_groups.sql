@@ -566,3 +566,37 @@ UPDATE mob_groups SET dropid = 3355 WHERE poolid =  5869;
 
 UPDATE mob_groups SET respawntime = 6000 WHERE poolid = 4706;
 UPDATE mob_groups SET spawntype = 0 WHERE poolid = 4706;
+
+
+
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE poolid = 2380; -- la theine liege
+UPDATE mob_groups SET minLevel = 80, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 1);
+UPDATE mob_groups SET HP = 15500, minLevel = 80, maxLevel = 80 WHERE (zoneid = 132) and (groupid = 2);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 3);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 29);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 30);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 31);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 32);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 33);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 34);
+UPDATE mob_groups SET HP = 24000, minLevel = 80, maxLevel = 80 WHERE (zoneid = 132) and (groupid = 36);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 37);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 38);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 39);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 40);
+UPDATE mob_groups SET minLevel = 90, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 41);
+UPDATE mob_groups SET minLevel = 90, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 42);
+UPDATE mob_groups SET HP = 60000, minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 43);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 49);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 6952);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 6994);
+
+
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 3);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 14);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 19);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 38);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 42);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 44);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 48);
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 57);
