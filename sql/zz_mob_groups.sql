@@ -569,7 +569,7 @@ UPDATE mob_groups SET spawntype = 0 WHERE poolid = 4706;
 
 
 
-UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE poolid = 2380; -- la theine liege
+UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE poolid = 2380;
 UPDATE mob_groups SET minLevel = 80, maxLevel = 90 WHERE (zoneid = 132) and (groupid = 1);
 UPDATE mob_groups SET HP = 15500, minLevel = 80, maxLevel = 80 WHERE (zoneid = 132) and (groupid = 2);
 UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 132) and (groupid = 3);
