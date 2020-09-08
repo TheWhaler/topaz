@@ -600,3 +600,32 @@ UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (grou
 UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 44);
 UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 48);
 UPDATE mob_groups SET minLevel = 85, maxLevel = 85 WHERE (zoneid = 15) and (groupid = 57);
+
+
+
+UPDATE mob_groups SET HP = 120000 WHERE (zoneid = 132) and (groupid = 50);
+
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 52);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 50);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 49);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 48);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 47);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 46);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 44);
+UPDATE mob_groups SET respawntime = 300 WHERE (zoneid = 132) and (groupid = 43);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 132) and (groupid = 26);
+
+UPDATE mob_groups SET respawntime = 300 WHERE (zoneid = 15) and (groupid = 55);
+UPDATE mob_groups SET respawntime = 5400 WHERE (zoneid = 15) and (groupid = 56);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 15) and (groupid = 53);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 15) and (groupid = 47);
+
+UPDATE mob_groups SET respawntime = 960, spawntype = 1 WHERE (zoneid = 45) and (groupid = 51);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 50);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 48);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 46);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 45);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 44);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 43);
+UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 42);
+
