@@ -1978,6 +1978,9 @@ namespace battleutils
         if (PAttacker->objtype == TYPE_PC && !isRanged)
             PAttacker->StatusEffectContainer->DelStatusEffectsByFlag(EFFECTFLAG_ATTACK);
 
+        if (PAttacker->objtype == TYPE_PC && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_STRIKING_FLOURISH))
+            damage += PAttacker->CHR();
+
         return damage;
     }
 
