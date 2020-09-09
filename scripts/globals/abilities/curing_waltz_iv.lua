@@ -77,7 +77,7 @@ function onUseAbility(player, target, ability)
 
     --Do it
 	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
-		player:delEffect(tpz.effect.CONTRADANCE)
+		player:delStatusEffect(tpz.effect.CONTRADANCE)
 	end
 	
     target:restoreHP(cure)
