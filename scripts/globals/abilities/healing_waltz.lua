@@ -35,6 +35,9 @@ function onAbilityCheck(player, target, ability)
                 ability:setRecast(ability:getRecast() * ((fanDanceMerits -5)/100))
             end
         end
+		if (player:hasStatusEffect(tpz.effect.CONTRADANCE)) then
+			ability:setAOE(isAOE, 10)
+		end
         return 0, 0
     end
 end
@@ -46,12 +49,18 @@ function onUseAbility(player, target, ability)
     end
 
     local effect = target:healingWaltz()
+	
 
     if (effect == tpz.effect.NONE) then
         ability:setMsg(tpz.msg.basic.NO_EFFECT) -- no effect
     else
         ability:setMsg(tpz.msg.basic.JA_REMOVE_EFFECT)
     end
+	
+	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
+		player:delEffect(tpz.effect.CONTRADANCE)
+		ability:setAOE(isAOE, 0)
+	end
 
     return effect
 end

@@ -322,8 +322,8 @@ INSERT INTO `abilities` VALUES (305,'avengers_roll',17,97,1,60,193,420,0,266,200
 -- INSERT INTO `abilities` VALUES (309,'cooldown',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 INSERT INTO `abilities` VALUES (310,'deus_ex_automata',18,5,1,60,115,0,0,83,2000,0,6,20.0,0,1,80,0,0,'ABYSSEA');
 INSERT INTO `abilities` VALUES (311,'curing_waltz_v',19,87,27,14,189,306,0,10,2000,0,14,20.0,0,0,0,0,0,'ABYSSEA');
--- INSERT INTO `abilities` VALUES (312,'feather_step',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
--- INSERT INTO `abilities` VALUES (313,'striking_flourish',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
+INSERT INTO `abilities` VALUES (312,'feather_step',19,83,4,5,220,591,0,17,2000,0,14,4.5,0,1,0,0,0,'ABYSSEA');
+INSERT INTO `abilities` VALUES (313,'striking_flourish',19,89,1,30,313,100,0,230,2000,0,6,20.0,0,1,80,0,0,'ABYSSEA');
 -- INSERT INTO `abilities` VALUES (314,'ternary_flourish',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (316,'perpetuance',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (317,'immanence',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
@@ -393,7 +393,7 @@ INSERT INTO `abilities` VALUES (380,'Effusion',22,1,1,0,0,0,0,0,2000,0,6,20.0,0,
 INSERT INTO `abilities` VALUES (381,'chocobo_jig_ii',19,70,1,60,218,126,0,13,2000,0,14,20.0,1,1,300,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (382,'relinquish',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (383,'vivacious_pulse',22,1,1,300,0,0,0,327,2000,0,6,20.0,0,0,0,0,0,NULL);        
--- INSERT INTO `abilities` VALUES (384,'contradance',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);       
+INSERT INTO `abilities` VALUES (384,'contradance',19,50,1,300,300,0,0,81,2000,0,6,20.0,0,0,0,0,0,NULL);       
 INSERT INTO `abilities` VALUES (385,'apogee',15,70,1,180,108,0,0,333,2000,0,6,20.0,0,1,80,0,0,'SOA');
 INSERT INTO `abilities` VALUES (386,'entrust',21,75,13,600,93,0,0,332,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (387,'bestial_loyalty',9,23,1,1200,94,0,0,83,2000,0,6,18.0,0,1,0,900,0,'SOA');

@@ -59,7 +59,11 @@ function onUseAbility(player, target, ability)
     end
 
     -- apply waltz modifiers
-    cure = math.floor(cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100)))
+    if player:hasStatusEffect(tpz.effect.CONTRADANCE) then
+        cure = math.floor((cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100))) * 2 )
+    else
+        cure = math.floor(cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100)))
+    end
 
     --Reducing TP.
 
@@ -72,6 +76,10 @@ function onUseAbility(player, target, ability)
     end
 
     --Do it
+	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
+		player:delEffect(tpz.effect.CONTRADANCE)
+	end
+	
     target:restoreHP(cure)
     target:wakeUp()
     player:updateEnmityFromCure(target, cure)

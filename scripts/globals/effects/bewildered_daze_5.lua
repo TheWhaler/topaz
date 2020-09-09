@@ -1,0 +1,16 @@
+-----------------------------------
+--
+-- tpz.effect.BEWILDERED_DAZE_5
+--
+-----------------------------------
+
+function onEffectGain(target, effect)
+    --target:addMod(tpz.mod.XXX, -5)
+end
+
+function onEffectTick(target, effect)
+end
+
+function onEffectLose(target, effect)
+    --target:delMod(tpz.mod.XXX, -5)
+end
