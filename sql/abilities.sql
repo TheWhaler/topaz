@@ -280,10 +280,10 @@ INSERT INTO `abilities` VALUES (257,'double_shot',11,79,1,180,126,0,0,225,2000,0
 -- INSERT INTO `abilities` VALUES (258,'sengikori',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 INSERT INTO `abilities` VALUES (259,'futae',13,77,1,180,148,0,0,227,2000,0,6,20.0,0,1,0,0,0,'ABYSSEA');
 -- INSERT INTO `abilities` VALUES (260,'spirit_jump',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
--- INSERT INTO `abilities` VALUES (261,'presto',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
--- INSERT INTO `abilities` VALUES (262,'divine_waltz_ii',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
--- INSERT INTO `abilities` VALUES (263,'flourishes_iii',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
--- INSERT INTO `abilities` VALUES (264,'climactic_flourish',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
+INSERT INTO `abilities` VALUES (261,'presto',19,77,1,15,300,0,0,261,100,0,6,20.0,0,1,80,0,0,NULL);
+INSERT INTO `abilities` VALUES (262,'divine_waltz_ii',19,78,27,20,262,102,0,34,2000,0,14,20.0,1,0,0,0,0,NULL);
+INSERT INTO `abilities` VALUES (263,'flourishes_iii',19,80,1,0,0,0,0,0,2000,0,6,20.0,0,0,0,0,0,NULL);
+INSERT INTO `abilities` VALUES (264,'climactic_flourish',19,80,1,90,264,100,0,230,2000,0,6,20.0,0,1,80,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (265,'libra',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (266,'tactical_switch',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);
 -- INSERT INTO `abilities` VALUES (267,'blood_rage',22,1,1,0,300,0,0,???,2000,0,6,20.0,0,450,900,0,0,NULL);

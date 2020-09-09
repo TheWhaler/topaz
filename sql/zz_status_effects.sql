@@ -1,0 +1,1 @@
+UPDATE status_effects SET type = 4 WHERE (id = 287);
