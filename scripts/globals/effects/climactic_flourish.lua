@@ -11,17 +11,16 @@ function onEffectGain(target, effect)
     
     target:setLocalVar("[CF_COUNT]", CF_EFFECT)
     target:addMod(tpz.mod.CRITHITRATE, 100)
-    
     local mob = target:getTarget()
     if mob ~= nil then
         mob:addListener("TAKE_DAMAGE", "CF_DAMAGE_CHECK", function(mob, amount, attacker, attackType, damageType)
-        if amount > 0 and attackType == tpz.attackType.PHYSICAL and player:hasStatusEffect(tpz.effect.CLIMACTIC_FLOURISH) then
-            local CF_COUNT = player:getLocalVar("[CF_COUNT]") - 1
+        if amount > 0 and attackType == tpz.attackType.PHYSICAL and attacker:hasStatusEffect(tpz.effect.CLIMACTIC_FLOURISH) then
+            local CF_COUNT = attacker:getLocalVar("[CF_COUNT]") - 1
             if CF_COUNT == 0 then
-                player:delStatusEffect(tpz.effect.CLIMACTIC_FLOURISH)
+                attacker:delStatusEffect(tpz.effect.CLIMACTIC_FLOURISH)
             end
 
-                player:setLocalVar("[CF_COUNT]", CF_COUNT)    
+                attacker:setLocalVar("[CF_COUNT]", CF_COUNT)    
             end
         end)
     end
@@ -29,13 +28,13 @@ function onEffectGain(target, effect)
     
     target:addListener("ENGAGE", "CF_MOB_ENGAGE", function(player, mob)
         mob:addListener("TAKE_DAMAGE", "CF_DAMAGE_CHECK", function(mob, amount, attacker, attackType, damageType)
-        if amount > 0 and attackType == tpz.attackType.PHYSICAL and player:hasStatusEffect(tpz.effect.CLIMACTIC_FLOURISH) then
-            local CF_COUNT = player:getLocalVar("[CF_COUNT]") - 1
+        if amount > 0 and attackType == tpz.attackType.PHYSICAL and attacker:hasStatusEffect(tpz.effect.CLIMACTIC_FLOURISH) then
+            local CF_COUNT = attacker:getLocalVar("[CF_COUNT]") - 1
             if CF_COUNT == 0 then
-                player:delStatusEffect(tpz.effect.CLIMACTIC_FLOURISH)
+                attacker:delStatusEffect(tpz.effect.CLIMACTIC_FLOURISH)
             end
             
-                player:setLocalVar("[CF_COUNT]", CF_COUNT)    
+                attacker:setLocalVar("[CF_COUNT]", CF_COUNT)    
             end
         end)
     end)
