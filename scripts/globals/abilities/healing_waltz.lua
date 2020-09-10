@@ -58,7 +58,7 @@ function onUseAbility(player, target, ability)
     end
 	
 	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
-		player:delEffect(tpz.effect.CONTRADANCE)
+		player:delStatusEffect(tpz.effect.CONTRADANCE)
 		ability:setAOE(isAOE, 0)
 	end
 
