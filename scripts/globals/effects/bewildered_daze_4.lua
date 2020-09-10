@@ -5,12 +5,12 @@
 -----------------------------------
 
 function onEffectGain(target, effect)
-    target:addMod(tpz.mod.CRIT_EVA_DOWN, -4)
+    target:addMod(tpz.mod.CRITHITRATE, -4)
 end
 
 function onEffectTick(target, effect)
 end
 
 function onEffectLose(target, effect)
-    target:delMod(tpz.mod.CRIT_EVA_DOWN, -4)
+    target:delMod(tpz.mod.CRITHITRATE, -4)
 end
