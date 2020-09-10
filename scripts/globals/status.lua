@@ -1563,6 +1563,8 @@ tpz.mod =
     PENGUIN_RING_EFFECT            = 1000, -- +2 on fishing arrow delay / fish movement for mini - game
     ALBATROSS_RING_EFFECT          = 1001, -- adds 30 seconds to mini - game time
     PELICAN_RING_EFFECT            = 1002, -- adds extra skillup roll for fishing
+	
+	CRIT_EVA_DOWN                  = 1003, -- Feather Step (DNC) - Increased the a monster's chance to be crit by x% (Bewildered Daze 1-5)
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
