@@ -49,18 +49,23 @@ function onUseAbility(player, target, ability)
     end
 
     local effect = target:healingWaltz()
-	
+    
 
     if (effect == tpz.effect.NONE) then
         ability:setMsg(tpz.msg.basic.NO_EFFECT) -- no effect
     else
         ability:setMsg(tpz.msg.basic.JA_REMOVE_EFFECT)
     end
-	
-	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
-		player:delStatusEffect(tpz.effect.CONTRADANCE)
-		ability:setAOE(0)
-	end
+    
+    if player:hasStatusEffect(tpz.effect.CONTRADANCE) then    
+    player:addListener("ABILITY_STATE_EXIT","ABILITY_CONTRADANCE_CHECK", function(player, ability)
+        if player:hasStatusEffect(tpz.effect.CONTRADANCE) and ability:getID() == 384 then
+            player:delStatusEffect(tpz.effect.CONTRADANCE)
+                ability:setAOE(0)
+            player:removeListener("ABILITY_CONTRADANCE_CHECK")
+        end
+    end)
+    end
 
     return effect
 end
