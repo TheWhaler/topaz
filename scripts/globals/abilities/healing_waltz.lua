@@ -35,10 +35,11 @@ function onAbilityCheck(player, target, ability)
                 ability:setRecast(ability:getRecast() * ((fanDanceMerits -5)/100))
             end
         end
-		if (player:hasStatusEffect(tpz.effect.CONTRADANCE)) then
-			ability:setAOE(1)
-			ability:setRange(10)
-		end
+        if (player:hasStatusEffect(tpz.effect.CONTRADANCE)) then
+            player:PrintToPlayer("Setting AOE")
+            ability:setAOE(1)
+            ability:setRange(10)
+        end
         return 0, 0
     end
 end
@@ -59,14 +60,15 @@ function onUseAbility(player, target, ability)
     end
     
     if player:hasStatusEffect(tpz.effect.CONTRADANCE) then    
-    player:addListener("ABILITY_STATE_EXIT","ABILITY_CONTRADANCE_CHECK", function(player, ability)
-        if player:hasStatusEffect(tpz.effect.CONTRADANCE) and ability:getID() == 384 then
-            player:delStatusEffect(tpz.effect.CONTRADANCE)
-                ability:setAOE(0)
-				ability:setRange(10)
-            player:removeListener("ABILITY_CONTRADANCE_CHECK")
-        end
-    end)
+        player:addListener("ABILITY_STATE_EXIT","ABILITY_CONTRADANCE_CHECK", function(player, ability)
+            if player:hasStatusEffect(tpz.effect.CONTRADANCE) and ability:getID() == 384 then
+                player:delStatusEffect(tpz.effect.CONTRADANCE)
+                    player:PrintToPlayer("Removing AOE")
+                    ability:setAOE(0)
+                    ability:setRange(10)
+                player:removeListener("ABILITY_CONTRADANCE_CHECK")
+            end
+        end)
     end
 
     return effect
