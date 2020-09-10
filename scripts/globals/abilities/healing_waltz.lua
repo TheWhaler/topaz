@@ -36,7 +36,7 @@ function onAbilityCheck(player, target, ability)
             end
         end
 		if (player:hasStatusEffect(tpz.effect.CONTRADANCE)) then
-			ability:setAOE(isAOE, 10)
+			ability:setAOE(10)
 		end
         return 0, 0
     end
@@ -59,7 +59,7 @@ function onUseAbility(player, target, ability)
 	
 	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
 		player:delStatusEffect(tpz.effect.CONTRADANCE)
-		ability:setAOE(isAOE, 0)
+		ability:setAOE(0)
 	end
 
     return effect
