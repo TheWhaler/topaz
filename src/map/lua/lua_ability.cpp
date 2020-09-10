@@ -187,5 +187,6 @@ Lunar<CLuaAbility>::Register_t CLuaAbility::methods[] =
     LUNAR_DECLARE_METHOD(CLuaAbility,setCE),
     LUNAR_DECLARE_METHOD(CLuaAbility,setVE),
     LUNAR_DECLARE_METHOD(CLuaAbility,setRange),
+    LUNAR_DECLARE_METHOD(CLuaAbility,setAOE),
     {nullptr,nullptr}
 };
