@@ -46,12 +46,19 @@ function onUseAbility(player, target, ability)
     end
 
     local effect = target:healingWaltz()
+    
+    if (player:hasStatusEffect(tpz.effect.CONTRADANCE)) then
+        target:forMembersInRange(10, function(member)
+            local effects = member:healingWaltz()
+            player:delStatusEffect(tpz.effect.CONTRADANCE)
+        end)
+    end
 
     if (effect == tpz.effect.NONE) then
         ability:setMsg(tpz.msg.basic.NO_EFFECT) -- no effect
     else
         ability:setMsg(tpz.msg.basic.JA_REMOVE_EFFECT)
     end
-
+    
     return effect
 end
