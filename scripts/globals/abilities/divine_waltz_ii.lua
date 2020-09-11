@@ -54,23 +54,34 @@ function onUseAbility(player, target, ability)
 
     -- Performing sj mj check.
     if mjob == tpz.job.DNC then
-        cure = (vit+chr)*0.75+270
+        cure = (vit+chr)*0.50+280
     end
 
     if sjob == tpz.job.DNC then
-        cure = (vit+chr)*0.175+270
+        cure = (vit+chr)*0.25+280
     end
 
     -- Apply waltz modifiers
-    cure = math.floor(cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100)))
+    if player:hasStatusEffect(tpz.effect.CONTRADANCE) then
+        cure = math.floor((cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100))) * 2 )
+    else
+        cure = math.floor(cure * (1.0 + (player:getMod(tpz.mod.WALTZ_POTENTCY)/100)))
+    end
+	
+	--Reducing TP
+	
+	-- Applying server mods....
+    cure = cure * CURE_POWER
 
     -- Cap the final amount to max HP.
     if ((target:getMaxHP() - target:getHP()) < cure) then
         cure = (target:getMaxHP() - target:getHP())
     end
 
-    -- Applying server mods....
-    cure = cure * CURE_POWER
+    -- Do it
+	if player:hasStatusEffect(tpz.effect.CONTRADANCE) then	
+		player:delEffect(tpz.effect.CONTRADANCE)
+	end
 
     target:restoreHP(cure)
     target:wakeUp()
