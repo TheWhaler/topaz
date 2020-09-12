@@ -156,6 +156,15 @@ inline int32 CLuaAbility::setRange(lua_State *L)
     return 0;
 }
 
+inline int32 CLuaAbility::setAOE(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PLuaAbility == nullptr);
+    TPZ_DEBUG_BREAK_IF(lua_isnil(L, -1) || !lua_isnumber(L, -1));
+
+    m_PLuaAbility->setAOE((uint8)lua_tointeger(L, -1));
+    return 0;
+}
+
 /************************************************************************
 *																		*
 *  Инициализация методов в lua											*
@@ -178,5 +187,6 @@ Lunar<CLuaAbility>::Register_t CLuaAbility::methods[] =
     LUNAR_DECLARE_METHOD(CLuaAbility,setCE),
     LUNAR_DECLARE_METHOD(CLuaAbility,setVE),
     LUNAR_DECLARE_METHOD(CLuaAbility,setRange),
+    LUNAR_DECLARE_METHOD(CLuaAbility,setAOE),
     {nullptr,nullptr}
 };

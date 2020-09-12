@@ -10,6 +10,7 @@ require("scripts/globals/settings")
 require("scripts/globals/abyssea")
 require("scripts/globals/status")
 require("scripts/globals/zone")
+require("scripts/globals/roe")
 -----------------------------------
 
 function onEffectGain(target, effect)
@@ -56,7 +57,7 @@ function onEffectTick(target, effect)
                 target:addTP(HEALING_TP_CHANGE)
                 healHP = 10 + (healtime - 2) + target:getMod(tpz.mod.HPHEAL)
             end
-            
+
             -- Records of Eminence: Heal Without Using Magic
             --if target:getEminenceProgress(4) and healHP > 0 and target:getHPP() < 100 then
                 --npcUtil.completeRecord(target, 4, { sparks = 100, xp = 500 })
