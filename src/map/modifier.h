@@ -433,6 +433,7 @@ enum class Mod
     HIGH_JUMP_ENMITY_REDUCTION = 363, // for gear that reduces more enmity from high jump
     FORCE_JUMP_CRIT           = 828, // Critical hit rate bonus for jump and high jump
     WYVERN_EFFECTIVE_BREATH   = 829, // Increases the threshold for triggering healing breath/offensive breath more inclined to pick elemental weakness
+    WYVERN_SUBJOB_TRAITS      = 972, // Adds subjob traits to wyvern on spawn
 
     // Summoner
     AVATAR_PERPETUATION       = 371, // stores base cost of current avatar
@@ -803,15 +804,16 @@ enum class Mod
     CONQUEST_REGION_BONUS     = 934, // Increases the influence points awarded to the player's nation when receiving conquest points
     CAMPAIGN_BONUS            = 935, // Increases the evaluation for allied forces by percentage
 
+    GARDENING_WILT_BONUS      = 936, // Increases the number of Vanadays a plant can survive before it wilts
+
     PENGUIN_RING_EFFECT      = 1000, // +2 on fishing arrow delay / fish movement for mini - game
     ALBATROSS_RING_EFFECT    = 1001, // adds 30 seconds to mini - game time
     PELICAN_RING_EFFECT      = 1002, // adds extra skillup roll for fishing
-
     // The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     // 570 through 825 used by WS DMG mods these are not spares.
-    // SPARE = 972, // stuff
     // SPARE = 973, // stuff
     // SPARE = 974, // stuff
+    // SPARE = 975, // stuff
 };
 
 //temporary workaround for using enum class as unordered_map key until compilers support it
