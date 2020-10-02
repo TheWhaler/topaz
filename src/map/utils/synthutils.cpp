@@ -451,7 +451,7 @@ int32 doSynthSkillUp(CCharEntity* PChar)
             {
                 int32  skillUpAmount = 1;
 
-                if (charSkill < 600) // no skill ups over 0.1 happen over level 60
+                if (charSkill < 1100) // no skill ups over 0.1 happen over level 60
                 {
                     int32  satier = 0;
                     double chance = 0;
