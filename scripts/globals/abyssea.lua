@@ -278,6 +278,11 @@ tpz.abyssea.giveNMDrops = function(mob, player, ID)
 	
 	for k, v in pairs(atmaDrops) do
 		if tpz.abyssea.canGiveNMKI(player, mob, 100) then
+			local party = player:getParty()
+			for _, member in ipairs(party) do
+				member:addKeyItem(v)
+				member:messageSpecial(ID.text.KEYITEM_OBTAINED, v)	
+			end
 			player:addKeyItem(v)
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED, v)			
 		end
