@@ -7,6 +7,7 @@
 -----------------------------------
 
 require("scripts/globals/settings")
+require("scripts/globals/spell_data")
 require("scripts/globals/keyitems")
 require("scripts/globals/utils")
 
