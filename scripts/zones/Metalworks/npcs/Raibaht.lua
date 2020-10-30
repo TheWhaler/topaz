@@ -10,6 +10,7 @@ require("scripts/globals/keyitems")
 require("scripts/globals/settings")
 require("scripts/globals/quests")
 require("scripts/globals/status")
+require("scripts/globals/utils")
 -----------------------------------
 
 neck_list = {10954,10953,10951,10955,10950,10952,10949,10948} -- List of crafting torques
@@ -172,7 +173,7 @@ function onTrigger(player, npc)
 
     local WildcatBastok = player:getCharVar("WildcatBastok")
 
-    if (player:getQuestStatus(BASTOK, tpz.quest.id.bastok.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and player:getMaskBit(WildcatBastok, 5) == false) then
+    if (player:getQuestStatus(BASTOK, tpz.quest.id.bastok.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and not utils.mask.getBit(WildcatBastok, 5)) then
         player:startEvent(933)
     elseif (darkLegacy == QUEST_AVAILABLE and mJob == tpz.job.DRK and mLvl >= AF1_QUEST_LEVEL) then
         player:startEvent(751) -- Start Quest "Dark Legacy"
@@ -209,7 +210,7 @@ function onEventFinish(player, csid, option)
             player:completeQuest(BASTOK,tpz.quest.id.bastok.DARK_LEGACY);
         end
     elseif (csid == 933) then
-        player:setMaskBit(player:getCharVar("WildcatBastok"), "WildcatBastok", 5, true)
+        player:setCharVar("WildcatBastok", utils.mask.setBit(player:getCharVar("WildcatBastok"), 5, true))
     end
 
 end;

@@ -10,6 +10,8 @@ require("scripts/globals/weaponskillids")
 require("scripts/globals/zone")
 -----------------------------------------
 
+local message_page_offset = 3
+
 function onMagicCastingCheck(caster, target, spell)
     return tpz.trust.canCast(caster, spell, tpz.magic.spell.EXCENMILLE_S)
 end
@@ -26,7 +28,7 @@ function onSpellCast(caster, target, spell)
 end
 
 function onMobSpawn(mob)
-    tpz.trust.teamworkMessage(mob, {
+    tpz.trust.teamworkMessage(mob, message_page_offset, {
         [tpz.magic.spell.RAHAL] = tpz.trust.message_offset.TEAMWORK_1,
     })
 
@@ -39,23 +41,13 @@ function onMobSpawn(mob)
     mob:addSimpleGambit(ai.t.PARTY, ai.c.HPP_LT, 75,
                         ai.r.MA, ai.s.HIGHEST, tpz.magic.spellFamily.CURE)
 
-    mob:setTPSkills({
-        ['skills'] = {
-            { ai.r.WS, tpz.ws.DOUBLE_THRUST, 0 },
-            { ai.r.WS, tpz.ws.LEG_SWEEP, 0 },
-            { ai.r.WS, tpz.ws.PENTA_THRUST, 30 },
-        },
-        ['mode'] = ai.tp.ASAP,
-        ['skill_select'] = ai.s.RANDOM,
-    })
-
     mob:addMod(tpz.mod.STORETP, 25)
 end
 
 function onMobDespawn(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DESPAWN)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DESPAWN)
 end
 
 function onMobDeath(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DEATH)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DEATH)
 end

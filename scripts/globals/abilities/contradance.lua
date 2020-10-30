@@ -1,9 +1,9 @@
 -----------------------------------
 -- Ability: Contradance
--- Increases the amount of HP restored by your next waltz (Double Potency)
--- Obtained: Dancer level 50
--- Recast Time: 5:00
--- Duration: 1 Waltz or 60 seconds, whichever occurs first.
+-- Description: Increases the amount of HP restored by your next Waltz.
+-- Obtained: DNC Level 50
+-- Recast Time: 00:05:00
+-- Duration: 00:01:00
 -----------------------------------
 require("scripts/globals/settings")
 require("scripts/globals/status")
@@ -14,5 +14,5 @@ function onAbilityCheck(player, target, ability)
 end
 
 function onUseAbility(player, target, ability)
-    player:addStatusEffect(tpz.effect.CONTRADANCE, 1, 0, 60)
+    player:addStatusEffect(tpz.effect.CONTRADANCE, 19, 1, 60)
 end

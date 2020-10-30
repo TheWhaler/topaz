@@ -9,6 +9,8 @@ require("scripts/globals/trust")
 require("scripts/globals/weaponskillids")
 -----------------------------------------
 
+local message_page_offset = 4
+
 function onMagicCastingCheck(caster, target, spell)
     return tpz.trust.canCast(caster, spell, tpz.magic.spell.AYAME_UC)
 end
@@ -18,7 +20,7 @@ function onSpellCast(caster, target, spell)
 end
 
 function onMobSpawn(mob)
-    tpz.trust.teamworkMessage(mob, {
+    tpz.trust.teamworkMessage(mob, message_page_offset, {
         [tpz.magic.spell.NAJI] = tpz.trust.message_offset.TEAMWORK_1,
         [tpz.magic.spell.GILGAMESH] = tpz.trust.message_offset.TEAMWORK_2,
     })
@@ -28,7 +30,7 @@ function onMobSpawn(mob)
 
     mob:addSimpleGambit(ai.t.SELF, ai.c.HAS_TOP_ENMITY, 0,
         ai.r.JA, ai.s.SPECIFIC, tpz.ja.THIRD_EYE)
-        
+
     mob:addFullGambit({
         ['predicates'] =
         {
@@ -39,7 +41,7 @@ function onMobSpawn(mob)
                 ['target'] = ai.t.MASTER, ['condition'] = ai.c.TP_GTE, ['argument'] = 1000,
             },
         },
-        ['actions'] = 
+        ['actions'] =
         {
             {
                 ['reaction'] = ai.r.JA, ['select'] = ai.s.SPECIFIC, ['argument'] = tpz.ja.MEDITATE,
@@ -47,26 +49,13 @@ function onMobSpawn(mob)
         },
     })
 
-    mob:setTPSkills({
-        ['skills'] = {
-            { ai.r.WS, tpz.ws.TACHI_ENPI, 0 },
-            { ai.r.WS, tpz.ws.TACHI_HOBAKU, 0 },
-            { ai.r.WS, tpz.ws.TACHI_GOTEN, 0 },
-            { ai.r.WS, tpz.ws.TACHI_KAGERO, 0 },
-            { ai.r.WS, tpz.ws.TACHI_JINPU, 0 },
-            { ai.r.WS, tpz.ws.TACHI_YUKIKAZE, 0 },
-            { ai.r.WS, tpz.ws.TACHI_GEKKO, 60 },
-            { ai.r.WS, tpz.ws.TACHI_KASHA, 60 },
-        },
-        ['mode'] = ai.tp.CLOSER,
-        ['skill_select'] = ai.s.HIGHEST,
-    })
+    mob:setTrustTPSkillSettings(ai.tp.CLOSER, ai.s.HIGHEST)
 end
 
 function onMobDespawn(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DESPAWN)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DESPAWN)
 end
 
 function onMobDeath(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DEATH)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DEATH)
 end

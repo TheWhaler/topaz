@@ -4,6 +4,7 @@
 require("scripts/globals/common")
 require("scripts/globals/keyitems")
 require("scripts/globals/msg")
+require("scripts/globals/roe")
 require("scripts/globals/settings")
 require("scripts/globals/status")
 ---------------------------------------------------------
@@ -23,6 +24,8 @@ tpz.trust.message_offset =
     DESPAWN        = 11,
     SPECIAL_MOVE_1 = 18,
 }
+
+local MAX_MESSAGE_PAGE = 120
 
 local rovKIBattlefieldIDs = set{
     5,    -- Shattering Stars (WAR LB5)
@@ -47,7 +50,7 @@ local rovKIBattlefieldIDs = set{
     1154, -- The Beast Within (BLU LB5)
 -- TODO: GEO LB5
 -- TODO: RUN LB5
-} 
+}
 
 tpz.trust.canCast = function(caster, spell, not_allowed_trust_ids)
     -- Trusts not allowed in an alliance
@@ -79,7 +82,7 @@ tpz.trust.canCast = function(caster, spell, not_allowed_trust_ids)
         caster:messageSystem(tpz.msg.system.TRUST_DELAY_NEW_PARTY_MEMBER)
         return -1
     end
-    
+
     -- Trusts cannot be summoned if you have hate
     if caster:hasEnmity() then
         caster:messageSystem(tpz.msg.system.TRUST_NO_ENMITY)
@@ -149,15 +152,28 @@ end
 tpz.trust.spawn = function(caster, spell)
     caster:spawnTrust(spell:getID())
 
+    -- Records of Eminence: Call Forth an Alter Ego
+    if caster:getEminenceProgress(932) then
+        tpz.roe.onRecordTrigger(caster, 932)
+    end
+
     return 0
 end
 
-tpz.trust.message = function(mob, message_offset)
-    local trust_offset = tpz.msg.system.GLOBAL_TRUST_OFFSET + (mob:getTrustID() - 896) * 100
+-- page_offset is: (summon_message_id - 1) / 100
+-- Example: Shantotto II summon message ID: 11201
+-- page_offset: (11201 - 1) / 100 = 112
+tpz.trust.message = function(mob, page_offset, message_offset)
+
+    if page_offset > MAX_MESSAGE_PAGE then
+        return
+    end
+
+    local trust_offset = tpz.msg.system.GLOBAL_TRUST_OFFSET + (page_offset * 100)
     mob:trustPartyMessage(trust_offset + message_offset)
 end
 
-tpz.trust.teamworkMessage = function(mob, teamwork_messages)
+tpz.trust.teamworkMessage = function(mob, page_offset, teamwork_messages)
     local messages = {}
 
     local master = mob:getMaster()
@@ -173,16 +189,22 @@ tpz.trust.teamworkMessage = function(mob, teamwork_messages)
     end
 
     if table.getn(messages) > 0 then
-        tpz.trust.message(mob, messages[math.random(#messages)])
+        tpz.trust.message(mob, page_offset, messages[math.random(#messages)])
     else
         -- Defaults to regular spawn message
-        tpz.trust.message(mob, tpz.trust.message_offset.SPAWN)
+        tpz.trust.message(mob, page_offset, tpz.trust.message_offset.SPAWN)
     end
 end
 
 -- For debugging and lining up teamwork messages
-tpz.trust.dumpMessages = function(mob)
+tpz.trust.dumpMessages = function(mob, page_offset)
     for i=0, 20 do
-        tpz.trust.message(mob, i)
+        tpz.trust.message(mob, page_offset, i)
+    end
+end
+
+tpz.trust.dumpMessagePages = function(mob)
+    for i=0, 120 do
+        tpz.trust.message(mob, i, tpz.trust.message_offset.SPAWN)
     end
 end

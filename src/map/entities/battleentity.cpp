@@ -34,6 +34,7 @@
 #include "../ai/states/weaponskill_state.h"
 #include "../attack.h"
 #include "../attackround.h"
+#include "../notoriety_container.h"
 #include "../items/item_weapon.h"
 #include "../lua/luautils.h"
 #include "../packets/action.h"
@@ -76,6 +77,7 @@ CBattleEntity::CBattleEntity()
 
     StatusEffectContainer = std::make_unique<CStatusEffectContainer>(this);
     PRecastContainer = std::make_unique<CRecastContainer>(this);
+    PNotorietyContainer = std::make_unique<CNotorietyContainer>(this);
 
     m_modStat[Mod::SLASHRES] = 1000;
     m_modStat[Mod::PIERCERES] = 1000;
@@ -219,7 +221,17 @@ int32 CBattleEntity::GetMaxMP()
 
 uint8 CBattleEntity::GetSpeed()
 {
-    return (isMounted() ? 40 + map_config.mount_speed_mod : std::clamp<uint16>(speed * (100 + getMod(Mod::MOVE)) / 100, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
+    int16 startingSpeed = isMounted() ? 40 + map_config.mount_speed_mod : speed;
+
+    // Mod::MOVE (169)
+    // Mod::MOUNT_MOVE (972)
+    Mod mod = isMounted() ? Mod::MOUNT_MOVE : Mod::MOVE;
+
+    float modAmount = (100.0f + static_cast<float>(getMod(mod))) / 100.0f;
+    float modifiedSpeed = static_cast<float>(startingSpeed) * modAmount;
+    uint8 outputSpeed = static_cast<uint8>(modifiedSpeed);
+
+    return std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
 }
 
 bool CBattleEntity::CanRest()
@@ -1792,6 +1804,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
     battleutils::ClaimMob(PTarget, this);
     PAI->EventHandler.triggerListener("ATTACK", this, PTarget, &action);
     PTarget->PAI->EventHandler.triggerListener("ATTACKED", PTarget, this, &action);
+    PTarget->LastAttacked = server_clock::now();
     /////////////////////////////////////////////////////////////////////////////////////////////
     // End of attack loop
     /////////////////////////////////////////////////////////////////////////////////////////////
