@@ -9,6 +9,8 @@ require("scripts/globals/trust")
 require("scripts/globals/weaponskillids")
 -----------------------------------------
 
+local message_page_offset = 86
+
 function onMagicCastingCheck(caster, target, spell)
     return tpz.trust.canCast(caster, spell, 906)
 end
@@ -18,7 +20,7 @@ function onSpellCast(caster, target, spell)
 end
 
 function onMobSpawn(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.SPAWN)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.SPAWN)
 
     -- Stun all the things!
     mob:addSimpleGambit(ai.t.TARGET, ai.c.READYING_WS, 0,
@@ -40,19 +42,13 @@ function onMobSpawn(mob)
     mob:addSimpleGambit(ai.t.SELF, ai.c.ALWAYS, 0,
                         ai.r.JA, ai.s.SPECIFIC, tpz.ja.LAST_RESORT)
 
-    mob:setTPSkills({
-        ['skills'] = {
-            { ai.r.WS, tpz.ws.GROUND_STRIKE, 0 },
-        },
-        ['mode'] = ai.tp.CLOSER,
-        ['skill_select'] = ai.s.RANDOM,
-    })
+    mob:setTrustTPSkillSettings(ai.tp.CLOSER, ai.s.RANDOM)
 end
 
 function onMobDespawn(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DESPAWN)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DESPAWN)
 end
 
 function onMobDeath(mob)
-    tpz.trust.message(mob, tpz.trust.message_offset.DEATH)
+    tpz.trust.message(mob, message_page_offset, tpz.trust.message_offset.DEATH)
 end

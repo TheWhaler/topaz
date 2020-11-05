@@ -696,7 +696,7 @@ enum EFFECT
     // GoV Prowess bonus effects, real effect at ID 474
     EFFECT_PROWESS_CASKET_RATE      = 777, // (Unimplemented)
     EFFECT_PROWESS_SKILL_RATE       = 778, // (Unimplemented)
-    EFFECT_PROWESS_CRYSTAL_YEILD    = 779, // (Unimplemented)
+    EFFECT_PROWESS_CRYSTAL_YIELD    = 779, // (Unimplemented)
     EFFECT_PROWESS_TH               = 780, // +1 per tier
     EFFECT_PROWESS_ATTACK_SPEED     = 781, // *flat 4% for now
     EFFECT_PROWESS_HP_MP            = 782, // Base 3% and another 1% per tier.

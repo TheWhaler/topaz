@@ -206,6 +206,9 @@ namespace charutils
 
     void    AddVar(CCharEntity* PChar, const char* var, int32 value);
     void    SetVar(CCharEntity* PChar, const char* var, int32 value);
+
+    uint16 getWideScanRange(JOBTYPE job, uint8 level);
+    uint16 getWideScanRange(CCharEntity* PChar);
 };
 
 #endif

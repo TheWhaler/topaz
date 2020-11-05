@@ -706,7 +706,7 @@ namespace fishingutils
         m.x = p.x - 2.0f * (float)cos(Radians);
         m.y = p.y;
         m.z = p.z + 2.0f * (float)sin(Radians);
-        m.rotation = getangle(m, p);
+        m.rotation = worldAngle(m, p);
         PMob->m_SpawnPoint = m;
         PMob->Spawn();
         PMob->SetDespawnTime(std::chrono::seconds(180));
@@ -746,7 +746,7 @@ namespace fishingutils
         m.x = p.x - 2.0f * (float)cos(Radians);
         m.y = p.y;
         m.z = p.z + 2.0f * (float)sin(Radians);
-        m.rotation = getangle(m, p);
+        m.rotation = worldAngle(m, p);
 
         // @todo: spawnchest
         Chest->loc.p = m;

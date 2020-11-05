@@ -76,12 +76,14 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "../weapon_skill.h"
 #include "../item_container.h"
 #include "../recast_container.h"
+#include "../roe.h"
 #include "../status_effect_container.h"
 #include "../linkshell.h"
 #include "../universal_container.h"
 #include "../latent_effect_container.h"
 #include "../treasure_pool.h"
 #include "../mob_modifier.h"
+#include "../roe.h"
 
 #include "../entities/charentity.h"
 #include "../entities/petentity.h"
@@ -357,7 +359,8 @@ namespace charutils
             "playtime,"             // 25
             "campaign_allegiance,"  // 26
             "isstylelocked,"        // 27
-            "moghancement "         // 28
+            "moghancement,"         // 28
+            "UNIX_TIMESTAMP(`lastupdate`) " // 29
             "FROM chars "
             "WHERE charid = %u";
 
@@ -436,18 +439,15 @@ namespace charutils
             char* eminence = nullptr;
             Sql_GetData(SqlHandle, 24, &eminence, &length);
             memcpy(&PChar->m_eminenceLog, eminence, (length > sizeof(PChar->m_eminenceLog) ? sizeof(PChar->m_eminenceLog) : length));
-            for(int i = 0; i < 31; i++) // Build eminence lookup map
-            {
-                uint16 record = PChar->m_eminenceLog.active[i];
-                if(record) PChar->m_eminenceCache.activemap.set(record);
-            }
 
             PChar->SetPlayTime(Sql_GetUIntData(SqlHandle, 25));
             PChar->profile.campaign_allegiance = (uint8)Sql_GetIntData(SqlHandle, 26);
             PChar->setStyleLocked(Sql_GetIntData(SqlHandle, 27) == 1 ? true : false);
             PChar->SetMoghancement(Sql_GetUIntData(SqlHandle, 28));
+            PChar->lastOnline = Sql_GetUIntData(SqlHandle, 29);
         }
 
+        roeutils::onCharLoad(PChar);
         LoadSpells(PChar);
 
         fmtQuery =
@@ -1649,7 +1649,7 @@ namespace charutils
                 case SLOT_SUB:
                 {
                     PChar->look.sub = 0;
-                    PChar->m_Weapons[SLOT_SUB] = itemutils::GetUnarmedItem();           // << equips "nothing" in the sub slot to prevent multi attack exploit
+                    PChar->m_Weapons[SLOT_SUB] = itemutils::GetUnarmedItem(); // << equips "nothing" in the sub slot to prevent multi attack exploit
                     PChar->health.tp = 0;
                     PChar->StatusEffectContainer->DelStatusEffect(EFFECT_AFTERMATH);
                     BuildingCharWeaponSkills(PChar);
@@ -3861,6 +3861,11 @@ namespace charutils
 
         if (onLimitMode)
             PChar->pushPacket(new CMenuMeritPacket(PChar));
+
+        if (PMob != PChar) // Only mob kills count for gain EXP records
+        {
+            roeutils::event(ROE_EXPGAIN, PChar, RoeDatagram("exp", exp));
+        }
     }
 
     /************************************************************************
@@ -4020,6 +4025,11 @@ namespace charutils
 
     void SaveEminenceData(CCharEntity* PChar)
     {
+        if (!roeutils::RoeSystem.RoeEnabled)
+        {
+            return;
+        }
+
         const char* Query =
             "UPDATE chars "
             "SET "
@@ -4030,6 +4040,7 @@ namespace charutils
         Sql_EscapeStringLen(SqlHandle, eminenceList, (const char*)&PChar->m_eminenceLog, sizeof(PChar->m_eminenceLog));
 
         Sql_Query(SqlHandle, Query, eminenceList, PChar->id);
+        PChar->m_eminenceCache.lastWriteout = static_cast<uint32>(time(nullptr));
     }
 
     /************************************************************************
@@ -4623,21 +4634,21 @@ namespace charutils
 
         static const Mod strong[8] = {
             Mod::FIRE_AFFINITY_PERP,
-            Mod::EARTH_AFFINITY_PERP,
-            Mod::WATER_AFFINITY_PERP,
-            Mod::WIND_AFFINITY_PERP,
             Mod::ICE_AFFINITY_PERP,
+            Mod::WIND_AFFINITY_PERP,
+            Mod::EARTH_AFFINITY_PERP,
             Mod::THUNDER_AFFINITY_PERP,
+            Mod::WATER_AFFINITY_PERP,
             Mod::LIGHT_AFFINITY_PERP,
             Mod::DARK_AFFINITY_PERP};
 
         static const WEATHER weatherStrong[8] = {
             WEATHER_HOT_SPELL,
-            WEATHER_DUST_STORM,
-            WEATHER_RAIN,
-            WEATHER_WIND,
             WEATHER_SNOW,
+            WEATHER_WIND,
+            WEATHER_DUST_STORM,
             WEATHER_THUNDER,
+            WEATHER_RAIN,
             WEATHER_AURORAS,
             WEATHER_GLOOM};
 
@@ -4647,7 +4658,7 @@ namespace charutils
 
         reduction = reduction + PChar->getMod(strong[element]);
 
-        if (CVanaTime::getInstance()->getWeekday() == element)
+        if (battleutils::GetDayElement() == element)
         {
             reduction = reduction + PChar->getMod(Mod::DAY_REDUCTION);
         }
@@ -5190,4 +5201,77 @@ namespace charutils
             Sql_Query(SqlHandle, "INSERT INTO char_vars SET charid = %u, varname = '%s', value = %i ON DUPLICATE KEY UPDATE value = %i;", PChar->id, var, value, value);
         }
     }
+    uint16 getWideScanRange(JOBTYPE job, uint8 level)
+    {
+        // Set Widescan range
+        // Distances need verified, based current values off what we had in traits.sql and data at http://wiki.ffxiclopedia.org/wiki/Wide_Scan
+        // NOTE: Widescan was formerly piggy backed onto traits (resist slow) but is not a real trait, any attempt to give it a trait will place a dot on
+        // characters trait menu.
+
+        // Limit to BST and RNG, and try to use old distance values for tiers
+        if (job == JOB_RNG)
+        {
+            // Range for RNG >=80 needs verification.
+            if (level >= 80)
+            {
+                return 350;
+            }
+            else if (level >= 60)
+            {
+                return 300;
+            }
+            else if (level >= 40)
+            {
+                return 250;
+            }
+            else if (level >= 20)
+            {
+                return 200;
+            }
+            else
+            {
+                return 150;
+            }
+        }
+        else if (job == JOB_BST)
+        {
+            if (level >= 80)
+            {
+                return 300;
+            }
+            else if (level >= 60)
+            {
+                return 250;
+            }
+            else if (level >= 40)
+            {
+                return 200;
+            }
+            else if (level >= 20 || map_config.all_jobs_widescan == 1)
+            {
+                return 150;
+            }
+            else
+            {
+                return 50;
+            }
+        }
+
+        // Default to base widescan if not RNG or BST
+        if (map_config.all_jobs_widescan == 1)
+        {
+            return 150;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    uint16 getWideScanRange(CCharEntity* PChar)
+    {
+        // Get maximum widescan range from main job or sub job
+        return std::max(getWideScanRange(PChar->GetMJob(), PChar->GetMLevel()), getWideScanRange(PChar->GetSJob(), PChar->GetSLevel()));
+    }
+
 }; // namespace charutils

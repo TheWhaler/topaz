@@ -35,6 +35,9 @@ REGIME_WAIT = 0 -- Make people wait till 00:00 game time as in retail. If it's 0
 FOV_REWARD_ALLIANCE = 0 -- Allow Fields of Valor rewards while being a member of an alliance. (default retail behavior: 0)
 GOV_REWARD_ALLIANCE = 1 -- Allow Grounds of Valor rewards while being a member of an alliance. (default retail behavior: 1)
 
+-- Records of Eminence
+ENABLE_ROE = 1
+
 -- TREASURE CASKETS
 -- Retail droprate = 0.1 (10%) with no other effects active
 -- Set to 0 to disable caskets.
@@ -117,6 +120,11 @@ CHEST_MIN_ILLUSION_TIME  = 1800  -- 30 minutes
 -- Use 0 for timed spawns, 1 for force pop only, 2 for both
 LandKingSystem_NQ = 0
 LandKingSystem_HQ = 0
+
+-- Multiplier to NM lottery spawn chance. (Default 1.0) eg. 0 = disable lottery spawns. -1 for always 100% chance.
+NM_LOTTERYCHANCE = 1.0
+-- Multiplier to NM lottery cooldown time (Default 1.0) eg. 2.0 = twice as long. 0 = no cooldowns.
+NM_LOTTERYCOOLDOWN = 1.0
 
 -- DYNAMIS SETTINGS
     BETWEEN_2DYNA_WAIT_TIME = 3       -- Hours before player can re-enter Dynamis. Default is 1 Earthday (24 hours).
