@@ -48,6 +48,7 @@
 #include "../party.h"
 #include "../alliance.h"
 #include "../mob_modifier.h"
+#include "../notoriety_container.h"
 #include "../recast_container.h"
 #include "../spell.h"
 #include "../trait.h"
@@ -1341,6 +1342,14 @@ namespace battleutils
         else if (PAttacker->objtype == TYPE_PET && ((CPetEntity*)PAttacker)->getPetType() == PETTYPE_AUTOMATON)
         {
             acc = PAttacker->RACC(SKILL_AUTOMATON_RANGED);
+        }
+        else if (PAttacker->objtype == TYPE_TRUST)
+        {
+            auto archery_acc = PAttacker->RACC(SKILL_ARCHERY);
+            auto marksmanship_acc = PAttacker->RACC(SKILL_MARKSMANSHIP);
+            auto throwing_acc = PAttacker->RACC(SKILL_THROWING);
+
+            acc = std::max({ archery_acc, marksmanship_acc, throwing_acc });
         }
         // Check for Yonin evasion bonus while in front of target
         if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_YONIN) && infront(PDefender->loc.p, PAttacker->loc.p, 64))
@@ -3414,22 +3423,16 @@ namespace battleutils
         TPZ_DEBUG_BREAK_IF(PTarget == nullptr);
 
         auto PMasterSource = PSource->PMaster ? PSource->PMaster : PSource;
-        auto PMasterSourceChar = static_cast<CCharEntity*>(PMasterSource);
-
-        for (SpawnIDList_t::const_iterator it = PMasterSourceChar->SpawnMOBList.begin(); it != PMasterSourceChar->SpawnMOBList.end(); ++it)
+        for (auto* entity : *PMasterSource->PNotorietyContainer)
         {
-            if (CMobEntity* PCurrentMob = dynamic_cast<CMobEntity*>(it->second))
+            if (CMobEntity* PCurrentMob = dynamic_cast<CMobEntity*>(entity))
             {
-                if (PCurrentMob->m_HiPCLvl > 0 && PCurrentMob->PEnmityContainer->HasID(PTarget->id))
-                {
-                    PCurrentMob->PEnmityContainer->UpdateEnmityFromCure(PSource, PTarget->GetMLevel(), amount, (amount == 65535)); //true for "cure v"
-                }
+                PCurrentMob->PEnmityContainer->UpdateEnmityFromCure(PSource, PTarget->GetMLevel(), amount, (amount == 65535)); // true for "cure v"
             }
         }
     }
 
-    //Generate enmity for all targets in range
-
+    // Generate enmity for all targets in range
     void GenerateInRangeEnmity(CBattleEntity* PSource, int16 CE, int16 VE)
     {
         TPZ_DEBUG_BREAK_IF(PSource == nullptr);
@@ -4438,44 +4441,18 @@ namespace battleutils
     {
         if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BIND))
         {
-            uint16 BindBreakChance = 0; // 0-1000 (100.0%) scale. Maybe change to a float later..
-            EMobDifficulty mobCheck = charutils::CheckMob(PAttacker->GetMLevel(), PDefender->GetMLevel());
+            uint16 BindBreakChance = 950; // 0-1000 (100.0%) scale. Maybe change to a float later..
 
-            // Todo: replace with an actual calculated value based on level difference. Not it, Bro!
-            // This entire block of conditionals should not exist. Lv diff really shouldn't be handled at the exp check level either.
-            // It might not even be in sync with the check values the entire way from lv 1 to lv 99 for all we know.
-            switch (mobCheck)
-            {
-            case EMobDifficulty::TooWeak:
-            case EMobDifficulty::IncrediblyEasyPrey:
-                BindBreakChance = 10;
-                break;
-
-            case EMobDifficulty::EasyPrey:
-            case EMobDifficulty::DecentChallenge:
-                BindBreakChance = 150;
-                break;
-
-            case EMobDifficulty::EvenMatch:
-                BindBreakChance = 300;
-                break;
-
-            case EMobDifficulty::Tough:
-                BindBreakChance = 750;
-                break;
-
-            case EMobDifficulty::VeryTough:
-            case EMobDifficulty::IncrediblyTough:
-                BindBreakChance = 990;
-                break;
-
-            default:
-                // no-op
-                break;
-            }
+            // Previously there was a tiered comparative level check here which gave different rates
+            // depending on the level difference between the attacker and the defender.
+            // These rates seemed very low, and have been removed, absent true research on retail.
+            // EMobDifficulty mobCheck = charutils::CheckMob(PAttacker->GetMLevel(), PDefender->GetMLevel());
+            // The level comparison and switch has been removed.
 
             if (BindBreakChance > tpzrand::GetRandomNumber(1000))
+            {
                 PDefender->StatusEffectContainer->DelStatusEffect(EFFECT_BIND);
+            }
         }
     }
 
@@ -4951,19 +4928,22 @@ namespace battleutils
     *   Get the Snapshot shot time reduction                                *
     *                                                                       *
     ************************************************************************/
-    int16 GetSnapshotReduction(CCharEntity* m_PChar, int16 delay)
+    int16 GetSnapshotReduction(CBattleEntity* battleEntity, int16 delay)
     {
-        auto SnapShotReductionPercent {m_PChar->getMod(Mod::SNAP_SHOT)};
+        auto SnapShotReductionPercent {battleEntity->getMod(Mod::SNAP_SHOT)};
 
-        if (charutils::hasTrait(m_PChar, TRAIT_SNAPSHOT))
+        if (auto PChar = dynamic_cast<CCharEntity*>(battleEntity))
         {
-            SnapShotReductionPercent += m_PChar->PMeritPoints->GetMeritValue(MERIT_SNAPSHOT, m_PChar);
+            if (charutils::hasTrait(PChar, TRAIT_SNAPSHOT))
+            {
+                SnapShotReductionPercent += PChar->PMeritPoints->GetMeritValue(MERIT_SNAPSHOT, PChar);
+            }
         }
 
         // Reduction from velocity shot mod
-        if (m_PChar->StatusEffectContainer->HasStatusEffect(EFFECT_VELOCITY_SHOT))
+        if (battleEntity->StatusEffectContainer->HasStatusEffect(EFFECT_VELOCITY_SHOT))
         {
-            SnapShotReductionPercent += m_PChar->getMod(Mod::VELOCITY_SNAPSHOT_BONUS);
+            SnapShotReductionPercent += battleEntity->getMod(Mod::VELOCITY_SNAPSHOT_BONUS);
         }
 
         return (int16)(delay * (100 - SnapShotReductionPercent) / 100.f);
