@@ -96,7 +96,8 @@ USE_ADOULIN_WEAPON_SKILL_CHANGES = false -- true/false. Change to toggle new Ado
 
 -- TRUSTS
 ENABLE_TRUST_QUESTS = 1
-TRUST_MAX = 1
+TRUST_MAX = 2
+ENABLE_TRUST_CASTING = 1
 
 HARVESTING_BREAK_CHANCE = 20 -- % chance for the sickle to break during harvesting.  Set between 0 and 100.
 EXCAVATION_BREAK_CHANCE = 20 -- % chance for the pickaxe to break during excavation.  Set between 0 and 100.
@@ -123,9 +124,9 @@ LandKingSystem_NQ = 0
 LandKingSystem_HQ = 0
 
 -- Multiplier to NM lottery spawn chance. (Default 1.0) eg. 0 = disable lottery spawns. -1 for always 100% chance.
-NM_LOTTERYCHANCE = 1.0
+NM_LOTTERY_CHANCE = 1.0
 -- Multiplier to NM lottery cooldown time (Default 1.0) eg. 2.0 = twice as long. 0 = no cooldowns.
-NM_LOTTERYCOOLDOWN = 1.0
+NM_LOTTERY_COOLDOWN = 1.0
 
 -- DYNAMIS SETTINGS
     BETWEEN_2DYNA_WAIT_TIME = 3       -- Hours before player can re-enter Dynamis. Default is 1 Earthday (24 hours).

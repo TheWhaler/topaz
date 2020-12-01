@@ -802,8 +802,15 @@ void SmallPacket0x01A(map_session_data_t* PSession, CCharEntity* PChar, CBasicPa
             PChar->PAI->ChangeTarget(TargID);
         }
         break;
-        case 0x10: // rangedattack
+        case 0x10: // Ranged Attack
         {
+            uint8 currentAnimation = PChar->animation;
+            if (currentAnimation != ANIMATION_NONE && currentAnimation != ANIMATION_ATTACK)
+            {
+                ShowExploit(CL_YELLOW "SmallPacket0x01A: Player %s trying to Ranged Attack from invalid state\n" CL_RESET, PChar->GetName());
+                return;
+            }
+
             PChar->PAI->RangedAttack(TargID);
         }
         break;
@@ -3041,6 +3048,7 @@ void SmallPacket0x05D(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 void SmallPacket0x05E(map_session_data_t* session, CCharEntity* PChar, CBasicPacket data)
 {
     TracyZoneScoped;
+
     // handle pets on zone
     if (PChar->PPet != nullptr)
     {
@@ -3049,9 +3057,10 @@ void SmallPacket0x05E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     }
 
     uint32 zoneLineID = data.ref<uint32>(0x04);
-    //TODO: verify packet in adoulin expansion
     uint8  town = data.ref<uint8>(0x16);
-    uint8  zone = data.ref<uint8>(0x17);
+    uint8  requestedZone = data.ref<uint8>(0x17);
+
+    uint16 startingZone = PChar->getZone();
 
     PChar->ClearTrusts();
 
@@ -3063,33 +3072,58 @@ void SmallPacket0x05E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         // Exiting Mog House..
         if (zoneLineID == 1903324538)
         {
-            uint16 prevzone = PChar->getZone();
+            uint16 destinationZone = PChar->getZone();
             // Note: zone zero actually exists but is unused in retail, we should stop using zero someday.
             // If zero, return to previous zone.. otherwise, determine the zone..
-            if (zone != 0)
+            if (requestedZone != 0)
             {
                 switch (town)
                 {
-                case 1: prevzone = zone + 0xE5; break;
-                case 2: prevzone = zone + 0xE9; break;
-                case 3: prevzone = zone + 0xED; break;
-                case 4: prevzone = zone + 0xF2; break;
-                case 5: prevzone = zone + (zone == 1 ? 0x2F : 0x30); break;
+                case 1: destinationZone = requestedZone + ZONE_SOUTHERN_SANDORIA - 1; break;
+                case 2: destinationZone = requestedZone + ZONE_BASTOK_MINES - 1; break;
+                case 3: destinationZone = requestedZone + ZONE_WINDURST_WATERS - 1; break;
+                case 4: destinationZone = requestedZone + ZONE_RULUDE_GARDENS - 1; break;
+                case 5: destinationZone = requestedZone + (requestedZone == 1 ? ZONE_AL_ZAHBI - 1 : ZONE_AHT_URHGAN_WHITEGATE - 2); break;
                 }
 
                 // Handle case for mog garden.. (Above addition does not work for this zone.)
-                if (zone == 127)
+                if (requestedZone == 127)
                 {
-                    prevzone = 280;
+                    destinationZone = ZONE_MOG_GARDEN;
                 }
-                else if (zone == 125)
+                else if (requestedZone == 125) // Go to second floor
                 {
-                    prevzone = PChar->getZone();
+                    destinationZone = PChar->getZone();
                 }
             }
-            PChar->m_moghouseID = 0;
-            PChar->loc.destination = prevzone;
-            memset(&PChar->loc.p, 0, sizeof(PChar->loc.p));
+
+            bool moghouseExitRegular = requestedZone == 0 && PChar->m_moghouseID > 0;
+
+            auto startingRegion = zoneutils::GetCurrentRegion(startingZone);
+            auto destinationRegion = zoneutils::GetCurrentRegion(destinationZone);
+            auto moghouseExitRegions = { REGION_SANDORIA, REGION_BASTOK, REGION_WINDURST, REGION_JEUNO, REGION_WEST_AHT_URHGAN };
+            auto moghouseQuestComplete = PChar->profile.mhflag & (town ? 0x01 << (town - 1) : 0);
+            bool moghouseExitQuestZoneline =
+                moghouseQuestComplete &&
+                startingRegion == destinationRegion &&
+                PChar->m_moghouseID > 0 &&
+                std::any_of(moghouseExitRegions.begin(), moghouseExitRegions.end(), [&destinationRegion](REGIONTYPE acceptedReg) { return destinationRegion == acceptedReg; });
+
+            bool moghouseExitMogGardenZoneline = destinationZone == ZONE_MOG_GARDEN && PChar->m_moghouseID > 0;
+
+            // Validate travel
+            if (moghouseExitRegular || moghouseExitQuestZoneline || moghouseExitMogGardenZoneline)
+            {
+                PChar->m_moghouseID = 0;
+                PChar->loc.destination = destinationZone;
+                memset(&PChar->loc.p, 0, sizeof(PChar->loc.p));
+            }
+            else
+            {
+                PChar->status = STATUS_NORMAL;
+                ShowWarning(CL_YELLOW "SmallPacket0x05E: Moghouse zoneline abuse by %s\n" CL_RESET, PChar->GetName());
+                return;
+            }
         }
         else
         {
@@ -3141,6 +3175,13 @@ void SmallPacket0x05E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         ShowInfo(CL_WHITE"Zoning from zone %u to zone %u: %s\n" CL_RESET, PChar->getZone(), PChar->loc.destination, PChar->GetName());
     }
     PChar->clearPacketList();
+
+    if (PChar->loc.destination >= MAX_ZONEID)
+    {
+        ShowWarning(CL_YELLOW "SmallPacket0x05E: Invalid destination passed to packet %u by %s\n" CL_RESET, PChar->loc.destination, PChar->GetName());
+        PChar->loc.destination = startingZone;
+        return;
+    }
 
     uint64 ipp = zoneutils::GetZoneIPP(PChar->loc.destination == 0 ? PChar->getZone() : PChar->loc.destination);
 
@@ -3365,6 +3406,7 @@ void SmallPacket0x06E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             {
                 PInvitee = zoneutils::GetChar(charid);
             }
+
             if (PInvitee)
             {
                 ShowDebug(CL_CYAN"%s sent alliance invite to %s\n" CL_RESET, PChar->GetName(), PInvitee->GetName());
@@ -3719,6 +3761,12 @@ void SmallPacket0x074(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                     PInviter->PParty->m_PAlliance->addParty(PChar->PParty);
                     PChar->InvitePending.clean();
                     ShowDebug(CL_CYAN"%s party added to %s alliance\n" CL_RESET, PChar->GetName(), PInviter->GetName());
+                    return;
+                }
+                else if (PChar->PParty->HasTrusts() || PInviter->PParty->HasTrusts())
+                {
+                    // Cannot form alliance if you have Trusts
+                    PChar->pushPacket(new CMessageStandardPacket(PChar, 0, 0, MsgStd::TrustCannotJoinAlliance));
                     return;
                 }
                 else
@@ -4453,12 +4501,12 @@ void SmallPacket0x0B6(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, 316));
         return;
     }
-    string_t RecipientName = string_t((const char*)data[5], 15);
+    string_t RecipientName = string_t((const char*)data[6], 15);
 
     int8 packetData[64];
     strncpy((char*)packetData + 4, RecipientName.c_str(), RecipientName.length() + 1);
     ref<uint32>(packetData, 0) = PChar->id;
-    message::send(MSG_CHAT_TELL, packetData, RecipientName.length() + 5, new CChatMessagePacket(PChar, MESSAGE_TELL, (const char*)data[20]));
+    message::send(MSG_CHAT_TELL, packetData, RecipientName.length() + 5, new CChatMessagePacket(PChar, MESSAGE_TELL, (const char*)data[21]));
 
     if (map_config.audit_chat == 1 && map_config.audit_tell == 1)
     {
@@ -4466,10 +4514,10 @@ void SmallPacket0x0B6(map_session_data_t* session, CCharEntity* PChar, CBasicPac
         Sql_EscapeString(SqlHandle, escaped_speaker, (const char*)PChar->GetName());
 
         char escaped_recipient[16 * 2 + 1];
-        Sql_EscapeString(SqlHandle, escaped_recipient, (const char*)data[5]);
+        Sql_EscapeString(SqlHandle, escaped_recipient, &RecipientName[0]);
 
-        std::string escaped_full_string; escaped_full_string.reserve(strlen((const char*)data[20]) * 2 + 1);
-        Sql_EscapeString(SqlHandle, escaped_full_string.data(), (const char*)data[20]);
+        std::string escaped_full_string; escaped_full_string.reserve(strlen((const char*)data[21]) * 2 + 1);
+        Sql_EscapeString(SqlHandle, escaped_full_string.data(), (const char*)data[21]);
 
         const char* fmtQuery = "INSERT into audit_chat (speaker,type,recipient,message,datetime) VALUES('%s','TELL','%s','%s',current_timestamp())";
         if (Sql_Query(SqlHandle, fmtQuery, escaped_speaker, escaped_recipient, escaped_full_string.data()) == SQL_ERROR)
