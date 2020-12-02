@@ -37,7 +37,7 @@ function onTrade(player, npc, trade)
     local remainingBLUAF = player:getCharVar("[BLUAF]Remaining") -- Bitmask of AF the player has NOT crafted
     if remainingBLUAF >= 1 then
         local craftingStage = player:getCharVar("[BLUAF]CraftingStage")
-        local totalCraftedPieces = 3 - player:countMaskBits(remainingBLUAF)
+        local totalCraftedPieces = 3 - utils.mask.countBits(remainingBLUAF, 3)
         local AFoffset = 8 * totalCraftedPieces
 
         local item = craftingItems[player:getCharVar("[BLUAF]Current")]
@@ -69,7 +69,7 @@ function onTrigger(player, npc)
     -- CRAFTING OTHER 3 BLUE MAGE ARMOR PIECES
     elseif transformations >= QUEST_ACCEPTED then
         local remainingBLUAF = player:getCharVar("[BLUAF]Remaining") -- Bitmask of AF the player has NOT crafted
-        local totalCraftedPieces = 3 - player:countMaskBits(remainingBLUAF)
+        local totalCraftedPieces = 3 - utils.mask.countBits(remainingBLUAF, 3)
         local currentTask = player:getCharVar("[BLUAF]Current")
         local craftingStage = player:getCharVar("[BLUAF]CraftingStage")
         local AFoffset = 8 * totalCraftedPieces
@@ -111,7 +111,7 @@ end
 
 function onEventUpdate(player, csid, option)
     local remainingBLUAF = player:getCharVar("[BLUAF]Remaining") -- Bitmask of AF the player has NOT crafted
-    local totalCraftedPieces = 3 - player:countMaskBits(remainingBLUAF)
+    local totalCraftedPieces = 3 - utils.mask.countBits(remainingBLUAF, 3)
     local AFoffset = 8 * totalCraftedPieces
 
     if csid == 730 + AFoffset then
@@ -141,7 +141,7 @@ function onEventFinish(player, csid, option)
     local omensProgress = player:getCharVar("OmensProgress")
 
     local remainingBLUAF = player:getCharVar("[BLUAF]Remaining") -- Bitmask of AF the player has NOT crafted
-    local totalCraftedPieces = 3 - player:countMaskBits(remainingBLUAF)
+    local totalCraftedPieces = 3 - utils.mask.countBits(remainingBLUAF, 3)
     local currentTask = player:getCharVar("[BLUAF]Current")
     local AFoffset = 8 * totalCraftedPieces
 

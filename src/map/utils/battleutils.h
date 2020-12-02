@@ -107,7 +107,7 @@ namespace battleutils
     uint8           getHitCount(uint8 hits);
     uint8           CheckMobMultiHits(CBattleEntity* PEntity);
 
-    int16           GetSnapshotReduction(CCharEntity* m_PChar, int16 delay);
+    int16           GetSnapshotReduction(CBattleEntity* battleEntity, int16 delay);
     int32           GetRangedAttackBonuses(CBattleEntity* battleEntity);
     int32           GetRangedAccuracyBonuses(CBattleEntity* battleEntity);
 
@@ -141,6 +141,7 @@ namespace battleutils
     uint8               GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber);
     uint8               GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int8 offsetAccuracy);
     uint8               GetCritHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, bool ignoreSneakTrickAttack);
+    int8                GetDexCritBonus(CBattleEntity* PAttacker, CBattleEntity* PDefender);
     uint8               GetBlockRate(CBattleEntity* PAttacker, CBattleEntity* PDefender);
     uint8               GetParryRate(CBattleEntity* PAttacker, CBattleEntity* PDefender);
     uint8               GetGuardRate(CBattleEntity* PAttacker, CBattleEntity* PDefender);

@@ -66,6 +66,7 @@ local fortuneItems =
 }
 local anniversaryItems =
 {
+    -- TODO: The anniversary item table needs to be populated
     9274 -- just give them back their key until this table can be populated
 }
 local gobbieJunk =
@@ -91,6 +92,7 @@ tpz.mystery.onTrade = function (player, npc, trade, events)
     if trade:getItemCount() == 1 then
         local tradeID = trade:getItemId(0)
         if keyToDial[tradeID] ~= nil then
+            -- TODO: Without campaigns, there's currently no method for obtaining keys
             if player:getFreeSlotsCount() == 0 then
                 player:startEvent(events.FULL_INV, tradeID, keyToDial[tradeID])
                 return false
@@ -98,6 +100,7 @@ tpz.mystery.onTrade = function (player, npc, trade, events)
             player:setLocalVar("gobbieBoxKey", tradeID)
             player:startEvent(events.KEY_TRADE, tradeID, keyToDial[tradeID])
         else -- trade for points
+            -- TODO: Point system needs to be defined
             return false
         end
     else
@@ -126,7 +129,7 @@ tpz.mystery.onTrigger = function (player, npc, events)
             player:startEvent(event.DEFAULT, specialDialUsed, adoulinDialUsed, pictlogicaDialUsed, wantedDialUsed, 0, 0, hideOptionFlags, dailyTallyPoints)
         end
     else
-        player:messageSpecial(zones[player:getZoneID()].text.YOU_MUST_WAIT_ANOTHER_N_DAYS, GOBBIE_BOX_MIN_AGE - playerAgeDays)
+        player:messageSpecial(zones[player:getZoneID()].text.YOU_MUST_WAIT_ANOTHER_N_DAYS, GOBBIE_BOX_MIN_AGE - playerAgeDays + 1)
     end
 end
 

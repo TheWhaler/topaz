@@ -1,4 +1,6 @@
-UPDATE status_effects SET type = 4 WHERE (id = 287);
+UPDATE status_effects SET type = 4 WHERE id = 287;
+UPDATE status_effects SET flags = 41943296 WHERE id = 285;
+
 
 UPDATE status_effects SET name = 'bewildered_daze_1', flags = 8388640 WHERE id = 448;
 UPDATE status_effects SET name = 'bewildered_daze_2', flags = 8388640 WHERE id = 449;

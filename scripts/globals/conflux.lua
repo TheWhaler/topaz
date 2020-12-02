@@ -125,10 +125,11 @@ function startConflux(player,npc)
         end
     end
     mask = player:getCharVar(maskVar);
-    if ((maskVar == "ConfluxMask[Attohwa]" or maskVar == "ConfluxMask[Misareaux]" or maskVar == "ConfluxMask[Vunkerl]") and player:getMaskBit(mask,8) == false) then
-        player:setMaskBit(mask,maskVar,8,true);
+    if ((maskVar == "ConfluxMask[Attohwa]" or maskVar == "ConfluxMask[Misareaux]" or maskVar == "ConfluxMask[Vunkerl]") and utils.mask.getBit(mask,8) == false) then
+		player:setCharVar(maskVar, utils.mask.setBit(mask, 8, true))
+		
     end
-    activated = player:getMaskBit(mask,bit);
+    activated = utils.mask.getBit(mask,bit);
     if (activated) then
         return csid, c01 + c02 * 65536, c03 + c04 * 65536, c05 + c06 * 65536, c07 + c08 * 65536, mask - 2 ^ bit, 9, 1, cruor;
     elseif (npcid == 17658486 or npcid == 17662691 or npcid == 17666711) then
@@ -194,7 +195,7 @@ function finishConflux(player,csid,option)
     else
 		
         if (option == 1) then
-            player:setMaskBit(mask,maskVar,bit,true);
+			player:setCharVar(maskVar, utils.mask.setBit(mask, bit, true))
             if (bit ~= 8) then
                 player:delCurrency("cruor", (50 * (bit + 1) * discount));
             end

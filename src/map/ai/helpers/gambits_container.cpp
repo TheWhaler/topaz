@@ -1,4 +1,36 @@
-﻿#include "gambits_container.h"
+﻿/*
+===========================================================================
+
+    Copyright (c) 2020 Project Topaz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    ---
+
+    ADDITIONAL RESTRICTIONS PERTAINING TO ATTRIBUTION AND MISREPRESENTATION
+    APPLY TO THIS SOFTWARE.
+
+    ADDITIONAL PERMISSIONS MAY APPLY TO THIS SOFTWARE.
+
+    You should have received a full copy of these additional terms included
+    in a license along with this program. If not, see:
+    <http://project-topaz.com/blob/release/LICENSE>
+
+===========================================================================
+*/
+
+#include "gambits_container.h"
 
 #include "../../ability.h"
 #include "../../enmity_container.h"
@@ -8,9 +40,13 @@
 #include "../../ai/states/ability_state.h"
 #include "../../ai/states/mobskill_state.h"
 #include "../../ai/states/magic_state.h"
+#include "../../ai/states/range_state.h"
 #include "../../ai/states/weaponskill_state.h"
 #include "../../utils/battleutils.h"
 #include "../../utils/trustutils.h"
+
+#include "../controllers/player_controller.h"
+#include "../../weapon_skill.h"
 
 namespace gambits
 {
@@ -19,6 +55,8 @@ namespace gambits
 // Check levels, etc.
 void CGambitsContainer::AddGambit(Gambit_t gambit)
 {
+    TracyZoneScoped;
+
     bool available = true;
     for (auto& action : gambit.actions)
     {
@@ -39,6 +77,7 @@ void CGambitsContainer::AddGambit(Gambit_t gambit)
 void CGambitsContainer::Tick(time_point tick)
 {
     TracyZoneScoped;
+
     if (tick < m_lastAction)
     {
         return;
@@ -47,6 +86,7 @@ void CGambitsContainer::Tick(time_point tick)
     // TODO: Is this necessary?
     // Not already doing something
     if (POwner->PAI->IsCurrentState<CAbilityState>() ||
+        POwner->PAI->IsCurrentState<CRangeState>() ||
         POwner->PAI->IsCurrentState<CMagicState>() ||
         POwner->PAI->IsCurrentState<CWeaponSkillState>() ||
         POwner->PAI->IsCurrentState<CMobSkillState>())
@@ -276,7 +316,11 @@ void CGambitsContainer::Tick(time_point tick)
                 break;
             }
 
-            if (action.reaction == G_REACTION::MA)
+            if (action.reaction == G_REACTION::RATTACK)
+            {
+                controller->RangedAttack(target->targid);
+            }
+            else if (action.reaction == G_REACTION::MA)
             {
                 if (action.select == G_SELECT::SPECIFIC)
                 {
@@ -385,6 +429,7 @@ void CGambitsContainer::Tick(time_point tick)
 bool CGambitsContainer::CheckTrigger(CBattleEntity* trigger_target, Predicate_t& predicate)
 {
     TracyZoneScoped;
+
     auto controller = static_cast<CTrustController*>(POwner->PAI->GetController());
     switch (predicate.condition)
     {
@@ -493,6 +538,7 @@ bool CGambitsContainer::CheckTrigger(CBattleEntity* trigger_target, Predicate_t&
 bool CGambitsContainer::TryTrustSkill()
 {
     TracyZoneScoped;
+
     auto target = POwner->GetBattleTarget();
 
     auto checkTPTrigger = [&]() -> bool
@@ -544,7 +590,7 @@ bool CGambitsContainer::TryTrustSkill()
         {
             case G_SELECT::RANDOM:
             {
-                chosen_skill = tp_skills.at(tpzrand::GetRandomNumber<std::size_t>(tp_skills.size()));
+                chosen_skill = tpzrand::GetRandomElement(tp_skills);
                 break;
             }
             case G_SELECT::HIGHEST: // Form the best possible skillchain
@@ -583,6 +629,42 @@ bool CGambitsContainer::TryTrustSkill()
                         }
                     }
                 }
+                break;
+            }
+            case G_SELECT::SPECIAL_AYAME:
+            {
+                auto PMaster = static_cast<CCharEntity*>(POwner->PMaster);
+                auto PMasterController = static_cast<CPlayerController*>(PMaster->PAI->GetController());
+                auto PMasterLastWeaponSkill = PMasterController->getLastWeaponSkill();
+
+                if (PMasterLastWeaponSkill != nullptr)
+                {
+                    for (auto& skill : tp_skills)
+                    {
+                        std::list<SKILLCHAIN_ELEMENT> resonanceProperties;
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)PMasterLastWeaponSkill->getPrimarySkillchain());
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)PMasterLastWeaponSkill->getSecondarySkillchain());
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)PMasterLastWeaponSkill->getTertiarySkillchain());
+
+                        std::list<SKILLCHAIN_ELEMENT> skillProperties;
+                        skillProperties.push_back((SKILLCHAIN_ELEMENT)skill.primary);
+                        skillProperties.push_back((SKILLCHAIN_ELEMENT)skill.secondary);
+                        skillProperties.push_back((SKILLCHAIN_ELEMENT)skill.tertiary);
+                        if (SKILLCHAIN_ELEMENT possible_skillchain = battleutils::FormSkillchain(resonanceProperties, skillProperties); possible_skillchain != SC_NONE)
+                        {
+                            if (possible_skillchain >= chosen_skillchain)
+                            {
+                                chosen_skill = skill;
+                                chosen_skillchain = possible_skillchain;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    chosen_skill = tp_skills.at(tp_skills.size() - 1);
+                }
+
                 break;
             }
             default: { break; }
