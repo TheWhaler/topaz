@@ -629,3 +629,21 @@ UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 44);
 UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 43);
 UPDATE mob_groups SET respawntime = 900 WHERE (zoneid = 45) and (groupid = 42);
 
+UPDATE mob_groups SET respawntime = 600, spawntype = 0 WHERE (zoneid = 135) and (groupid = 70);
+UPDATE mob_groups SET dropid = 3363 WHERE (zoneid = 135) and (poolid = 3478);
+UPDATE mob_groups SET dropid = 3364 WHERE (zoneid = 135) and (poolid = 3468);
+UPDATE mob_groups SET dropid = 3365 WHERE (zoneid = 135) and (poolid = 3473);
+UPDATE mob_groups SET dropid = 3366 WHERE (zoneid = 135) and (poolid = 3471);
+UPDATE mob_groups SET dropid = 3367 WHERE (zoneid = 135) and (poolid = 3480);
+UPDATE mob_groups SET dropid = 3368 WHERE (zoneid = 135) and (poolid = 3476);
+UPDATE mob_groups SET dropid = 3369 WHERE (zoneid = 135) and (poolid = 3467);
+UPDATE mob_groups SET dropid = 3370 WHERE (zoneid = 135) and (poolid = 3477);
+UPDATE mob_groups SET dropid = 3371 WHERE (zoneid = 135) and (poolid = 3479);
+UPDATE mob_groups SET dropid = 3372 WHERE (zoneid = 135) and (poolid = 3474);
+UPDATE mob_groups SET dropid = 3373 WHERE (zoneid = 135) and (poolid = 3482);
+UPDATE mob_groups SET dropid = 3374 WHERE (zoneid = 135) and (poolid = 3472);
+UPDATE mob_groups SET dropid = 3375 WHERE (zoneid = 135) and (poolid = 3470);
+UPDATE mob_groups SET dropid = 3376 WHERE (zoneid = 135) and (poolid = 3475);
+
+
+
