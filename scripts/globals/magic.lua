@@ -806,6 +806,12 @@ function addBonuses(caster, spell, target, dmg, params)
         if spellId == 247 or spellId == 248 then
             mabbonus = mabbonus + caster:getMerit(tpz.merit.ASPIR_ABSORPTION_AMOUNT)/100
         end
+		
+		if caster:hasStatusEffect(tpz.effect.NETHER_VOID) == true then	
+			local potency = caster:getMod(tpz.mod.ABSORB_POTENCY) / 100
+			mabbonus = mabbonus + (mabbonus * potency)
+			caster:delStatusEffectSilent(tpz.effect.NETHER_VOID)
+		end		
     else
         local mab = caster:getMod(tpz.mod.MATT) + params.bonusmab
 
