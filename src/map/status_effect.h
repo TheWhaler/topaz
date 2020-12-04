@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -723,12 +723,14 @@ enum EFFECT
     EFFECT_ELEMENTALRES_DOWN        = 802, // Elemental resistance down
     EFFECT_FULL_SPEED_AHEAD         = 803, // Used to track Full Speed Ahead quest minigame
     EFFECT_CONTRADANCE              = 804, // DNC 50 Job Ability	
-    // EFFECT_PLACEHOLDER           = 805  // Description
-    // 805-1022
+    EFFECT_ATMA_2                   = 805,
+    EFFECT_ATMA_3                   = 806,	
+    // EFFECT_PLACEHOLDER           = 807  // Description
+    // 807-1022
     // EFFECT_PLACEHOLDER           = 1023 // The client dat file seems to have only this many "slots", results of exceeding that are untested.
 };
 
-#define MAX_EFFECTID    805  // 768 real + 32 custom
+#define MAX_EFFECTID    807  // 768 real + 32 custom
 
 /************************************************************************
 *                                                                       *

@@ -11,4 +11,7 @@ UPDATE status_effects SET name = 'bewildered_daze_5', flags = 8388640 WHERE id =
 UPDATE status_effects SET flags = 44 WHERE id = 468;
 
 INSERT INTO status_effects VALUES (804,'contradance',32,0,0,0,0,0,0,0, 0);
+INSERT INTO status_effects VALUES (805,'Atma_2',32,0,0,0,0,0,0,0, 0);
+INSERT INTO status_effects VALUES (806,'Atma_3',32,0,0,0,0,0,0,0, 0);
+
 
