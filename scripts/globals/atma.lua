@@ -313,8 +313,8 @@
 	tpz.atma.onTrade = function(player,npc,trade) 
 		if trade:getGil() == 101 then
 			player:delStatusEffect(tpz.effect.ATMA)
-			player:delStatusEffect(tpz.effect.ATMA)
-			player:delStatusEffect(tpz.effect.ATMA)
+			player:delStatusEffect(tpz.effect.ATMA_2)
+			player:delStatusEffect(tpz.effect.ATMA_3)
 		else
 			local count = player:getLocalVar("[AtmaCount]")		
 			local atma1 = player:getLocalVar("[Atma0]")
@@ -325,8 +325,16 @@
 			if count < 3 then
 				if atma1 ~= keyitem and atma2 ~= keyitem and atma3 ~= keyitem then
 					if player:hasKeyItem(keyitem) then
-						player:addStatusEffect(tpz.effect.ATMA, trade:getGil(), 0, 0)
-						local atmaEffect = target:getStatusEffect(tpz.effect.ATMA)
+						local effect
+						if atma1 == 0 then
+							effect = tpz.effect.ATMA
+						elseif atma2 == 0 then
+							effect = tpz.effect.ATMA_2
+						else
+							effect = tpz.effect.ATMA_3
+						end
+						player:addStatusEffectEx(effect, tpz.effect.ATMA, trade:getGil(), 0, 0)
+						local atmaEffect = player:getStatusEffect(effect)
 						atmaEffect:setFlag(tpz.effectFlag.ON_ZONE)
 						atmaEffect:setFlag(tpz.effectFlag.INFLUENCE)
 					else

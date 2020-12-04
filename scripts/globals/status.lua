@@ -821,8 +821,10 @@ tpz.effect =
     ELEMENTALRES_DOWN        = 802, -- Elemental resistance down
     FULL_SPEED_AHEAD         = 803, -- Helper for quest: Full Speed Ahead!
 	CONTRADANCE              = 804, -- DNC 50
-    -- PLACEHOLDER           = 805, -- Description
-    -- 805-1022
+	ATMA_2                   = 805, 
+	ATMA_3                   = 806, 
+    -- PLACEHOLDER           = 807, -- Description
+    -- 807-1022
     -- PLACEHOLDER             = 1023 -- The client dat file seems to have only this many "slots", results of exceeding that are untested.
 }
 
