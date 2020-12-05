@@ -1,13 +1,29 @@
 -----------------------------------
---
---     tpz.effect.NETHER_VOID
---     
+--	EFFECT_NETHER_VOID
+-- Increases the absorption of your
+-- next dark magic spell.
 -----------------------------------
-function onEffectGain(target, effect)
+require("scripts/globals/settings")
+require("scripts/globals/status")
+-----------------------------------
+-- onEffectGain Action
+-----------------------------------
+
+function onEffectGain(target,effect)
+	target:addMod(tpz.mod.ABSORB_POTENCY, effect:getPower())
 end
 
-function onEffectTick(target, effect)
+-----------------------------------
+-- onEffectTick Action
+-----------------------------------
+
+function onEffectTick(target,effect)
 end
 
-function onEffectLose(target, effect)
+-----------------------------------
+-- onEffectLose Action
+-----------------------------------
+
+function onEffectLose(target,effect)
+	target:delMod(tpz.mod.ABSORB_POTENCY, effect:getPower())
 end

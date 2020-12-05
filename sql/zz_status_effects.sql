@@ -13,5 +13,7 @@ UPDATE status_effects SET flags = 44 WHERE id = 468;
 INSERT INTO status_effects VALUES (804,'contradance',32,0,0,0,0,0,0,0, 0);
 INSERT INTO status_effects VALUES (805,'Atma_2',41943296,0,0,0,0,0,0,0, 0);
 INSERT INTO status_effects VALUES (806,'Atma_3',41943296,0,0,0,0,0,0,0, 0);
+INSERT INTO `status_effects` VALUES (807,'majesty',289,0,0,0,0,0,0,0,0);
+
 
 

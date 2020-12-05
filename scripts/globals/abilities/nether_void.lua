@@ -14,5 +14,14 @@ function onAbilityCheck(player, target, ability)
 end
 
 function onUseAbility(player, target, ability)
-    player:addStatusEffect(tpz.effect.NETHER_VOID, 8, 1, 30)
+	local power = 50;
+	local legs = target:getEquipID(tpz.slot.LEGS);
+	
+	if (legs == 11231) then -- Bale Flanchard +1
+		power = power + 15;
+	elseif (legs == 11131) then -- Bale Flanchard +2
+		power = power + 25;
+	end
+	
+    player:addStatusEffect(tpz.effect.NETHER_VOID, power, 0, 60)
 end
