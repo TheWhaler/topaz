@@ -994,6 +994,7 @@ public:
     void        setRange(float range);
 
     const int8* getName();
+    const string_t getSpellName();
     void        setName(int8* name);
 
 protected:
