@@ -13,8 +13,9 @@ end
 function onSpellCast(caster, target, spell)
     --doDivineBanishNuke(V, M, caster, spell, target, hasMultipleTargetReduction, resistBonus)
     local params = {}
-	if (player:hasStatusEffect(tpz.effect.DIVINE_EMBLEM)) then
-		params.dmg = (85 * (1 + (player:getMod(tpz.mod.DIVINE) / 100)))
+	if (caster:hasStatusEffect(tpz.effect.DIVINE_EMBLEM)) then
+		params.dmg = math.floor(85 * (1 + (caster:getSkillLevel(tpz.skill.DIVINE_MAGIC) / 100)))
+		caster:delStatusEffectSilent(tpz.effect.DIVINE_EMBLEM)
 	else
 		params.dmg = 85
 	end
