@@ -13,7 +13,11 @@ end
 function onSpellCast(caster, target, spell)
     -- doDivineNuke(V, M, caster, spell, target, hasMultipleTargetReduction, resistBonus)
     local params = {}
-    params.dmg = 250
+	if (player:hasStatusEffect(tpz.effect.DIVINE_EMBLEM)) then
+		params.dmg = (250 * (1 + (player:getMod(tpz.mod.DIVINE) / 100)))
+	else
+		params.dmg = 250
+	end
     params.multiplier = 2
     params.hasMultipleTargetReduction = false
     params.resistBonus = 0
