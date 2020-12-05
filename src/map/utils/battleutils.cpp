@@ -4840,7 +4840,9 @@ namespace battleutils
         {
             if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
                 charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
-                (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(Mod::AOE_NA) == 1)))
+                (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(Mod::AOE_NA) == 1) ||
+                 (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_MAJESTY) && (PSpell->getSpellFamily() == SPELLFAMILY::SPELLFAMILY_CURE
+                     || PSpell->getSpellFamily() == SPELLFAMILY::SPELLFAMILY_PROTECT))))
                 return SPELLAOE_RADIAL;
             else
                 return SPELLAOE_NONE;

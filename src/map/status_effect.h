@@ -677,6 +677,7 @@ enum EFFECT
     EFFECT_MAGIC_EVASION_BOOST_II   = 611,
     EFFECT_COLURE_ACTIVE            = 612,
 
+    EFFECT_MAJESTY                  = 621,
     EFFECT_RAMPART                  = 623,
 
     // Effect icons in packet can go from 0-767, so no custom effects should go in that range.
@@ -725,12 +726,12 @@ enum EFFECT
     EFFECT_CONTRADANCE              = 804, // DNC 50 Job Ability	
     EFFECT_ATMA_2                   = 805,
     EFFECT_ATMA_3                   = 806,	
-    // EFFECT_PLACEHOLDER           = 807  // Description
-    // 807-1022
+    // EFFECT_PLACEHOLDER           = 808  // Description
+    // 808-1022
     // EFFECT_PLACEHOLDER           = 1023 // The client dat file seems to have only this many "slots", results of exceeding that are untested.
 };
 
-#define MAX_EFFECTID    807  // 768 real + 32 custom
+#define MAX_EFFECTID    807 // 768 real + 32 custom
 
 /************************************************************************
 *                                                                       *
