@@ -98,6 +98,11 @@ const int8* CSpell::getName()
     return (const int8*)m_name.c_str();
 }
 
+const string_t CSpell::getSpellName()
+{
+    return m_name;
+}
+
 void CSpell::setName(int8* name)
 {
     m_name.clear();

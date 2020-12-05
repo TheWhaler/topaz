@@ -4838,11 +4838,12 @@ namespace battleutils
     {
         if (PSpell->getAOE() == SPELLAOE_RADIAL_ACCE) // Divine Veil goes here because -na spells have AoE w/ Accession
         {
+            std::string name = PSpell->getSpellName();
             if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
                 charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
                 (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(Mod::AOE_NA) == 1) ||
                  (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_MAJESTY) && (PSpell->getSpellFamily() == SPELLFAMILY::SPELLFAMILY_CURE
-                     || PSpell->getSpellFamily() == SPELLFAMILY::SPELLFAMILY_PROTECT))))
+                     || name.rfind("protect",0) == 0))))
                 return SPELLAOE_RADIAL;
             else
                 return SPELLAOE_NONE;
